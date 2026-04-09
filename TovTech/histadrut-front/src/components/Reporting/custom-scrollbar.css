@@ -1,0 +1,20 @@
+/* Custom scrollbar for Reporting cards */
+.custom-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--border-color) var(--bg-surface-alt) !important;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px !important;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--bg-surface-alt) !important;
+  border-radius: 8px !important;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border-color) !important;
+  border-radius: 8px !important;
+  border: 3px solid var(--bg-surface-alt) !important;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary) !important;
+}

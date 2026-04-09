@@ -1,0 +1,698 @@
+/* ==========================================================================
+   1. PAGE LAYOUT & WRAPPERS
+   ========================================================================== */
+
+.profile-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 80px); /* Account for any header/padding */
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.profile-flex-container {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px; /* Optional: restricts max width on huge screens */
+  justify-content: center;
+}
+
+/* Common Card Style */
+.profile-container {
+  width: 100%;
+  max-width: max(500px, 35vw);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  padding: 2.5rem 2rem;
+  margin: 0;
+}
+
+/* ==========================================================================
+   2. MAIN PROFILE CARD
+   ========================================================================== */
+
+.profile-title {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #222;
+  width: 100%;
+}
+
+.profile-subtitle {
+  color: #888;
+  font-size: 15px;
+  margin-bottom: 30px;
+  text-align: start;
+  width: 100%;
+}
+
+.profile-section {
+  margin-bottom: 18px;
+}
+
+.profile-label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 2px;
+}
+
+.profile-value {
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.profile-sub-block {
+  margin: 18px 0 0 0;
+  padding: 16px 0;
+  border-top: 1px solid #eee;
+}
+
+/* --- Form Elements (Toggles & Buttons) --- */
+
+.profile-toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-toggle-group-title {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.profile-toggle-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  color: #444;
+  cursor: pointer;
+}
+
+.profile-toggle-row--disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.profile-toggle-label {
+  display: block;
+  margin-bottom: 4px;
+  flex: 1;
+  font-weight: 500;
+}
+
+.profile-toggle-text {
+  flex: 1;
+}
+
+.profile-toggle-help {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+.profile-toggle-help--keyboard {
+  color: transparent;
+  user-select: none;
+}
+
+.profile-toggle-row:focus-within .profile-toggle-help--keyboard {
+  color: #6b7280;
+}
+
+.profile-toggle-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.profile-toggle-input {
+  position: absolute;
+  inset: 0;
+  width: 52px;
+  height: 30px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:checked + .profile-toggle-slider {
+    background: #2196f3;
+  }
+
+  &:checked + .profile-toggle-slider::after {
+    transform: translateX(22px);
+  }
+
+  &:focus-visible + .profile-toggle-slider {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+}
+
+.profile-toggle-slider {
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  background: #d1d5db;
+  transition: background-color 0.2s ease;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+}
+
+.profile-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+.profile-checkbox {
+  margin-inline-end: 8px;
+  accent-color: #2196f3;
+  background-color: #fff;
+}
+
+.profile-checkbox[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+
+  &:checked {
+    background-color: #2196f3;
+    border-color: #2196f3;
+    display: grid;
+    place-items: center;
+
+    &::after {
+      content: '✓';
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+}
+
+/* --- Buttons --- */
+
+.profile-btn {
+  margin-top: 12px;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  border-radius: 6px;
+  color: #fff;
+  border: none;
+  width: 100%;
+  display: block;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.profile-btn-sub {
+  background: #27ae60;
+
+  &:hover {
+    background: #229954;
+  }
+}
+
+.profile-btn-unsub {
+  background: #e74c3c;
+
+  &:hover {
+    background: #c0392b;
+  }
+}
+
+.profile-btn-cv {
+  background: #3498db;
+  margin-top: 12px;
+
+  &:hover {
+    background: #2980b9;
+  }
+}
+
+.profile-btn-view-cv {
+  background: #2ecc71;
+
+  &:hover {
+    background: #27ae60;
+  }
+}
+
+.profile-btn-disabled {
+  background: #ccc !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.profile-cv-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+
+  & .profile-btn {
+    margin-top: 0;
+    flex: 1;
+  }
+}
+
+/* --- Max Alerts Section --- */
+
+.profile-max-alerts-section {
+  margin: 18px 0 0 0;
+  padding: 16px 0;
+  border-top: 1px solid #eee;
+}
+
+.profile-max-alerts-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.profile-max-alerts-text {
+  font-weight: 500;
+  color: #444;
+  white-space: nowrap;
+}
+
+.profile-max-alerts-input {
+  width: 35px;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+  color: #222;
+  background: #fff;
+  flex-shrink: 0;
+
+  &:focus {
+    outline: none;
+    border-color: #2196f3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+  }
+
+  /* Hide spinner arrows on number input */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+}
+
+.profile-btn-save-alerts {
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  margin-top: 8px;
+
+  &:hover:not(:disabled) {
+    background: #45a049;
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+/* ==========================================================================
+   3. PROFESSIONAL INFO CARD (Right Side)
+   ========================================================================== */
+
+/* This handles the layout and sticky footer logic */
+.profile-prof-card {
+  flex: 1 1 340px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 100%;
+}
+
+.profile-prof-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: start;
+  margin-bottom: 18px;
+}
+
+.profile-prof-header.rtl {
+  align-items: flex-end;
+}
+
+.profile-prof-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* --- Skills / Pills --- */
+
+.profile-prof-skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+  justify-content: flex-start;
+  flex-grow: 1; /* Helps push footer down */
+  align-content: flex-start; /* Prevents vertical stretching of single row */
+}
+
+.profile-prof-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background: linear-gradient(90deg, #2563eb 60%, #1e40af 100%);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
+  letter-spacing: 0.01em;
+  transition: background 0.2s;
+  height: fit-content; /* Prevents pill from stretching vertically */
+}
+
+.profile-fields-none {
+  color: #aaa;
+}
+
+/* --- Sticky Footer --- */
+
+.profile-prof-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: auto; /* IMPORTANT: Pushes footer to bottom */
+  background: transparent;
+}
+
+.profile-prof-footer-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profile-prof-footer-label {
+  font-size: 15px;
+  color: #374151;
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-prof-footer-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-prof-footer-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(0%) invert(20%) sepia(0%) hue-rotate(180deg) brightness(0.7);
+}
+
+.profile-prof-footer-years {
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-inline-start: 4px;
+}
+
+.profile-prof-footer-divider {
+  width: 1px;
+  height: 48px;
+  background-color: #e5e7eb;
+  margin: 0 18px;
+  align-self: center;
+}
+
+/* --- Status Icons (Green/Gray Circles) --- */
+
+.profile-prof-footer-status-icon-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+}
+
+.profile-prof-footer-status-icon-bg.positive {
+  background: #22c55e;
+}
+
+.profile-prof-footer-status-icon-bg.negative {
+  background: #e5e7eb;
+}
+
+.profile-prof-footer-status-icon {
+  filter: brightness(0) invert(1);
+  width: 13px;
+  height: 13px;
+}
+
+.status-success {
+  color: #059669;
+}
+
+.status-disabled {
+  color: #9ca3af;
+}
+
+.profile-prof-loading,
+.profile-prof-nodata {
+  color: #888;
+  font-size: 15px;
+}
+
+/* ==========================================================================
+   4. MODALS & SPINNERS
+   ========================================================================== */
+
+.profile-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px 24px 16px;
+}
+
+.profile-modal-message {
+  font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.profile-modal-confirm-btn {
+  padding: 8px 32px;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #1976d2;
+  }
+}
+
+.profile-toast {
+  position: fixed;
+  inset-inline-start: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(100%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: clamp(0px, 420px, calc(100vw - 32px));
+  padding: 14px 52px 14px 18px;
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.2);
+  color: #fff;
+  z-index: 1000;
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.profile-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.profile-toast--success {
+  background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.profile-toast--error {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.profile-toast-message {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.profile-toast-close {
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 10px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+.profile-error {
+  text-align: center;
+  margin-top: 40px;
+  color: #b22222;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Spinner Definition */
+.profile-btn-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #fff;
+  border-top: 3px solid #1976d2;
+  border-radius: 50%;
+  animation: profile-spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes profile-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   5. RESPONSIVE QUERIES
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .profile-page-wrapper {
+    padding: 1rem;
+    min-height: calc(100vh - 60px);
+  }
+
+  .profile-container {
+    padding: 2rem 1.5rem;
+    width: 100%;
+  }
+
+  .profile-max-alerts-line {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .profile-toggle-control {
+    margin-top: 2px;
+  }
+
+  .profile-max-alerts-input {
+    align-self: flex-start;
+  }
+
+  .profile-btn-save-alerts {
+    margin-inline-start: 0;
+    align-self: flex-start;
+  }
+
+  .profile-toast {
+    bottom: 16px;
+    width: calc(100vw - 24px);
+    padding: 12px 48px 12px 14px;
+  }
+}

@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    py
+#>
+python @args

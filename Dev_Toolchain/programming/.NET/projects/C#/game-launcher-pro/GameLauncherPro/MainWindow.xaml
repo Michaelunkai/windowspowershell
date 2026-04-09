@@ -1,0 +1,126 @@
+<Window x:Class="GameLauncherPro.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Game Launcher Pro" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="#1e1e1e">
+    
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3e3e42"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3f3f46"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#252526" Padding="20,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🎮 Game Launcher Pro" 
+                              FontSize="24" 
+                              FontWeight="Bold" 
+                              Foreground="#00d9ff"
+                              VerticalAlignment="Center"/>
+                    <TextBlock x:Name="GameCountText" 
+                              Text="(0 games)" 
+                              FontSize="16" 
+                              Foreground="#888" 
+                              Margin="15,0,0,0"
+                              VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="🔍 Scan Games" Click="ScanGames_Click" Background="#0e639c"/>
+                    <Button Content="📥 Fetch Metadata" Click="FetchMetadata_Click" Background="#0e639c"/>
+                    <Button Content="🔄 Refresh" Click="Refresh_Click"/>
+                    <Button Content="ℹ️ About" Click="About_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Search Bar -->
+        <Border Grid.Row="1" Background="#2d2d30" Padding="20,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBox x:Name="SearchBox" 
+                        TextChanged="SearchBox_TextChanged"/>
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0">
+                    <ComboBox x:Name="SortComboBox" 
+                             Width="150" 
+                             SelectionChanged="SortComboBox_SelectionChanged"
+                             Background="#2d2d30"
+                             Foreground="White"
+                             BorderBrush="#3f3f46">
+                        <ComboBoxItem Content="Name (A-Z)" IsSelected="True"/>
+                        <ComboBoxItem Content="Recently Added"/>
+                        <ComboBoxItem Content="Recently Played"/>
+                        <ComboBoxItem Content="Most Played"/>
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Games Grid -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Background="#1e1e1e">
+            <WrapPanel x:Name="GamesPanel" Margin="20">
+                <!-- Game tiles will be added here dynamically -->
+            </WrapPanel>
+        </ScrollViewer>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="3" Background="#252526" Padding="20,10">
+            <TextBlock x:Name="StatusText" 
+                      Text="Ready" 
+                      Foreground="#888" 
+                      FontSize="12"/>
+        </Border>
+    </Grid>
+</Window>

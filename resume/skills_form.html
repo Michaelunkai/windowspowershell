@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skills Assessment - Michael Fedorovsky</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #1a1a2e; color: #eee; }
+        h1 { color: #00d4ff; text-align: center; }
+        h2 { color: #00d4ff; border-bottom: 2px solid #00d4ff; padding-bottom: 5px; margin-top: 30px; }
+        .tool-row { display: flex; align-items: center; padding: 8px; margin: 4px 0; background: #16213e; border-radius: 5px; }
+        .tool-name { flex: 1; font-weight: bold; }
+        .rating { display: flex; gap: 10px; }
+        .rating label { cursor: pointer; padding: 5px 12px; background: #0f3460; border-radius: 3px; transition: 0.2s; }
+        .rating input { display: none; }
+        .rating input:checked + span { background: #00d4ff; color: #000; }
+        .rating label:hover { background: #1a4a7a; }
+        .rating span { padding: 5px 12px; border-radius: 3px; display: inline-block; background: #0f3460; }
+        button { background: #00d4ff; color: #000; border: none; padding: 15px 40px; font-size: 18px; cursor: pointer; border-radius: 5px; margin: 20px auto; display: block; font-weight: bold; }
+        button:hover { background: #00a8cc; }
+        .legend { text-align: center; margin: 20px 0; padding: 15px; background: #16213e; border-radius: 5px; }
+        .saved { color: #00ff00; text-align: center; font-size: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>Skills Assessment Form</h1>
+    <div class="legend">
+        <strong>Rating Scale:</strong> 1 = Heard of it | 2 = Basic | 3 = Can use independently | 4 = Proficient | 5 = Expert
+    </div>
+    <div class="saved" id="saved">Saved! Close this page and tell Claude to read the results.</div>
+
+    <form id="skillsForm">
+        <h2>Containers & Orchestration</h2>
+        <div class="tool-row"><span class="tool-name">1. Docker</span><div class="rating" data-tool="Docker"></div></div>
+        <div class="tool-row"><span class="tool-name">2. Docker Compose</span><div class="rating" data-tool="Docker Compose"></div></div>
+        <div class="tool-row"><span class="tool-name">3. Kubernetes</span><div class="rating" data-tool="Kubernetes"></div></div>
+        <div class="tool-row"><span class="tool-name">4. Helm</span><div class="rating" data-tool="Helm"></div></div>
+        <div class="tool-row"><span class="tool-name">5. Podman</span><div class="rating" data-tool="Podman"></div></div>
+        <div class="tool-row"><span class="tool-name">6. containerd</span><div class="rating" data-tool="containerd"></div></div>
+        <div class="tool-row"><span class="tool-name">7. Rancher</span><div class="rating" data-tool="Rancher"></div></div>
+        <div class="tool-row"><span class="tool-name">8. OpenShift</span><div class="rating" data-tool="OpenShift"></div></div>
+        <div class="tool-row"><span class="tool-name">9. Docker Swarm</span><div class="rating" data-tool="Docker Swarm"></div></div>
+        <div class="tool-row"><span class="tool-name">10. Minikube</span><div class="rating" data-tool="Minikube"></div></div>
+        <div class="tool-row"><span class="tool-name">11. k3s</span><div class="rating" data-tool="k3s"></div></div>
+        <div class="tool-row"><span class="tool-name">12. kind</span><div class="rating" data-tool="kind"></div></div>
+        <div class="tool-row"><span class="tool-name">13. Skaffold</span><div class="rating" data-tool="Skaffold"></div></div>
+        <div class="tool-row"><span class="tool-name">14. Kompose</span><div class="rating" data-tool="Kompose"></div></div>
+        <div class="tool-row"><span class="tool-name">15. Lens</span><div class="rating" data-tool="Lens"></div></div>
+
+        <h2>CI/CD</h2>
+        <div class="tool-row"><span class="tool-name">16. GitHub Actions</span><div class="rating" data-tool="GitHub Actions"></div></div>
+        <div class="tool-row"><span class="tool-name">17. GitLab CI</span><div class="rating" data-tool="GitLab CI"></div></div>
+        <div class="tool-row"><span class="tool-name">18. Jenkins</span><div class="rating" data-tool="Jenkins"></div></div>
+        <div class="tool-row"><span class="tool-name">19. CircleCI</span><div class="rating" data-tool="CircleCI"></div></div>
+        <div class="tool-row"><span class="tool-name">20. Travis CI</span><div class="rating" data-tool="Travis CI"></div></div>
+        <div class="tool-row"><span class="tool-name">21. ArgoCD</span><div class="rating" data-tool="ArgoCD"></div></div>
+        <div class="tool-row"><span class="tool-name">22. Tekton</span><div class="rating" data-tool="Tekton"></div></div>
+        <div class="tool-row"><span class="tool-name">23. Bamboo</span><div class="rating" data-tool="Bamboo"></div></div>
+        <div class="tool-row"><span class="tool-name">24. TeamCity</span><div class="rating" data-tool="TeamCity"></div></div>
+        <div class="tool-row"><span class="tool-name">25. Drone CI</span><div class="rating" data-tool="Drone CI"></div></div>
+        <div class="tool-row"><span class="tool-name">26. Spinnaker</span><div class="rating" data-tool="Spinnaker"></div></div>
+        <div class="tool-row"><span class="tool-name">27. Flux CD</span><div class="rating" data-tool="Flux CD"></div></div>
+        <div class="tool-row"><span class="tool-name">28. GoCD</span><div class="rating" data-tool="GoCD"></div></div>
+        <div class="tool-row"><span class="tool-name">29. Buildkite</span><div class="rating" data-tool="Buildkite"></div></div>
+        <div class="tool-row"><span class="tool-name">30. Harness</span><div class="rating" data-tool="Harness"></div></div>
+
+        <h2>IaC & Config Management</h2>
+        <div class="tool-row"><span class="tool-name">31. Terraform</span><div class="rating" data-tool="Terraform"></div></div>
+        <div class="tool-row"><span class="tool-name">32. Ansible</span><div class="rating" data-tool="Ansible"></div></div>
+        <div class="tool-row"><span class="tool-name">33. Puppet</span><div class="rating" data-tool="Puppet"></div></div>
+        <div class="tool-row"><span class="tool-name">34. Chef</span><div class="rating" data-tool="Chef"></div></div>
+        <div class="tool-row"><span class="tool-name">35. Pulumi</span><div class="rating" data-tool="Pulumi"></div></div>
+        <div class="tool-row"><span class="tool-name">36. Vagrant</span><div class="rating" data-tool="Vagrant"></div></div>
+        <div class="tool-row"><span class="tool-name">37. Packer</span><div class="rating" data-tool="Packer"></div></div>
+        <div class="tool-row"><span class="tool-name">38. SaltStack</span><div class="rating" data-tool="SaltStack"></div></div>
+        <div class="tool-row"><span class="tool-name">39. Crossplane</span><div class="rating" data-tool="Crossplane"></div></div>
+        <div class="tool-row"><span class="tool-name">40. Terragrunt</span><div class="rating" data-tool="Terragrunt"></div></div>
+        <div class="tool-row"><span class="tool-name">41. Atlantis</span><div class="rating" data-tool="Atlantis"></div></div>
+        <div class="tool-row"><span class="tool-name">42. env0</span><div class="rating" data-tool="env0"></div></div>
+        <div class="tool-row"><span class="tool-name">43. Spacelift</span><div class="rating" data-tool="Spacelift"></div></div>
+        <div class="tool-row"><span class="tool-name">44. Kustomize</span><div class="rating" data-tool="Kustomize"></div></div>
+        <div class="tool-row"><span class="tool-name">45. Jsonnet</span><div class="rating" data-tool="Jsonnet"></div></div>
+
+        <h2>Monitoring & Observability</h2>
+        <div class="tool-row"><span class="tool-name">46. Prometheus</span><div class="rating" data-tool="Prometheus"></div></div>
+        <div class="tool-row"><span class="tool-name">47. Grafana</span><div class="rating" data-tool="Grafana"></div></div>
+        <div class="tool-row"><span class="tool-name">48. ELK Stack</span><div class="rating" data-tool="ELK Stack"></div></div>
+        <div class="tool-row"><span class="tool-name">49. Datadog</span><div class="rating" data-tool="Datadog"></div></div>
+        <div class="tool-row"><span class="tool-name">50. New Relic</span><div class="rating" data-tool="New Relic"></div></div>
+        <div class="tool-row"><span class="tool-name">51. Splunk</span><div class="rating" data-tool="Splunk"></div></div>
+        <div class="tool-row"><span class="tool-name">52. Nagios</span><div class="rating" data-tool="Nagios"></div></div>
+        <div class="tool-row"><span class="tool-name">53. Zabbix</span><div class="rating" data-tool="Zabbix"></div></div>
+        <div class="tool-row"><span class="tool-name">54. PagerDuty</span><div class="rating" data-tool="PagerDuty"></div></div>
+        <div class="tool-row"><span class="tool-name">55. Jaeger</span><div class="rating" data-tool="Jaeger"></div></div>
+        <div class="tool-row"><span class="tool-name">56. Loki</span><div class="rating" data-tool="Loki"></div></div>
+        <div class="tool-row"><span class="tool-name">57. Thanos</span><div class="rating" data-tool="Thanos"></div></div>
+        <div class="tool-row"><span class="tool-name">58. VictoriaMetrics</span><div class="rating" data-tool="VictoriaMetrics"></div></div>
+        <div class="tool-row"><span class="tool-name">59. Uptime Kuma</span><div class="rating" data-tool="Uptime Kuma"></div></div>
+        <div class="tool-row"><span class="tool-name">60. Netdata</span><div class="rating" data-tool="Netdata"></div></div>
+
+        <h2>Version Control & Collaboration</h2>
+        <div class="tool-row"><span class="tool-name">61. Git</span><div class="rating" data-tool="Git"></div></div>
+        <div class="tool-row"><span class="tool-name">62. GitHub</span><div class="rating" data-tool="GitHub"></div></div>
+        <div class="tool-row"><span class="tool-name">63. GitLab</span><div class="rating" data-tool="GitLab"></div></div>
+        <div class="tool-row"><span class="tool-name">64. Bitbucket</span><div class="rating" data-tool="Bitbucket"></div></div>
+        <div class="tool-row"><span class="tool-name">65. Jira</span><div class="rating" data-tool="Jira"></div></div>
+        <div class="tool-row"><span class="tool-name">66. Confluence</span><div class="rating" data-tool="Confluence"></div></div>
+        <div class="tool-row"><span class="tool-name">67. Slack</span><div class="rating" data-tool="Slack"></div></div>
+        <div class="tool-row"><span class="tool-name">68. Microsoft Teams</span><div class="rating" data-tool="Microsoft Teams"></div></div>
+        <div class="tool-row"><span class="tool-name">69. Notion</span><div class="rating" data-tool="Notion"></div></div>
+        <div class="tool-row"><span class="tool-name">70. Linear</span><div class="rating" data-tool="Linear"></div></div>
+
+        <h2>Scripting & Languages</h2>
+        <div class="tool-row"><span class="tool-name">71. Bash</span><div class="rating" data-tool="Bash"></div></div>
+        <div class="tool-row"><span class="tool-name">72. PowerShell</span><div class="rating" data-tool="PowerShell"></div></div>
+        <div class="tool-row"><span class="tool-name">73. Python</span><div class="rating" data-tool="Python"></div></div>
+        <div class="tool-row"><span class="tool-name">74. Go</span><div class="rating" data-tool="Go"></div></div>
+        <div class="tool-row"><span class="tool-name">75. JavaScript/Node.js</span><div class="rating" data-tool="JavaScript/Node.js"></div></div>
+        <div class="tool-row"><span class="tool-name">76. TypeScript</span><div class="rating" data-tool="TypeScript"></div></div>
+        <div class="tool-row"><span class="tool-name">77. Rust</span><div class="rating" data-tool="Rust"></div></div>
+        <div class="tool-row"><span class="tool-name">78. C/C++</span><div class="rating" data-tool="C/C++"></div></div>
+        <div class="tool-row"><span class="tool-name">79. C#</span><div class="rating" data-tool="C#"></div></div>
+        <div class="tool-row"><span class="tool-name">80. Ruby</span><div class="rating" data-tool="Ruby"></div></div>
+        <div class="tool-row"><span class="tool-name">81. Perl</span><div class="rating" data-tool="Perl"></div></div>
+        <div class="tool-row"><span class="tool-name">82. Lua</span><div class="rating" data-tool="Lua"></div></div>
+
+        <h2>Databases</h2>
+        <div class="tool-row"><span class="tool-name">83. PostgreSQL</span><div class="rating" data-tool="PostgreSQL"></div></div>
+        <div class="tool-row"><span class="tool-name">84. MySQL/MariaDB</span><div class="rating" data-tool="MySQL/MariaDB"></div></div>
+        <div class="tool-row"><span class="tool-name">85. MongoDB</span><div class="rating" data-tool="MongoDB"></div></div>
+        <div class="tool-row"><span class="tool-name">86. Redis</span><div class="rating" data-tool="Redis"></div></div>
+        <div class="tool-row"><span class="tool-name">87. Elasticsearch</span><div class="rating" data-tool="Elasticsearch"></div></div>
+        <div class="tool-row"><span class="tool-name">88. SQLite</span><div class="rating" data-tool="SQLite"></div></div>
+        <div class="tool-row"><span class="tool-name">89. Cassandra</span><div class="rating" data-tool="Cassandra"></div></div>
+        <div class="tool-row"><span class="tool-name">90. CockroachDB</span><div class="rating" data-tool="CockroachDB"></div></div>
+
+        <h2>Security & Networking</h2>
+        <div class="tool-row"><span class="tool-name">91. HashiCorp Vault</span><div class="rating" data-tool="HashiCorp Vault"></div></div>
+        <div class="tool-row"><span class="tool-name">92. Nginx</span><div class="rating" data-tool="Nginx"></div></div>
+        <div class="tool-row"><span class="tool-name">93. Apache</span><div class="rating" data-tool="Apache"></div></div>
+        <div class="tool-row"><span class="tool-name">94. HAProxy</span><div class="rating" data-tool="HAProxy"></div></div>
+        <div class="tool-row"><span class="tool-name">95. Traefik</span><div class="rating" data-tool="Traefik"></div></div>
+        <div class="tool-row"><span class="tool-name">96. Wireshark</span><div class="rating" data-tool="Wireshark"></div></div>
+        <div class="tool-row"><span class="tool-name">97. Nmap</span><div class="rating" data-tool="Nmap"></div></div>
+        <div class="tool-row"><span class="tool-name">98. Burp Suite</span><div class="rating" data-tool="Burp Suite"></div></div>
+        <div class="tool-row"><span class="tool-name">99. Trivy</span><div class="rating" data-tool="Trivy"></div></div>
+        <div class="tool-row"><span class="tool-name">100. Falco</span><div class="rating" data-tool="Falco"></div></div>
+
+        <button type="button" onclick="saveResults()">Save Results</button>
+    </form>
+
+    <script>
+        const tools = document.querySelectorAll('.rating');
+        tools.forEach(div => {
+            const tool = div.dataset.tool;
+            for (let i = 1; i <= 5; i++) {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="radio" name="${tool}" value="${i}"><span>${i}</span>`;
+                label.querySelector('input').addEventListener('change', function() {
+                    div.querySelectorAll('span').forEach(s => s.style.background = '#0f3460');
+                    this.nextElementSibling.style.background = '#00d4ff';
+                    this.nextElementSibling.style.color = '#000';
+                });
+                div.appendChild(label);
+            }
+        });
+
+        function saveResults() {
+            const results = { cloud: { AWS: 4, Azure: 2, GCP: 3 } };
+            tools.forEach(div => {
+                const tool = div.dataset.tool;
+                const selected = div.querySelector('input:checked');
+                if (selected) {
+                    results[tool] = parseInt(selected.value);
+                }
+            });
+
+            const blob = new Blob([JSON.stringify(results, null, 2)], {type: 'application/json'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'skills_results.json';
+            a.click();
+
+            document.getElementById('saved').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

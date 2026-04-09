@@ -1,0 +1,9 @@
+winget install MSYS2.MSYS2 --accept-source-agreements --accept-package-agreements ; C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c "pacman -Syu --noconfirm; pacman -Syu --noconfirm; exec bash" ; Add-Content $PROFILE "`nfunction msys { C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 }"
+
+
+
+uninstall:
+
+
+winget uninstall MSYS2.MSYS2 ; Remove-Item -Recurse -Force C:\msys64 -ErrorAction SilentlyContinue ; Remove-Item -Recurse -Force $env:APPDATA\MSYS2 -ErrorAction SilentlyContinue ; (Get-Content $PROFILE) | Where-Object { $_ -notmatch 'function msys' -and $_ -notmatch 'msys2_shell' } | Set-Content $PROFILE
+

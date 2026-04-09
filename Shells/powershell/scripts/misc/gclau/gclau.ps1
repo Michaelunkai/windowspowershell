@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    gclau
+#>
+Get-Process -Name "*claude*" -EA 0 | Stop-Process -Force; @("$env:LOCALAPPDATA\Claude","$env:APPDATA\Claude","$env:TEMP") | %{ Get-ChildItem $_ -Filter "*.lock" -Recurse -EA 0 | Remove-Item -Force }; irm https://claude.ai/install.ps1 | iex; $claudePaths = @("$env:APPDATA\Claude\claude-code","$env:USERPROFILE\.local\bin") | %{ if(Test-Path $_){ (Get-ChildItem $_ -Filter "claude.exe" -Recurse -EA 0 | Select -First 1).DirectoryName } } | ?{$_}; if($claudePaths){ $currentPath = [Environment]::GetEnvironmentVariable("Path","User"); $newPaths = $claudePaths | ?{ $currentPath -notlike "*$_*" }; if($newPaths){ [Environment]::SetEnvironmentVariable("Path","$currentPath;$($newPaths -join ';')","User") }; $env:Path = [Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [Environment]::GetEnvironmentVariable("Path","User"); $claudeExe = $claudePaths | %{ Join-Path $_ "claude.exe" } | ?{ Test-Path $_ } | Select -First 1; & $claudeExe install; & $claudeExe update; claude update }

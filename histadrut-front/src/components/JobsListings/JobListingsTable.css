@@ -1,0 +1,343 @@
+/* Layout switching — mobile/desktop visibility */
+.joblisting-layout--mobile {
+  display: none;
+}
+
+.joblisting-layout--desktop {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .joblisting-layout--mobile {
+    display: block;
+  }
+
+  .joblisting-layout--desktop {
+    display: none;
+  }
+}
+
+/* ─── Desktop Table ─────────────────────────────────────────────────────────── */
+
+.job-table__link-title {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: #3498db;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+  transition: color 0.2s;
+}
+
+.job-table__link-title:hover {
+  color: #1565c0;
+}
+
+.redesigned-table__copy-btn svg {
+  stroke: #222 !important;
+  color: #222 !important;
+  width: 14px;
+  height: 14px;
+  transition: stroke 0.2s, color 0.2s;
+}
+
+.redesigned-table__copy-btn:hover svg {
+  stroke: #fff !important;
+  color: #fff !important;
+  fill: none !important;
+}
+
+.job-table__job-view-btn svg {
+  stroke: #222 !important;
+  color: inherit !important;
+  width: 18px;
+  height: 18px;
+  transition: stroke 0.18s, color 0.18s;
+}
+
+.job-table__job-view-btn:hover svg {
+  stroke: #fff !important;
+  color: #fff !important;
+}
+
+/* JobListingsTable copy button wrapper */
+.joblistings-copy-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  width: 100%;
+  gap: 8px;
+}
+
+.joblistings-copy-tooltip {
+  position: absolute;
+  inset-inline-end: calc(100% + 0.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #28a745;
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* ─── Mobile Cards ──────────────────────────────────────────────────────────── */
+
+.job-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.job-mobile__loading,
+.job-mobile__error,
+.job-mobile__empty {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+.job-mobile__error {
+  color: #e74c3c;
+}
+
+.job-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.job-card:active {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.job-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #3498db;
+  margin: 0 0 1rem 0;
+  cursor: pointer;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.job-card__title:active {
+  opacity: 0.8;
+}
+
+.job-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.job-card__detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.job-card__label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.job-card__value {
+  font-size: 0.9rem;
+  color: #333;
+  text-align: end;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.job-card__detail--id {
+  align-items: center;
+}
+
+.job-card__id-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+  margin-top: 3px;
+  justify-content: flex-end;
+}
+
+.job-card__value--id {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.job-card__copy-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.job-card__copy-btn:active {
+  background: rgba(52, 152, 219, 0.1);
+}
+
+.job-card__copy-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: #3498db;
+}
+
+.job-card__copied-tooltip {
+  position: absolute;
+  top: -30px;
+  inset-inline-end: 0;
+  background: #333;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+.job-card .age-badge {
+  display: inline-block;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 0.2rem 0.5rem;
+}
+
+.job-card .age-new {
+  background: #d4edda;
+  color: #155724;
+}
+
+.job-card .age-fresh {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.job-card .age-stale {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.job-card .age-old {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.job-card__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.job-card__action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  flex: 1;
+  justify-content: center;
+}
+
+.job-card__action-btn:active {
+  background: #2980b9;
+}
+
+.job-card__action-btn--disabled {
+  background: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.job-card__action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.job-card__icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.job-card__icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.job-card__icon-btn--view {
+  background: #3498db;
+  color: white;
+}
+
+.job-card__icon-btn--view:active {
+  background: #2980b9;
+}
+
+.job-card__icon-btn--delete {
+  background: #e74c3c;
+  color: white;
+}
+
+.job-card__icon-btn--delete:active {
+  background: #c0392b;
+}

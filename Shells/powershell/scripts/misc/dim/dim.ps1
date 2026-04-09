@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    dim
+#>
+docker images

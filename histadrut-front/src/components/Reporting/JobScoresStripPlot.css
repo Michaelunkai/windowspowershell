@@ -1,0 +1,53 @@
+/* Mobile strip plot — vertical job card list */
+.strip-plot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 0.25rem 0;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.strip-plot-list__item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 8px 10px 4px;
+}
+
+.strip-plot-list__name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.strip-plot-list__track {
+  position: relative;
+  height: 28px;
+  border-bottom: 1.5px solid #e0e0e0;
+}
+
+.strip-plot-list__dot {
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: default;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.strip-plot-list__axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  color: #aaa;
+  margin-top: 3px;
+  padding-bottom: 2px;
+}

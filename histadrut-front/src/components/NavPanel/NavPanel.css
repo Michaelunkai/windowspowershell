@@ -1,0 +1,332 @@
+.nav-panel {
+  background-color: #2c3e50;
+  color: white;
+  height: 100dvh;
+  padding: 1rem;
+  box-sizing: border-box;
+  position: fixed;
+  inset-inline-start: 0;
+  top: 0;
+  overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+
+  &:dir(rtl).nav-panel--mobile {
+    transform: translateX(100%);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+
+    &.nav-panel--expanded {
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Desktop states */
+.nav-panel--desktop {
+  width: 80px; /* Collapsed width - wider for better button backgrounds */
+
+  &.nav-panel--expanded {
+    width: 250px; /* Expanded width */
+  }
+}
+
+/* Mobile states */
+.nav-panel--mobile {
+  width: 70vw; /* Use viewport width instead of fixed px */
+  max-width: 280px; /* Maximum width cap */
+  min-width: 200px; /* Minimum width to remain functional */
+  transform: translateX(-100%); /* Hidden by default */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+  overflow-y: auto; /* Allow vertical scroll if needed */
+
+  &.nav-panel--expanded {
+    transform: translateX(0); /* Slide in */
+  }
+}
+
+/* Mobile hamburger button */
+.nav-panel__mobile-toggle {
+  position: fixed;
+  top: 1rem;
+  inset-inline-start: 1rem;
+  z-index: 1002;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #34495e;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    z-index: 1003; /* Ensure it's above everything */
+  }
+
+  @media (min-width: 769px) {
+    display: none; /* Hide mobile button on desktop */
+  }
+}
+
+/* Toggle button (mobile and desktop) */
+.nav-panel__toggle {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-inline-end: 2px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #ffffff;
+  }
+}
+
+.nav-panel__header {
+  border-bottom: 1px solid #34495e;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  height: 80px; /* Fixed height - never changes */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Hide content when collapsed, but maintain height */
+}
+
+.nav-panel__header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.nav-panel__header--collapsed {
+  border-bottom: 1px solid transparent; /* Keep border space but invisible */
+  margin-bottom: 2rem;
+  height: 80px; /* Same fixed height - no change */
+}
+
+.nav-panel__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #ecf0f1;
+  transition: opacity 0.3s ease;
+}
+
+.nav-panel__user {
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide text but keep space in collapsed state */
+.nav-panel--collapsed {
+  & .nav-panel__header-text {
+    display: none;
+  }
+
+  & .nav-panel__title,
+  & .nav-panel__user {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  & .nav-panel__link {
+    padding: 0.75rem;
+  }
+
+  & .nav-panel__text {
+    opacity: 0;
+    width: 0;
+  }
+}
+
+.nav-panel__nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Independent positioning context */
+  padding-bottom: 120px; /* Make room for absolutely positioned footer */
+}
+
+.nav-panel__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Consistent spacing between items */
+}
+
+.nav-panel__link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Always flex-start - never change */
+  padding: 0.75rem;
+  color: #ecf0f1;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-height: 44px;
+  height: 44px; /* Fixed height to prevent variations */
+  position: relative; /* For absolute positioning of icons */
+  box-sizing: border-box; /* Include padding in height calculation */
+
+  &:hover {
+    background-color: #34495e;
+  }
+}
+
+.nav-panel__link--active {
+  background-color: #3498db;
+  color: white;
+}
+
+.nav-panel__icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+  flex-shrink: 0;
+  position: absolute;
+  inset-inline-start: 15px; /* Adjusted position */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Perfect vertical centering */
+  transition: inset-inline-start 0.3s ease; /* Only animate position, not margins */
+}
+
+.nav-panel__text {
+  opacity: 1;
+  transition: opacity 0.3s ease, width 0.3s ease;
+  overflow: hidden;
+  flex: 1;
+  margin-inline-start: 44px; /* Make room for absolutely positioned icon */
+  line-height: 1.2; /* Consistent line height */
+  display: flex;
+  align-items: center; /* Center text vertically */
+  min-height: 20px; /* Ensure consistent height */
+}
+
+/* RTL support */
+.nav-panel:dir(rtl) {
+  & .nav-panel__title,
+  & .nav-panel__user {
+    text-align: start;
+  }
+}
+
+.nav-panel__footer {
+  position: absolute;
+  bottom: 1rem;
+  inset-inline: 1rem;
+  border-top: 1px solid #34495e;
+  padding-top: 1rem;
+  transition: all 0.3s ease;
+  height: 120px; /* Fixed height - never changes */
+  overflow: hidden; /* Hide content when collapsed, but maintain height */
+}
+
+.nav-panel__footer--collapsed {
+  border-top: 1px solid transparent; /* Keep border space but invisible */
+  padding-top: 1rem;
+  height: 115px; /* Same fixed height - no change */
+}
+
+.nav-panel__logout {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Always flex-start - never change */
+  min-height: 44px;
+  height: 44px; /* Fixed height to prevent variations */
+  position: relative; /* For absolute positioning */
+  box-sizing: border-box; /* Include padding in height calculation */
+
+  &:hover {
+    background-color: #c0392b;
+  }
+}
+
+.nav-panel__logout-text--hidden {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  margin-inline-start: 44px; /* Make room for absolutely positioned icon */
+  line-height: 1.2; /* Consistent line height */
+  display: flex;
+  align-items: center; /* Center text vertically */
+  min-height: 20px; /* Ensure consistent height */
+}
+
+.nav-panel__logout-icon {
+  flex-shrink: 0;
+  position: absolute;
+  inset-inline-start: 15px; /* Same adjusted position as nav icons */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Perfect vertical centering */
+  transition: inset-inline-start 0.3s ease;
+}
+
+/* Overlay for mobile when nav is open */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-overlay--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Move icon to start when expanded for text */
+.nav-panel--expanded .nav-panel__icon {
+  inset-inline-start: 12px; /* Standard start position for text spacing */
+}
+

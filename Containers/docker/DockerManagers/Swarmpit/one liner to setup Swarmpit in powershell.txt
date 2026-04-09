@@ -1,0 +1,1 @@
+docker run -d -p 888:8080 --name swarmpit --restart=always -v /var/run/docker.sock:/var/run/docker.sock swarmpit/swarmpit:latest ; echo "Swarmpit: http://localhost:888"

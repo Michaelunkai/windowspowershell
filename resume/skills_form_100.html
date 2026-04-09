@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top 100 Skills Assessment</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #0d1117; color: #e6edf3; }
+        h1 { color: #58a6ff; text-align: center; }
+        h2 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 8px; margin-top: 25px; font-size: 16px; }
+        .legend { text-align: center; margin: 15px 0; padding: 12px; background: #161b22; border-radius: 8px; position: sticky; top: 0; z-index: 100; }
+        .legend span { margin: 0 8px; padding: 4px 10px; border-radius: 4px; font-size: 13px; }
+        .l1 { background: #f85149; } .l2 { background: #f0883e; } .l3 { background: #d29922; } .l4 { background: #3fb950; } .l5 { background: #58a6ff; }
+        .category { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .tool-row { display: flex; align-items: center; padding: 8px 12px; background: #161b22; border-radius: 6px; border: 1px solid #30363d; }
+        .tool-row:hover { border-color: #58a6ff; }
+        .tool-name { flex: 1; font-size: 13px; font-weight: 500; }
+        .hot { color: #f85149; }
+        .rating { display: flex; gap: 5px; }
+        .rating label { cursor: pointer; }
+        .rating input { display: none; }
+        .rating span { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #21262d; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .rating input:checked + span { background: #58a6ff; color: #0d1117; }
+        .rating label:hover span { background: #30363d; }
+        button { background: #238636; color: #fff; border: none; padding: 15px 50px; font-size: 18px; cursor: pointer; border-radius: 8px; margin: 30px auto; display: block; font-weight: bold; }
+        button:hover { background: #2ea043; }
+        .saved { color: #3fb950; text-align: center; font-size: 20px; display: none; padding: 20px; background: #161b22; border-radius: 8px; }
+        .progress { text-align: center; color: #58a6ff; font-size: 16px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Top 100 DevOps Skills - 2026</h1>
+    <div class="legend">
+        <span class="l1">1=Heard</span>
+        <span class="l2">2=Basic</span>
+        <span class="l3">3=Intermediate</span>
+        <span class="l4">4=Proficient</span>
+        <span class="l5">5=Expert</span>
+    </div>
+    <div class="progress" id="progress">Completed: 0 / 100</div>
+    <div class="saved" id="saved">Saved! Tell Claude "done"</div>
+
+    <form id="skillsForm">
+        <h2>☁️ Cloud (6)</h2><div class="category" id="cloud"></div>
+        <h2>🐳 Containers & Orchestration (10)</h2><div class="category" id="containers"></div>
+        <h2>🔄 CI/CD (8)</h2><div class="category" id="cicd"></div>
+        <h2>🏗️ Infrastructure as Code (6)</h2><div class="category" id="iac"></div>
+        <h2>📊 Monitoring (10)</h2><div class="category" id="monitoring"></div>
+        <h2>💻 Languages (12)</h2><div class="category" id="languages"></div>
+        <h2>🗄️ Databases (10)</h2><div class="category" id="databases"></div>
+        <h2>🔒 Security (8)</h2><div class="category" id="security"></div>
+        <h2>🌐 Networking (6)</h2><div class="category" id="networking"></div>
+        <h2>📝 Collaboration (6)</h2><div class="category" id="collab"></div>
+        <h2>🖥️ OS & Virtualization (8)</h2><div class="category" id="os"></div>
+        <h2>🧪 Testing (4)</h2><div class="category" id="testing"></div>
+        <h2>📜 Certifications (6)</h2><div class="category" id="certs"></div>
+        <button type="button" onclick="saveResults()">💾 Save Results</button>
+    </form>
+
+<script>
+const tools = {
+cloud: ["AWS★","Azure★","GCP★","Cloudflare★","Vercel","DigitalOcean"],
+containers: ["Docker★","Kubernetes★","Helm★","Podman","containerd","Istio★","Rancher","OpenShift","ArgoCD★","FluxCD"],
+cicd: ["GitHub Actions★","GitLab CI★","Jenkins★","Terraform Cloud","CircleCI","Tekton","Harness","Spinnaker"],
+iac: ["Terraform★","Ansible★","Pulumi★","Packer","CloudFormation","Crossplane"],
+monitoring: ["Prometheus★","Grafana★","Datadog★","ELK Stack★","Loki","OpenTelemetry★","PagerDuty","Jaeger","New Relic","Splunk"],
+languages: ["Python★","Bash★","PowerShell★","Go★","JavaScript★","TypeScript★","Rust","Java","SQL★","HCL★","YAML★","GraphQL"],
+databases: ["PostgreSQL★","MySQL★","MongoDB★","Redis★","Elasticsearch★","DynamoDB","Cassandra","ClickHouse","Neo4j","etcd"],
+security: ["Vault★","Trivy★","Snyk★","OPA★","Keycloak","nmap","SonarQube★","Falco"],
+networking: ["Nginx★","HAProxy★","Traefik★","Envoy★","Kong","Cloudflare CDN"],
+collab: ["Git★","GitHub★","GitLab","Jira★","Slack★","Confluence"],
+os: ["Linux★","Ubuntu★","RHEL","Alpine★","Windows Server","WSL","KVM","Proxmox"],
+testing: ["pytest★","Jest","Playwright★","k6★"],
+certs: ["CKA★","AWS Solutions Architect★","Terraform Associate★","Azure Administrator","RHCSA","CompTIA Security+"]
+};
+
+function createToolRow(tool) {
+    const isHot = tool.includes('★');
+    const cleanName = tool.replace('★', '');
+    const div = document.createElement('div');
+    div.className = 'tool-row';
+    div.innerHTML = `
+        <span class="tool-name ${isHot ? 'hot' : ''}">${isHot ? '★ ' : ''}${cleanName}</span>
+        <div class="rating" data-tool="${cleanName}">
+            ${[1,2,3,4,5].map(i => `<label><input type="radio" name="${cleanName}" value="${i}" onchange="updateProgress()"><span>${i}</span></label>`).join('')}
+        </div>
+    `;
+    return div;
+}
+
+function updateProgress() {
+    const completed = document.querySelectorAll('.rating input:checked').length;
+    document.getElementById('progress').textContent = `Completed: ${completed} / 100`;
+}
+
+function saveResults() {
+    const results = {};
+    document.querySelectorAll('.rating').forEach(div => {
+        const tool = div.dataset.tool;
+        const selected = div.querySelector('input:checked');
+        if (selected) results[tool] = parseInt(selected.value);
+    });
+    const blob = new Blob([JSON.stringify(results, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'skills_100.json';
+    a.click();
+    document.getElementById('saved').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+Object.entries(tools).forEach(([cat, items]) => {
+    const container = document.getElementById(cat);
+    items.forEach(tool => container.appendChild(createToolRow(tool)));
+});
+</script>
+</body>
+</html>

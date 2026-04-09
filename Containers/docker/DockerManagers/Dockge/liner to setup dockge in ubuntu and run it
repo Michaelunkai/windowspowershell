@@ -1,0 +1,1 @@
+ mkdir -p /opt/dockge && cd /opt/dockge && curl -fsSL https://dockge.kuma.pet/compose.yaml -o compose.yaml && docker compose up -d &&  gc http://localhost:5001/

@@ -1,0 +1,146 @@
+.candidate-modal__mmr-yes {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+.candidate-modal__mmr-no {
+  color: var(--accent-red);
+  font-weight: 600;
+}
+.candidate-modal__info {
+  position: sticky;
+  top: 68px; /* adjust to match modal__header height */
+  z-index: 15;
+  background: var(--bg-surface-alt);
+}
+
+/* Light scrollbar for modal content */
+.modal__content,
+.candidate-modal__body-scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-input) var(--bg-surface-alt);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: var(--bg-surface-alt);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-input);
+    border-radius: 8px;
+  }
+}
+
+.candidate-modal__strweak-flex {
+  display: flex;
+  gap: 32px;
+  margin-top: 18px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+.candidate-modal__strweak-section {
+  flex: 1 1 0;
+  min-width: 180px;
+}
+.candidate-modal__strweak-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+.candidate-modal__strweak-content {
+  background: var(--bg-surface-alt);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+
+  & ul {
+    margin: 0;
+    padding-inline-start: 18px;
+  }
+
+  & li {
+    font-size: 0.85rem;
+  }
+}
+
+/* Candidate Modal Specific Styles */
+.candidate-modal__info {
+  padding: 1rem 1.5rem;
+  background: var(--bg-surface-alt);
+  border-bottom: 1px solid var(--border-input);
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.candidate-modal__score,
+.candidate-modal__mmr {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+
+  & strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+}
+
+.candidate-modal__score {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.candidate-modal__mmr {
+  color: var(--accent-red);
+}
+
+.candidate-modal__body-scrollable {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.candidate-modal__overview {
+  padding: 1.5rem 2rem;
+
+  & h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-input);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.candidate-modal__strweak-flex {
+  padding: 0 2rem 1.5rem 2rem;
+}
+
+.candidate-modal__overview-content {
+  color: var(--text-body);
+  line-height: 1.6;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  /* Support for both LTR and RTL text */
+  unicode-bidi: isolate;
+
+  font-family: "Arial", "Helvetica", sans-serif;
+}
+
+/* .candidate-modal__info is no longer sticky, handled by modal__sticky-header-wrap */

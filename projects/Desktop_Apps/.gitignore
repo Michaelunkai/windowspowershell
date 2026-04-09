@@ -1,0 +1,5 @@
+
+# Large files (≥95MB) excluded by gitit v14 - 2026-02-23 22:54
+DotNET/game-launcher-pro/bin/Release/net9.0-windows/win-x64/publish/game-launcher-winforms.exe
+GameTime/node_modules/electron/dist/electron.exe
+GameTime/dist/win-unpacked/GameTime.exe

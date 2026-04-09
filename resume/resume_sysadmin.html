@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Fedorovsky - System Administrator Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 7.6pt;
+            line-height: 1.18;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            color: white;
+            padding: 13px 25px;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .profile-photo {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        
+        .header-text { flex: 1; }
+        
+        .name {
+            font-size: 20pt;
+            font-weight: 800;
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+        }
+        
+        .title {
+            font-size: 8.8pt;
+            font-weight: 600;
+            margin-bottom: 4.5px;
+            opacity: 0.96;
+        }
+        
+        .contact-info {
+            font-size: 7pt;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px 6.5px;
+            opacity: 0.9;
+        }
+        
+        .contact-info span { white-space: nowrap; }
+        
+        .summary {
+            font-size: 7.3pt;
+            margin-top: 5.5px;
+            line-height: 1.28;
+            opacity: 0.95;
+        }
+        
+        .content { padding: 11px 25px 15px 25px; }
+        
+        .section { margin-bottom: 7.5px; }
+        
+        .section-title {
+            font-size: 8.8pt;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4.5px;
+            color: #1a366d;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 2.8px;
+            height: 12px;
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            border-radius: 2px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 93px 1fr;
+            gap: 2.6px 7.5px;
+            font-size: 6.7pt;
+            line-height: 1.22;
+        }
+        
+        .skill-category {
+            font-weight: 700;
+            color: #1a366d;
+        }
+        
+        .skill-items { color: #2a2a2a; }
+        .skill-items strong { color: #1a366d; font-weight: 600; }
+        
+        .experience-item { margin-bottom: 6.5px; }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2.8px;
+        }
+        
+        .job-title {
+            font-weight: 700;
+            font-size: 8.3pt;
+            color: #1a366d;
+        }
+        
+        .company { font-weight: 600; color: #333; }
+        
+        .duration {
+            font-size: 7pt;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1.8px;
+        }
+        
+        .experience-item li {
+            padding-left: 8.5px;
+            position: relative;
+            margin-bottom: 1.1px;
+            font-size: 6.7pt;
+            line-height: 1.18;
+        }
+        
+        .experience-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2b5282;
+            font-weight: bold;
+            font-size: 6.8pt;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4.2px;
+            margin-top: 3.8px;
+        }
+        
+        .project-card {
+            border: 1px solid #d5d5d5;
+            border-radius: 3px;
+            padding: 4.2px;
+            background: linear-gradient(to bottom, #fafafa 0%, #f5f5f5 100%);
+        }
+        
+        .project-title {
+            font-weight: 700;
+            font-size: 7pt;
+            color: #1a366d;
+            margin-bottom: 1.6px;
+            line-height: 1.18;
+        }
+        
+        .project-tech {
+            font-size: 6pt;
+            color: #666;
+            margin-bottom: 2.3px;
+            font-weight: 600;
+            line-height: 1.12;
+        }
+        
+        .project-desc {
+            font-size: 6pt;
+            line-height: 1.18;
+            color: #444;
+        }
+        
+        .education-item { margin-bottom: 2.8px; }
+        
+        .degree {
+            font-weight: 700;
+            font-size: 7.8pt;
+            color: #1a366d;
+        }
+        
+        .institution {
+            font-size: 7pt;
+            color: #555;
+            font-weight: 500;
+        }
+
+        @media print {
+            body { background: white; }
+            .page {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="header-content">
+                <img src="file:///F:/study/resume/profile_photo.jpg" alt="Michael Fedorovsky" class="profile-photo">
+                <div class="header-text">
+                    <h1 class="name">Michael Fedorovsky</h1>
+                    <div class="title">System Administrator | IT Infrastructure Specialist | Network & Server Engineer</div>
+                    <div class="contact-info">
+                        <span>📍 Bat Yam, Israel</span>
+                        <span>•</span>
+                        <span>📱 054-763-2418</span>
+                        <span>•</span>
+                        <span>✉ michaelovsky5@gmail.com</span>
+                        <span>•</span>
+                        <span>🔗 LinkedIn</span>
+                        <span>•</span>
+                        <span>💻 GitHub Portfolio</span>
+                    </div>
+                    <div class="summary">
+                        Dedicated System Administrator with 2 years of hands-on experience managing Linux/Windows server infrastructure, user environments, and network systems. Skilled in Active Directory, group policy management, server deployment, virtualization, cloud integration, and enterprise backup solutions. Built 100+ automation tools and scripts that streamline IT operations, reduce downtime, and improve system reliability. Passionate about infrastructure stability, security hardening, and team enablement through smart automation.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">⚙️ TECHNICAL EXPERTISE</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">Server OS</div>
+                    <div class="skill-items"><strong>Linux:</strong> Ubuntu Server, Debian, RHEL, Alpine, CentOS • systemd, cron, SSH, PAM, syslog • <strong>Windows Server:</strong> 2016/2019/2022, roles & features, IIS, DNS, DHCP</div>
+
+                    <div class="skill-category">Active Directory</div>
+                    <div class="skill-items">AD DS setup & management, Group Policy (GPO), OU structure, user/group provisioning, password policies, domain join automation, LDAP integration</div>
+
+                    <div class="skill-category">Networking</div>
+                    <div class="skill-items">TCP/IP, DNS, DHCP, VLANs, firewall rules (iptables, UFW, Windows Firewall), VPN (WireGuard, OpenVPN), routing, switching, network monitoring</div>
+
+                    <div class="skill-category">Virtualization</div>
+                    <div class="skill-items"><strong>Proxmox, VMware ESXi, Hyper-V, KVM/QEMU</strong> • VM provisioning, templates, snapshots, live migration, resource management, HA clustering</div>
+
+                    <div class="skill-category">Cloud Integration</div>
+                    <div class="skill-items">AWS (EC2, S3, IAM, VPC, Route53), Azure (VMs, Entra ID, Azure AD, Blob Storage), GCP (Compute Engine, Cloud Storage) • hybrid cloud setups</div>
+
+                    <div class="skill-category">Containers</div>
+                    <div class="skill-items">Docker, Docker Compose, Podman • container deployment, networking, volumes, registry management, self-hosted services</div>
+
+                    <div class="skill-category">Automation & IaC</div>
+                    <div class="skill-items"><strong>Ansible:</strong> Playbooks, roles, inventory management, server provisioning • <strong>Terraform:</strong> Infrastructure provisioning • PowerShell DSC</div>
+
+                    <div class="skill-category">Scripting</div>
+                    <div class="skill-items"><strong>Advanced PowerShell & Bash</strong> • User provisioning, log parsing, automated maintenance, scheduled tasks, system health checks, reporting</div>
+
+                    <div class="skill-category">Monitoring</div>
+                    <div class="skill-items">Prometheus, Grafana, Zabbix, Netdata, Checkmk, ELK Stack, Datadog, Uptime Kuma • alerting, dashboards, log aggregation, SLA tracking</div>
+
+                    <div class="skill-category">Storage & Backup</div>
+                    <div class="skill-items">NFS, SMB/CIFS, iSCSI, RAID management • Backup solutions: Macrium Reflect, Veeam, Restic, BorgBackup, automated multi-tier backup strategies</div>
+
+                    <div class="skill-category">Security</div>
+                    <div class="skill-items">SSH hardening, fail2ban, firewall policy, certificate management (Let's Encrypt), Vault secrets, antivirus deployment, patch management, audit logging</div>
+
+                    <div class="skill-category">Web/Proxy</div>
+                    <div class="skill-items">Nginx, Apache, Traefik, HAProxy • Reverse proxy, SSL/TLS termination, load balancing, virtual hosts, self-hosted service management</div>
+
+                    <div class="skill-category">Databases</div>
+                    <div class="skill-items">PostgreSQL, MySQL, MariaDB, MongoDB, Redis • Installation, user management, replication, automated backups, performance tuning</div>
+
+                    <div class="skill-category">Remote Mgmt</div>
+                    <div class="skill-items">SSH, RDP, WinRM, IPMI/iDRAC, TeamViewer, AnyDesk • remote administration, headless server management, out-of-band access</div>
+
+                    <div class="skill-category">Email & Collab</div>
+                    <div class="skill-items">Postfix, Dovecot, email relay configuration, spam filtering, Slack/Teams integration, Jira, Confluence, ticketing systems</div>
+
+                    <div class="skill-category">Troubleshooting</div>
+                    <div class="skill-items">Root cause analysis, event log review, network packet analysis (Wireshark), performance profiling, incident response, documentation</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">💼 PROFESSIONAL EXPERIENCE</h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <span class="job-title">System Administrator</span> <span class="company">@ TovTech</span>
+                        </div>
+                        <div class="duration">2 Years</div>
+                    </div>
+                    <ul>
+                        <li>Managed Linux & Windows server infrastructure supporting production applications with 99.9% uptime SLA</li>
+                        <li>Designed and maintained CI/CD pipelines, automated deployments, and server provisioning using Ansible & Terraform</li>
+                        <li>Administered user accounts, permissions, and group policies across Linux and Windows environments</li>
+                        <li>Deployed and maintained full monitoring stack: Prometheus, Grafana dashboards, ELK log aggregation, alerting</li>
+                        <li>Built automated backup system for databases, filesystems, and VM snapshots with rotation and integrity checks</li>
+                        <li>Configured Nginx reverse proxy, SSL/TLS certificates, Cloudflare CDN, firewall rules, and DDoS protection</li>
+                        <li>Reduced manual IT tasks by 70% through PowerShell/Bash automation scripts for routine maintenance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🖥️ INFRASTRUCTURE PROJECTS & TOOLS</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-title">Server Automation Suite</div>
+                        <div class="project-tech">Ansible • Terraform • PowerShell</div>
+                        <div class="project-desc">Full server provisioning automation: OS setup, user creation, package install, firewall rules, SSH keys, monitoring agents</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Proxmox Virtualization Lab</div>
+                        <div class="project-tech">Proxmox • KVM • VMware • Hyper-V</div>
+                        <div class="project-desc">Multi-host virtualization cluster with VM templates, live migration, HA, automated snapshots, resource monitoring</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Backup Orchestration System</div>
+                        <div class="project-tech">PowerShell • Restic • PostgreSQL</div>
+                        <div class="project-desc">Multi-tier automated backup: databases, filesystems, VM snapshots with scheduling, rotation policies, integrity verification</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">StartupMaster System Tool</div>
+                        <div class="project-tech">C# • .NET • Windows Admin</div>
+                        <div class="project-desc">Windows startup manager with boot impact analysis, service optimization, system tray integration, auto recommendations</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Windows System Repair Suite</div>
+                        <div class="project-tech">PowerShell • DISM • WMI</div>
+                        <div class="project-desc">Automated repair toolkit: Win11Reset, Win11Repair, PrebootRepair - one-click OS diagnostics, recovery, SFC/DISM automation</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Monitoring & Alerting Stack</div>
+                        <div class="project-tech">Prometheus • Grafana • Zabbix • ELK</div>
+                        <div class="project-desc">Enterprise observability: server metrics, log aggregation, custom dashboards, PagerDuty alerting, 40+ tool integrations</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Self-Hosted Service Platform</div>
+                        <div class="project-tech">Docker • Nginx • Traefik • SSL</div>
+                        <div class="project-desc">Dockerized self-hosted services with reverse proxy, auto SSL, Cloudflare integration, DNS management, health monitoring</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Network Optimization Tool</div>
+                        <div class="project-tech">PowerShell • Network Diagnostics</div>
+                        <div class="project-desc">MaximizeEthernet - automated LAN tuning, DNS optimization, latency reduction, bandwidth testing, interface configuration</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">User Provisioning Automation</div>
+                        <div class="project-tech">PowerShell • Bash • LDAP</div>
+                        <div class="project-desc">Automated user lifecycle: account creation, permission assignment, home directory setup, email config, offboarding cleanup</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Patch Management System</div>
+                        <div class="project-tech">Ansible • PowerShell • Scheduling</div>
+                        <div class="project-desc">Automated OS and package patching across Linux/Windows fleets with rollback capability, reboot scheduling, compliance reporting</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">SSL Certificate Manager</div>
+                        <div class="project-tech">Let's Encrypt • Nginx • Certbot</div>
+                        <div class="project-desc">Automated SSL certificate issuance, renewal, deployment across all servers with expiry monitoring and alerting</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Log Analysis AI Tool</div>
+                        <div class="project-tech">Python • ELK • AI/LLM</div>
+                        <div class="project-desc">AI-powered server log analysis: anomaly detection, pattern recognition, automatic incident triage, root cause suggestions</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">AndroidMonitor Device Mgmt</div>
+                        <div class="project-tech">C# • ADB • Real-time Monitoring</div>
+                        <div class="project-desc">Cross-platform device management via USB: health checks, storage analysis, app management, system log collection</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">DB Administration Toolkit</div>
+                        <div class="project-tech">PostgreSQL • MySQL • Python</div>
+                        <div class="project-desc">Database health monitoring, query analysis, performance tuning, automated backups, replication setup, alerting dashboards</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Multi-Cloud Infrastructure</div>
+                        <div class="project-tech">Terraform • AWS • Azure • GCP</div>
+                        <div class="project-desc">IaC-managed hybrid cloud environments with VPN tunnels, shared storage, unified IAM, cost monitoring, auto-scaling</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Firewall & Security Hardening</div>
+                        <div class="project-tech">iptables • fail2ban • Vault • Snyk</div>
+                        <div class="project-desc">Server security automation: firewall rules, intrusion prevention, SSH hardening, secret rotation, vulnerability scanning</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">IT Inventory System</div>
+                        <div class="project-tech">Python • Database • Reporting</div>
+                        <div class="project-desc">Asset tracking: hardware specs, software licenses, warranty dates, network topology, automated discovery, reporting dashboards</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Shell Automation Suite</div>
+                        <div class="project-tech">Bash • PowerShell • Cron</div>
+                        <div class="project-desc">100+ production scripts: server health checks, log rotation, disk cleanup, service restarts, performance reporting, alerts</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎓 EDUCATION & CERTIFICATIONS</h2>
+                <div class="education-item">
+                    <div class="degree">Data Analysis & System Administration Program</div>
+                    <div class="institution">TovTech (1 Year) • Infrastructure automation, system diagnostics, server management</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Engineering Preparatory Year</div>
+                    <div class="institution">Ariel University • Physics, Mathematics, Technical English</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Self-Taught Certifications</div>
+                    <div class="institution">CompTIA A+/Network+ preparation • Linux Professional Institute (LPI) • AWS Cloud Practitioner</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

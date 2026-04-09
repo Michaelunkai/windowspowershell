@@ -1,0 +1,278 @@
+.reportingPageColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  min-height: 800px;
+  padding: 0 24px;
+  /* Ensure LTR layout for charts and complex visualizations */
+  direction: ltr;
+  text-align: start;
+}
+
+.error {
+  color: red;
+}
+
+.filterBar {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: -60px;
+}
+
+.minScoreFilter {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+}
+
+.minScoreSlider {
+  width: 100%;
+}
+
+.reportingCard {
+  min-height: 350px;
+  max-height: 500px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 16px;
+  margin-top: -52px; /* 64px (gap) - 12px (title margin) = 52px */
+}
+
+.reportingCardLarge {
+  min-height: 400px;
+  max-height: 600px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 16px;
+}
+
+.spinnerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.companySelectorBar {
+  margin-bottom: 24px;
+  max-width: 260px;
+}
+
+.companySelectorLabel {
+  font-weight: 500;
+  color: #5a6c7d;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.companySelector {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e1e8ed;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  background-color: #fafbfc;
+  color: #2c3e50;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  margin-top: 2px;
+}
+
+.flexRowGraphs {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: flex-start;
+  min-height: 350px;
+  /* Ensure charts layout stays LTR */
+  direction: ltr;
+}
+
+.pieChartCol {
+  min-width: 340px;
+  max-width: 400px;
+  flex: 1 1 340px;
+}
+
+.stripPlotCol {
+  flex: 2 1 480px;
+  min-width: 320px;
+  max-width: 1600px;
+}
+
+.sorter {
+  max-width: 220px;
+}
+
+.sorter__label {
+  font-size: 0.95rem;
+  color: #5a6c7d;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.sorter__select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e1e8ed;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  background-color: #fafbfc;
+  color: #2c3e50;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  margin-top: 2px;
+}
+
+.chartTitle {
+  color: #333333;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.noMarginTop {
+  margin-top: 0 !important;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .mobilePage {
+    padding-top: 4rem;
+
+    & .page__content {
+      padding: 0;
+    }
+  }
+
+  .reportingPageColumn {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 0;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .sorter {
+    max-width: none;
+  }
+
+  .sorter__select {
+    border-width: 2px;
+    border-color: #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+  }
+
+  .minScoreSlider {
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, #e9ecef 0%, #3498db 100%);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #3498db;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #3498db;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .reportingCard {
+    max-height: none;
+    margin-top: 0;
+    padding: 8px;
+  }
+
+  .reportingCardLarge {
+    max-height: none;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .flexRowGraphs {
+    flex-direction: column;
+  }
+
+  .pieChartCol {
+    min-width: 0;
+    max-width: none;
+    flex: none;
+    width: 100%;
+  }
+
+  .stripPlotCol {
+    min-width: 0;
+    max-width: none;
+    flex: none;
+    width: 100%;
+  }
+
+  .companySelectorBar {
+    max-width: none;
+  }
+
+  .pieChartCol,
+  .stripPlotCol {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 12px;
+  }
+
+  .chartTitle {
+    font-size: 1rem;
+    padding-inline: 1rem;
+  }
+}

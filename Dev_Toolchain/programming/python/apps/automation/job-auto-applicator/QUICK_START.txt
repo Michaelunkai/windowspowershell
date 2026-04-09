@@ -1,0 +1,90 @@
+═══════════════════════════════════════════════════════════════
+  AUTOMATED JOB APPLICATION SYSTEM - QUICK START GUIDE
+═══════════════════════════════════════════════════════════════
+
+📁 Location: F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator
+
+═══════════════════════════════════════════════════════════════
+STEP 1: GET GMAIL APP PASSWORD (REQUIRED)
+═══════════════════════════════════════════════════════════════
+
+1. Go to: https://myaccount.google.com/apppasswords
+2. Sign in to michaelovsky5@gmail.com
+3. App name: "Job Applications"
+4. Click "Create"
+5. Copy the 16-character password (looks like: "abcd efgh ijkl mnop")
+
+═══════════════════════════════════════════════════════════════
+STEP 2: CONFIGURE
+═══════════════════════════════════════════════════════════════
+
+1. Open: F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\config.py
+2. Find line: GMAIL_APP_PASSWORD = "YOUR_APP_PASSWORD_HERE"
+3. Replace with: GMAIL_APP_PASSWORD = "your-actual-app-password"
+4. Save file
+
+═══════════════════════════════════════════════════════════════
+STEP 3: RUN APPLICATION
+═══════════════════════════════════════════════════════════════
+
+Run this command (already in your clipboard):
+
+python "F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\job_applicator.py"
+
+═══════════════════════════════════════════════════════════════
+WHAT IT DOES
+═══════════════════════════════════════════════════════════════
+
+✅ Sends personalized emails to 7 Israeli tech companies
+✅ Attaches your DevOps resume (F:\study\resume\Michael_Fedorovsky_Resume_devops.pdf)
+✅ Includes your portfolio link and contact info
+✅ Logs all activities to logs/ folder
+✅ 10-second delay between emails (polite automation)
+✅ Auto-retries failed sends up to 3 times
+
+═══════════════════════════════════════════════════════════════
+TARGET COMPANIES (7)
+═══════════════════════════════════════════════════════════════
+
+1. Imubit - Junior DevOps Engineer
+2. Oligo Security - DevOps Engineer
+3. FireArc - DevOps Engineer
+4. Prologic - DevOps Engineer
+5. SuperCom - Junior DevOps/QA
+6. Consist Group - DevOps Engineer
+7. Amazon Israel - DevOps Intern 2026
+
+═══════════════════════════════════════════════════════════════
+CUSTOMIZATION
+═══════════════════════════════════════════════════════════════
+
+Want to add more companies? Edit config.py and add to COMPANIES list:
+
+COMPANIES = [
+    {
+        "name": "New Company",
+        "email": "jobs@company.com",
+        "position": "DevOps Engineer",
+        "location": "Tel Aviv"
+    },
+    ...
+]
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+❌ "Authentication failed"
+   → Check your app password is correct in config.py
+
+❌ "Resume file not found"
+   → Verify path in config.py: RESUME_PATH
+
+❌ Python not found
+   → Run: python --version (should be Python 3.x)
+
+═══════════════════════════════════════════════════════════════
+
+🎉 READY TO LAUNCH YOUR JOB SEARCH!
+
+═══════════════════════════════════════════════════════════════

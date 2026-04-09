@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y ansible sshpass && sudo mkdir -p /etc/ansible && printf '[local]\nlocalhost ansible_connection=local\n' | sudo tee /etc/ansible/hosts >/dev/null && ansible local -m ping

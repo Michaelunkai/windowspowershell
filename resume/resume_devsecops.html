@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Fedorovsky - DevSecOps / Security Engineer Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 7.3pt;
+            line-height: 1.15;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #0f2444 0%, #1a366d 100%);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0f2444 0%, #1a3a6e 100%);
+            color: white;
+            padding: 11px 25px;
+        }
+        
+        .header-content { display: flex; align-items: flex-start; gap: 12px; }
+        
+        .profile-photo {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(255,255,255,0.35);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        
+        .header-text { flex: 1; }
+        .name { font-size: 19pt; font-weight: 800; margin-bottom: 2px; letter-spacing: -0.5px; }
+        .title { font-size: 8.5pt; font-weight: 600; margin-bottom: 4px; opacity: 0.96; }
+        .contact-info { font-size: 6.8pt; display: flex; flex-wrap: wrap; gap: 2px 6px; opacity: 0.9; }
+        .contact-info span { white-space: nowrap; }
+        .summary { font-size: 7pt; margin-top: 5px; line-height: 1.26; opacity: 0.95; }
+        
+        .content { padding: 9px 25px 12px 25px; }
+        .section { margin-bottom: 6px; }
+        
+        .section-title {
+            font-size: 8.4pt;
+            font-weight: 700;
+            margin-bottom: 3.5px;
+            display: flex;
+            align-items: center;
+            gap: 4.5px;
+            color: #0f2444;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 2.8px;
+            height: 12px;
+            background: linear-gradient(135deg, #0f2444 0%, #1a3a6e 100%);
+            border-radius: 2px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 96px 1fr;
+            gap: 2.2px 7px;
+            font-size: 6.5pt;
+            line-height: 1.18;
+        }
+        
+        .skill-category { font-weight: 700; color: #0f2444; }
+        .skill-items { color: #2a2a2a; }
+        .skill-items strong { color: #0f2444; font-weight: 600; }
+        
+        .experience-item { margin-bottom: 5px; }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+        
+        .job-title { font-weight: 700; font-size: 8.3pt; color: #0f2444; }
+        .company { font-weight: 600; color: #333; }
+        .duration { font-size: 7pt; color: #666; font-weight: 600; }
+        
+        .experience-item ul { list-style: none; padding-left: 0; margin-top: 1.8px; }
+        
+        .experience-item li {
+            padding-left: 8.5px;
+            position: relative;
+            margin-bottom: 0.8px;
+            font-size: 6.5pt;
+            line-height: 1.15;
+        }
+        
+        .experience-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #1a3a6e;
+            font-weight: bold;
+            font-size: 6.8pt;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3.5px;
+            margin-top: 3px;
+        }
+        
+        .project-card {
+            border: 1px solid #cdd5e0;
+            border-radius: 3px;
+            padding: 3.8px;
+            background: linear-gradient(to bottom, #f8fafc 0%, #f0f4f8 100%);
+        }
+        
+        .project-title { font-weight: 700; font-size: 6.8pt; color: #0f2444; margin-bottom: 1.4px; line-height: 1.15; }
+        .project-tech { font-size: 5.8pt; color: #555; margin-bottom: 2px; font-weight: 600; line-height: 1.1; }
+        .project-desc { font-size: 5.8pt; line-height: 1.15; color: #444; }
+        
+        .education-item { margin-bottom: 2px; }
+        .degree { font-weight: 700; font-size: 7.4pt; color: #0f2444; }
+        .institution { font-size: 6.6pt; color: #555; font-weight: 500; }
+
+        @media print {
+            body { background: white; }
+            .page { width: 100%; min-height: auto; box-shadow: none; margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="header-content">
+                <img src="file:///F:/study/resume/profile_photo.jpg" alt="Michael Fedorovsky" class="profile-photo">
+                <div class="header-text">
+                    <h1 class="name">Michael Fedorovsky</h1>
+                    <div class="title">DevSecOps Engineer | Cloud Security Specialist | Cybersecurity & Data Protection Engineer</div>
+                    <div class="contact-info">
+                        <span>📍 Bat Yam, Israel</span>
+                        <span>•</span>
+                        <span>📱 054-763-2418</span>
+                        <span>•</span>
+                        <span>✉ michaelovsky5@gmail.com</span>
+                        <span>•</span>
+                        <span>🔗 LinkedIn</span>
+                        <span>•</span>
+                        <span>💻 GitHub (100+ repos)</span>
+                    </div>
+                    <div class="summary">
+                        DevSecOps and Cybersecurity Engineer with 2 years of experience embedding security across the full software development lifecycle. Deep expertise in data security, cloud security posture management, vulnerability scanning, secrets management, network defense, and compliance automation. Proficient in threat detection, incident response, identity & access management, and building security-first CI/CD pipelines. Passionate about protecting infrastructure, data, and applications through automation, zero-trust architecture, and continuous monitoring.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">🔐 SECURITY EXPERTISE</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">Data Security</div>
+                    <div class="skill-items"><strong>Encryption:</strong> AES-256, TLS/SSL, at-rest & in-transit encryption • Data masking, tokenization, DLP policies • Database encryption (PostgreSQL, MySQL, MongoDB) • Backup encryption (Restic, AES) • GDPR/compliance awareness</div>
+
+                    <div class="skill-category">Cloud Security</div>
+                    <div class="skill-items"><strong>AWS:</strong> IAM least-privilege, SCPs, GuardDuty, Security Hub, CloudTrail, Config, Inspector • <strong>Azure:</strong> Defender for Cloud, Entra ID, Conditional Access, Key Vault • <strong>GCP:</strong> Cloud Security Command Center, IAP</div>
+
+                    <div class="skill-category">SAST/DAST</div>
+                    <div class="skill-items">SonarQube, Snyk, Semgrep, Bandit (Python), gosec (Go) • OWASP ZAP, Nikto, Burp Suite basics • Shift-left security in CI/CD pipelines, automated code scanning on every PR</div>
+
+                    <div class="skill-category">Container Security</div>
+                    <div class="skill-items"><strong>Trivy, Snyk, Grype, Clair</strong> • Docker image scanning, base image hardening, non-root containers • Kubernetes: OPA/Gatekeeper, Kyverno, Pod Security Standards, Falco runtime threat detection</div>
+
+                    <div class="skill-category">Secrets Management</div>
+                    <div class="skill-items"><strong>HashiCorp Vault</strong> (dynamic secrets, PKI, encryption-as-a-service) • <strong>AWS Secrets Manager</strong> • <strong>Azure Key Vault</strong> • Auto-rotation policies, zero hardcoded credentials enforcement, audit logging</div>
+
+                    <div class="skill-category">Network Security</div>
+                    <div class="skill-items">Firewall rules (iptables, UFW, nftables), VPN (WireGuard, OpenVPN), IDS/IPS (Snort, Suricata), fail2ban, nmap scanning, network segmentation, zero-trust networking, Cloudflare WAF/DDoS</div>
+
+                    <div class="skill-category">Identity & Access</div>
+                    <div class="skill-items">Keycloak (SSO, OAuth2, OIDC, SAML), LDAP, Active Directory, MFA enforcement, RBAC/ABAC, privileged access management, service account auditing, JWT security</div>
+
+                    <div class="skill-category">Threat Detection</div>
+                    <div class="skill-items">Falco (runtime), SIEM integration, ELK/Splunk log analysis, anomaly detection, AI-powered threat analysis (LangChain/Python), behavioral monitoring, incident triage & response</div>
+
+                    <div class="skill-category">Vulnerability Mgmt</div>
+                    <div class="skill-items">CVE tracking, patch management automation (Ansible), dependency scanning, CVSS scoring, remediation workflows, compliance reporting, CIS Benchmarks, NIST framework basics</div>
+
+                    <div class="skill-category">Compliance & Audit</div>
+                    <div class="skill-items">Policy-as-code (OPA, Rego), audit logging, GDPR data protection basics, SOC2 awareness, CIS Benchmarks for Linux/K8s, cloud compliance dashboards, access reviews</div>
+
+                    <div class="skill-category">Penetration Testing</div>
+                    <div class="skill-items">nmap, Nikto, Metasploit basics, OWASP Top 10 awareness, web app security testing, API security testing, network reconnaissance, port scanning, vulnerability assessment</div>
+
+                    <div class="skill-category">Secure CI/CD</div>
+                    <div class="skill-items">GitHub Actions secret scanning, signed commits (GPG), container image signing (Cosign/Notary), SBOM generation, dependency auditing, supply chain security (SLSA framework)</div>
+
+                    <div class="skill-category">Endpoint Security</div>
+                    <div class="skill-items">Malware removal & prevention, Windows Defender hardening, antivirus deployment, SSH hardening (key-only, no root), OS patching automation, secure boot, full disk encryption</div>
+
+                    <div class="skill-category">Security Scripting</div>
+                    <div class="skill-items"><strong>Python:</strong> Custom security tools, log parsers, automated scanners, API integrations • <strong>Bash/PowerShell:</strong> Security auditing scripts, system hardening automation, incident response playbooks</div>
+
+                    <div class="skill-category">Monitoring & SIEM</div>
+                    <div class="skill-items">ELK Stack (security events), Splunk, Prometheus/Grafana (security dashboards), PagerDuty (incident alerting), Datadog security monitoring, log correlation, threat hunting</div>
+
+                    <div class="skill-category">AI in Security</div>
+                    <div class="skill-items">LangChain + OpenAI/Claude for threat analysis, AI-powered log anomaly detection, automated incident triage, LLM-based vulnerability research, intelligent security automation</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">💼 PROFESSIONAL EXPERIENCE</h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <span class="job-title">DevSecOps Engineer</span> <span class="company">@ TovTech</span>
+                        </div>
+                        <div class="duration">2 Years</div>
+                    </div>
+                    <ul>
+                        <li>Implemented shift-left security across all CI/CD pipelines: SAST (SonarQube/Snyk), container scanning (Trivy), secret detection on every commit</li>
+                        <li>Deployed HashiCorp Vault for dynamic secrets, PKI management, and encryption-as-a-service — eliminated all hardcoded credentials</li>
+                        <li>Configured Falco runtime threat detection on Kubernetes clusters with custom rules, PagerDuty alerting, and automated incident response</li>
+                        <li>Enforced zero-trust network architecture: Cloudflare WAF, DDoS protection, mTLS between services, network policy segmentation in K8s</li>
+                        <li>Built automated vulnerability management pipeline: CVE tracking, patch prioritization, Ansible-based remediation achieving 100% patch compliance</li>
+                        <li>Implemented data encryption at-rest and in-transit across PostgreSQL, MongoDB, and S3 — full audit logging for compliance</li>
+                        <li>Designed IAM policies with least-privilege principles across AWS/Azure environments; conducted quarterly access reviews and cleanup</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🛡️ SECURITY PROJECTS & TOOLS</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-title">Container Security Scanner</div>
+                        <div class="project-tech">Trivy • Snyk • Grype • Docker</div>
+                        <div class="project-desc">Automated vulnerability pipeline: image scanning in CI, severity gating, SBOM generation, remediation reports, base image hardening</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Secrets Management Platform</div>
+                        <div class="project-tech">Vault • AWS Secrets Manager • Key Vault</div>
+                        <div class="project-desc">Enterprise secrets lifecycle: dynamic secrets, auto-rotation, PKI automation, K8s integration, zero hardcoded credentials policy enforcement</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Runtime Threat Detection</div>
+                        <div class="project-tech">Falco • Prometheus • PagerDuty</div>
+                        <div class="project-desc">K8s runtime security: custom Falco rules, behavioral anomaly detection, real-time alerting, automated incident response playbooks</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Data Encryption Framework</div>
+                        <div class="project-tech">Vault • AES-256 • TLS • PostgreSQL</div>
+                        <div class="project-desc">End-to-end data protection: database encryption, backup encryption (Restic), TLS everywhere, key rotation automation, audit trails</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Cloud Security Posture Mgmt</div>
+                        <div class="project-tech">AWS Security Hub • Defender • OPA</div>
+                        <div class="project-desc">Multi-cloud CSPM: misconfig detection, compliance scoring (CIS/NIST), policy-as-code enforcement, automated remediation workflows</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Secure CI/CD Pipeline</div>
+                        <div class="project-tech">GitHub Actions • Cosign • Semgrep • Snyk</div>
+                        <div class="project-desc">Supply chain security: signed images, SBOM generation, SAST/dependency scanning, secret detection, SLSA compliance enforcement</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Identity & Access Platform</div>
+                        <div class="project-tech">Keycloak • OAuth2 • OIDC • LDAP</div>
+                        <div class="project-desc">SSO platform with MFA, role-based access, SAML federation, service account management, privileged access controls, audit logging</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Network Defense Stack</div>
+                        <div class="project-tech">Cloudflare WAF • Fail2ban • WireGuard</div>
+                        <div class="project-desc">Multi-layer network security: WAF rules, DDoS mitigation, IDS/IPS, VPN access control, network segmentation, traffic monitoring</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">AI Threat Analysis Engine</div>
+                        <div class="project-tech">Python • LangChain • ELK • OpenAI</div>
+                        <div class="project-desc">LLM-powered security: anomaly detection in logs, automated threat triage, CVE research assistant, incident summary generation</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Vulnerability Mgmt System</div>
+                        <div class="project-tech">Ansible • Trivy • Snyk • Python</div>
+                        <div class="project-desc">End-to-end vuln lifecycle: automated discovery, CVSS-based prioritization, Ansible patching, compliance dashboards, audit reports</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Malware Removal Toolkit</div>
+                        <div class="project-tech">PowerShell • Defender • Security Tools</div>
+                        <div class="project-desc">Automated endpoint security: malware detection/removal, rootkit scanning, browser cleanup, registry repair, security hardening scripts</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Windows System Hardening</div>
+                        <div class="project-tech">PowerShell • DISM • CIS Benchmarks</div>
+                        <div class="project-desc">OS security automation: CIS benchmark enforcement, patch automation, audit policy configuration, secure boot, BitLocker, event log monitoring</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">SIEM & Log Correlation</div>
+                        <div class="project-tech">ELK Stack • Splunk • Grafana</div>
+                        <div class="project-desc">Security event aggregation: log parsing, correlation rules, threat hunting dashboards, automated alerting on suspicious patterns</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Network Recon & Scanner</div>
+                        <div class="project-tech">nmap • Python • Wireshark</div>
+                        <div class="project-desc">Internal security assessment: automated network scanning, open port detection, service fingerprinting, vulnerability surface mapping</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Backup Security & DR</div>
+                        <div class="project-tech">Restic • AES-256 • AWS S3</div>
+                        <div class="project-desc">Encrypted disaster recovery: AES-256 backup encryption, immutable cloud storage, automated restore testing, retention policy enforcement</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">K8s Policy Enforcement</div>
+                        <div class="project-tech">OPA • Gatekeeper • Kyverno</div>
+                        <div class="project-desc">Policy-as-code: admission controllers blocking non-compliant workloads, Pod Security Standards, image registry restrictions, resource limits</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">AndroidMonitor Security</div>
+                        <div class="project-tech">C# • ADB • Device Security</div>
+                        <div class="project-desc">Mobile device security monitoring: USB-connected device health checks, unauthorized app detection, storage encryption verification</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Compliance Automation</div>
+                        <div class="project-tech">Python • Ansible • OPA • Reporting</div>
+                        <div class="project-desc">Automated compliance checks: CIS Benchmark scans, GDPR data inventory, access review automation, compliance reporting dashboards</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎓 EDUCATION & CERTIFICATIONS</h2>
+                <div class="education-item">
+                    <div class="degree">Data Analysis & Security Engineering Program</div>
+                    <div class="institution">TovTech (1 Year) • Data protection, threat analysis, security automation, infrastructure security</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Engineering Preparatory Year</div>
+                    <div class="institution">Ariel University • Physics, Mathematics, Technical English</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Security Certifications (In Progress)</div>
+                    <div class="institution">CompTIA Security+ preparation • AWS Security Specialty • Certified Ethical Hacker (CEH) preparation • CISSP foundations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

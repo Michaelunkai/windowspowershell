@@ -1,0 +1,1 @@
+docker run -d -p 8092:8080 --name homer --restart=always -v homer_data:/www/assets b4bz/homer:latest ; echo "Homer: http://localhost:8092"

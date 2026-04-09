@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    scan
+#>
+scanfast; scanfull

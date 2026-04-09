@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y cargo && cargo install tidy-viewer && echo 'export PATH=$PATH:$HOME/.cargo/bin' >> ~/.bashrc && source ~/.bashrc && tv --version && echo "tidy-viewer installed! Try: tv file.csv (pretty-print CSV - supports color themes, column width auto-sizing)"

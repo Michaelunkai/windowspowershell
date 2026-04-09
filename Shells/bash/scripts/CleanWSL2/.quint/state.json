@@ -1,0 +1,172 @@
+{
+  "phase": "validation",
+  "timestamp": "2026-01-07",
+  "context_recorded": true,
+  "validation_completed": "2026-01-07",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "title": "WSL2 Aggressive Cleanup with Protected Packages",
+      "kind": "system",
+      "scope": "CleanWSL2ubu6.sh",
+      "status": "L1-verified",
+      "layer": "L1",
+      "content": {
+        "method": [
+          "1. Modify CleanWSL2ubu6.sh to add protected package list",
+          "2. Before cleanup: ensure protected packages are installed via apt/snap",
+          "3. Run aggressive cleanup phases (skip removal of protected packages)",
+          "4. Target disk usage: <1.7GB",
+          "5. Post-cleanup verification: confirm all protected packages work",
+          "6. Protected packages: docker, python3, python3-venv, python3-pip, nodejs, npm, jq, openssh-client, openssh-server, sshpass, tree, snapd",
+          "7. Via snap: claude-code (if available), pgadmin4",
+          "8. Post-cleanup: run apt update/upgrade to restore package lists",
+          "9. NEVER delete pip, setuptools, or any pip-installed packages",
+          "10. NEVER delete node_modules directories",
+          "11. NEVER delete npm global packages or configurations"
+        ],
+        "expected_outcome": "WSL2 distro under 1.7GB with all specified tools fully functional",
+        "protected_packages": {
+          "apt": ["docker.io", "docker-compose", "python3", "python3-venv", "python3-pip", "nodejs", "npm", "jq", "openssh-client", "openssh-server", "sshpass", "tree"],
+          "snap": ["snapd"],
+          "manual": ["claude-code", "quint-code", "pgadmin"]
+        },
+        "protected_directories": [
+          "/usr/lib/python*/dist-packages/pip*",
+          "/usr/lib/python*/dist-packages/setuptools*",
+          "/usr/lib/python*/dist-packages/*",
+          "~/.local/lib/python*/site-packages/*",
+          "**/node_modules",
+          "~/.npm",
+          "/usr/lib/node_modules",
+          "/var/lib/docker"
+        ],
+        "protected_caches": [
+          "pip packages (NOT cache)",
+          "npm global packages",
+          "node_modules directories"
+        ]
+      },
+      "rationale": {
+        "source": "User input",
+        "anomaly": "Need aggressive disk cleanup while preserving specific dev tools",
+        "note": "User explicitly requires: preserve ALL pip dependencies, npm packages, node_modules, Python/Node versions"
+      },
+      "verification": {
+        "performed": "2026-01-07",
+        "verdict": "PASS",
+        "checks": {
+          "type_check": "PASSED - Bash script modification, compatible with project",
+          "constraint_check": "PASSED WITH MODIFICATIONS NEEDED",
+          "logic_check": "PASSED - Method logically leads to expected outcome IF modifications applied",
+          "invariant_compliance": {
+            "critical_libs_protected": "PASS",
+            "locale_functional": "PASS",
+            "apt_functional": "PASS",
+            "perl_preserved": "PASS",
+            "non_interactive": "PASS",
+            "parallel_safe": "PASS",
+            "target_size": "MODIFIED - User target is 1.7GB",
+            "manual_installs_preserved": "REQUIRES FIX"
+          },
+          "required_modifications": [
+            "REMOVE line 253 (snapd purge)",
+            "REMOVE lines 711-716 (snap removal)",
+            "REMOVE line 203 (~/.npm removal) - KEEP npm config",
+            "REMOVE line 372 (node_modules deletion) - CRITICAL!",
+            "REMOVE line 723 (pip removal) - CRITICAL!",
+            "REMOVE line 724 (setuptools removal) - CRITICAL!",
+            "MODIFY lines 565-570 (only prune docker, don't destroy /var/lib/docker)",
+            "ADD PROTECTED_PACKAGES array at script start",
+            "ADD pre-cleanup package installation phase",
+            "ADD post-cleanup verification phase"
+          ]
+        }
+      },
+      "created": "2026-01-07"
+    }
+  ],
+  "verified_hypotheses": ["H1"],
+  "validated_hypotheses": ["H1"],
+  "validation_results": {
+    "disk_usage": {
+      "before": "4.6GB",
+      "after": "2.8GB",
+      "target": "1.7GB",
+      "achieved": false,
+      "reason": "Protected items (node_modules 764MB + pgadmin4 545MB) set minimum floor at ~2.7GB"
+    },
+    "package_verification": {
+      "docker": "PASS - v29.1.3",
+      "python3": "PASS - v3.12.3",
+      "pip": "PASS - v24.0",
+      "nodejs": "PASS - v22.12.0",
+      "npm": "PASS - v10.9.0",
+      "ssh": "PASS - OpenSSH_9.6p1",
+      "snapd": "PASS - v2.72",
+      "x11": "PASS - xeyes, xclock, xlogo",
+      "xclip": "PASS - v0.13",
+      "tmux": "PASS - v3.4",
+      "jq": "PASS - v1.7",
+      "tree": "PASS - v2.1.1",
+      "sshpass": "PASS - v1.09",
+      "claude_code": "PASS - v2.0.76",
+      "pgadmin4": "PASS - installed at /usr/pgadmin4"
+    },
+    "protected_items_preserved": {
+      "node_modules": "PRESERVED - 764MB at /usr/local/lib/node_modules",
+      "pip_packages": "PRESERVED",
+      "npm_global": "PRESERVED",
+      "docker_data": "PRESERVED"
+    }
+  },
+  "evidence": [
+    {
+      "id": "E1",
+      "type": "code_analysis",
+      "description": "Script line 253 removes snapd",
+      "source": "CleanWSL2ubu6.sh:253"
+    },
+    {
+      "id": "E2",
+      "type": "code_analysis",
+      "description": "Script lines 711-716 completely remove snap",
+      "source": "CleanWSL2ubu6.sh:711-716"
+    },
+    {
+      "id": "E3",
+      "type": "code_analysis",
+      "description": "Script lines 565-570 destroy docker data directories",
+      "source": "CleanWSL2ubu6.sh:565-570"
+    },
+    {
+      "id": "E4",
+      "type": "code_analysis",
+      "description": "Script line 372 DELETES ALL node_modules system-wide",
+      "source": "CleanWSL2ubu6.sh:372",
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "E5",
+      "type": "code_analysis",
+      "description": "Script line 723 REMOVES pip from dist-packages",
+      "source": "CleanWSL2ubu6.sh:723",
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "E6",
+      "type": "code_analysis",
+      "description": "Script line 724 REMOVES setuptools from dist-packages",
+      "source": "CleanWSL2ubu6.sh:724",
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "E7",
+      "type": "code_analysis",
+      "description": "Script line 203 removes ~/.npm directory",
+      "source": "CleanWSL2ubu6.sh:203",
+      "severity": "HIGH"
+    }
+  ],
+  "decisions": []
+}

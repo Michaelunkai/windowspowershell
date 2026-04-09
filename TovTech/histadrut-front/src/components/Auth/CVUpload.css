@@ -1,0 +1,394 @@
+/* CV Upload Page Styles */
+.cv-upload-page {
+  min-height: 100vh;
+  width: 100vw;
+  background: var(--bg-surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  &.rtl {
+    direction: rtl;
+
+    & .cv-upload-back-btn {
+      direction: ltr; /* Keep arrow direction consistent */
+    }
+  }
+
+  &.ltr {
+    direction: ltr;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
+}
+
+.cv-upload-container {
+  background: var(--bg-surface);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  max-width: 480px;
+  width: 100%;
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+    max-width: calc(100% - 2rem);
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+  }
+}
+
+.cv-upload-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cv-upload-title {
+  text-align: center;
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  color: var(--text-primary);
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+}
+
+.cv-upload-subtitle {
+  text-align: center;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.cv-upload-desc {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-inline: auto;
+  font-size: 1rem;
+}
+
+/* Success Modal Styles */
+.cv-upload-modal-overlay {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.cv-upload-modal {
+  background: var(--bg-surface);
+  border-radius: 12px;
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  text-align: center;
+  min-width: 320px;
+}
+
+.cv-upload-modal-icon {
+  font-size: 40px;
+  color: var(--accent-green);
+  margin-bottom: 12px;
+}
+
+.cv-upload-modal-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.cv-upload-modal-desc {
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+
+.cv-upload-modal-btn {
+  padding: 0.7rem 2.2rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 6px;
+  background: var(--accent-blue-btn);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.current-cv-info {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #e8f5e8;
+  border-radius: 8px;
+  border: 1px solid #d4edda;
+}
+
+.current-cv-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #155724;
+}
+
+.cv-upload-form {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.cv-drop-zone {
+  margin-bottom: 1.5rem;
+  border: 1.5px dashed var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-surface-alt);
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--accent-blue);
+    background: var(--bg-surface-hover);
+  }
+
+  &.drag-over {
+    border-color: var(--accent-blue);
+    background: var(--bg-surface-hover);
+    transform: scale(1.02);
+  }
+
+  &.has-file {
+    border-color: var(--accent-green);
+    background: #eafaf1;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
+}
+
+.drop-zone-content {
+  text-align: center;
+  pointer-events: none;
+}
+
+.upload-icon {
+  margin-bottom: 8px;
+
+  & img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+  }
+}
+
+.drop-zone-title {
+  font-weight: 600;
+  font-size: 1.13rem;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.drop-zone-instructions {
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.file-select-btn {
+  color: var(--accent-blue);
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 600;
+  pointer-events: all;
+
+  &:hover {
+    color: var(--accent-blue-hover);
+  }
+}
+
+.drop-zone-help {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.file-selected {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: start;
+}
+
+.file-icon {
+  font-size: 2.5rem;
+  color: var(--accent-blue);
+}
+
+.file-info {
+  flex: 1;
+}
+
+.file-name {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.file-size {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.remove-file-btn {
+  color: var(--accent-blue);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: var(--accent-red);
+    color: #fff;
+  }
+}
+
+.upload-button {
+  flex: 1;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:enabled {
+    background: var(--accent-blue-btn);
+    color: #fff;
+  }
+
+  &:disabled {
+    background: var(--bg-surface-alt);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+  }
+}
+
+.file-input {
+  display: none;
+}
+
+/* Button Actions Container */
+.cv-upload-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cv-upload-back-btn {
+  background: none;
+  border: 1.5px solid var(--accent-blue);
+  color: var(--accent-blue);
+  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 1.05rem;
+  min-width: 100px;
+}
+
+.cv-upload-footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.privacy-note {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.error-message {
+  background: rgba(192, 57, 43, 0.08);
+  color: var(--accent-red);
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(192, 57, 43, 0.2);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   DARK MODE OVERRIDES
+   ========================================================================== */
+
+/* Current CV info: green info box */
+[data-theme="dark"] .current-cv-info {
+  background: rgba(52, 211, 153, 0.08);
+  border-color: rgba(52, 211, 153, 0.2);
+}
+[data-theme="dark"] .current-cv-text {
+  color: var(--accent-green);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .current-cv-info {
+    background: rgba(52, 211, 153, 0.08);
+    border-color: rgba(52, 211, 153, 0.2);
+  }
+  :root:not([data-theme="light"]) .current-cv-text {
+    color: var(--accent-green);
+  }
+}
+
+/* Drop zone has-file: green tint */
+[data-theme="dark"] .cv-drop-zone.has-file {
+  background: rgba(52, 211, 153, 0.07);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cv-drop-zone.has-file {
+    background: rgba(52, 211, 153, 0.07);
+  }
+}
+
+/* Upload button: brighter blue in dark */
+[data-theme="dark"] .upload-button:enabled {
+  background: var(--accent-blue);
+}
+[data-theme="dark"] .cv-upload-modal-btn {
+  background: var(--accent-blue);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .upload-button:enabled {
+    background: var(--accent-blue);
+  }
+  :root:not([data-theme="light"]) .cv-upload-modal-btn {
+    background: var(--accent-blue);
+  }
+}

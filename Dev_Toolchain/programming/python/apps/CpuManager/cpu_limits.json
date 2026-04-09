@@ -1,0 +1,14 @@
+{
+  "limits": {
+    "Python (Total)": {
+      "cores": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "priority": "Normal"
+    }
+  },
+  "last_updated": "2026-01-19T20:40:08.540234"
+}

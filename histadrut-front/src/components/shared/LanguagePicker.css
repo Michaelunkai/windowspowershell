@@ -1,0 +1,90 @@
+/* Language Picker Base Styles */
+.language-picker {
+  z-index: 1000;
+}
+
+.language-picker-button {
+  font-family: inherit;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(221, 221, 221, 0.8);
+  border-radius: 4px;
+  cursor: pointer;
+  color: #333;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-color: #999;
+    background-color: rgba(255, 255, 255, 1);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  &:focus {
+    outline: 2px solid #2196f3;
+    outline-offset: 2px;
+  }
+
+  & img {
+    width: 15px !important;
+    height: auto !important;
+    margin-bottom: -3px !important;
+    margin-inline: 2px !important;
+    display: inline-block !important;
+    max-width: 15px !important;
+  }
+}
+
+/* Position Variants */
+.language-picker--top-right {
+  position: absolute;
+  top: 20px;
+  inset-inline-end: 20px;
+}
+
+.language-picker--top-left {
+  position: absolute;
+  top: 20px;
+  inset-inline-start: 20px;
+}
+
+.language-picker--inline {
+  position: static;
+}
+
+/* Size Variants */
+.language-picker-button--small {
+  padding: 4px 8px;
+  font-size: 12px;
+  min-width: 100px;
+}
+
+.language-picker-button--medium {
+  padding: 6px 10px;
+  font-size: 13px;
+  min-width: 110px;
+}
+
+.language-picker-button--large {
+  padding: 8px 12px;
+  font-size: 14px;
+  min-width: 120px;
+}
+
+/* Twemoji flag styling - target the actual generated img tags */
+.twemoji-flag img,
+img.emoji {
+  width: 15px !important;
+  height: auto !important;
+  margin-bottom: -3px !important;
+  margin-inline: 2px !important;
+  display: inline-block !important;
+  max-width: 15px !important;
+}

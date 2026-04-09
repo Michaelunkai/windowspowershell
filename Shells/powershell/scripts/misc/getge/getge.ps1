@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    getge
+#>
+rmg; getgeforce

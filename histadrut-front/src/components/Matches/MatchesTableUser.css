@@ -1,0 +1,859 @@
+/* Force SVG icon color for copy and job view buttons */
+.user-accordion__copy-btn svg,
+.user-accordion__job-view-btn svg {
+  color: #222 !important;
+  width: 14px;
+  height: 14px;
+  transition: color 0.2s;
+}
+
+/* Header uses strip-cell classes for perfect alignment, but needs header-specific styling */
+.user-accordion__header .user-accordion__strip-cell {
+  cursor: default;
+  height: 100%;
+}
+
+/* Shared grid columns so header and rows align exactly */
+.user-accordion {
+  --matches-grid-columns: 3% 9% minmax(200px, 24%) 12% 9% 9% 9% 8% 8% 9%;
+}
+
+.user-accordion__header {
+  display: grid;
+  grid-template-columns: var(--matches-grid-columns);
+  align-items: center;
+  padding: 0 0;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  gap: 0;
+  height: 3.5rem;
+}
+.redesigned-table__copy-btn {
+  & svg {
+    stroke: #222 !important;
+    color: #222 !important;
+    width: 14px;
+    height: 14px;
+    transition: stroke 0.2s, color 0.2s;
+  }
+
+  &:hover svg {
+    stroke: #fff !important;
+    color: #fff !important;
+    fill: none !important;
+  }
+}
+
+.redesigned-table__job-view-btn {
+  & svg {
+    stroke: #222 !important;
+    color: #222 !important;
+    width: 14px;
+    height: 14px;
+    transition: stroke 0.2s, color 0.2s;
+  }
+
+  &:hover svg {
+    stroke: #fff !important;
+    color: #fff !important;
+    fill: none !important;
+  }
+}
+
+
+.user-accordion__header-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+  padding: 0 1rem;
+  height: 3.5rem;
+  /* Width controlled by grid-template-columns */
+}
+
+/* First column (expand) has no padding */
+.user-accordion__header-cell:first-child {
+  padding: 0;
+}
+
+/* Button column needs centered alignment */
+.user-accordion__header-cell:last-child {
+  justify-content: center;
+}
+
+.user-accordion__header-cell--sortable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  user-select: none;
+
+  &:hover {
+    background-color: #e9ecef;
+  }
+
+  &:hover .user-accordion__sort-icon {
+    color: #495057;
+  }
+}
+
+.user-accordion__header-cell--sorted {
+  background-color: #e3f2fd;
+
+  & .user-accordion__sort-icon {
+    color: #3498db;
+  }
+}
+
+.user-accordion__sort-icon {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-inline-start: 0.25rem;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+/* Sort icon hover/sorted states — nested above */
+
+.user-accordion__expand-all-btn {
+  width: 102px;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Row List */
+.user-accordion__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-accordion__row {
+  background: transparent;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Scan Strip - Collapsed State - Grid Layout */
+.user-accordion__strip {
+  display: grid;
+  grid-template-columns: var(--matches-grid-columns);
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: 0.75rem 0;
+  background: transparent;
+  gap: 0;
+
+  &:hover {
+    background: rgba(0, 123, 255, 0.03);
+  }
+}
+
+.user-accordion__strip--expanded {
+  background: rgba(0, 123, 255, 0.05);
+  border-bottom: 1px solid #dee2e6;
+}
+
+.user-accordion__strip-cell {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  cursor: pointer;
+}
+
+button.user-accordion__strip-cell {
+  appearance: none;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+}
+
+.user-accordion__strip-cell--center {
+  justify-content: center;
+}
+
+.user-accordion__strip-cell--expand {
+  padding: 0;
+  cursor: default;
+}
+
+.user-accordion__expand-btn {
+  width: 100%;
+  height: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #6c757d;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  & svg {
+    display: block;
+    transition: transform 0.2s ease;
+  }
+}
+
+/* Flip chevron horizontally in RTL only for collapsed state (right-pointing chevron) */
+:dir(rtl) .user-accordion__expand-btn--collapsed svg {
+  transform: scaleX(-1);
+}
+
+.user-accordion__strip-cell--job-id {
+  justify-content: space-between;
+  gap: 0.5rem;
+  cursor: default;
+}
+
+.user-accordion__strip-cell--title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  cursor: default;
+}
+
+.user-accordion__relevance-btn:disabled {
+  background: transparent;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Identifier Section - 10% */
+.user-accordion__job-id {
+  font-size: 0.8125rem;
+  color: #6c757d;
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.user-accordion__copy-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-accordion__copy-btn {
+  background: #e8f4fd;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background: #007bff;
+  }
+
+  & img {
+    width: 14px;
+    height: 14px;
+    filter: brightness(0) saturate(100%) invert(31%) sepia(72%) saturate(1179%) hue-rotate(192deg) brightness(97%) contrast(85%);
+  }
+
+  &:hover img {
+    filter: brightness(0) saturate(100%) invert(100%);
+  }
+}
+
+.user-accordion__copy-tooltip {
+  position: absolute;
+  inset-inline-end: calc(100% + 0.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #28a745;
+  color: white;
+  padding: 0.375rem 0.625rem;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.2s ease;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* Job Title - 23% */
+.user-accordion__job-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #007bff;
+  line-height: 1.3;
+}
+
+/* Company - 15% */
+.user-accordion__company {
+  font-size: 0.8125rem;
+  color: #495057;
+}
+
+/* Location - 12% */
+.user-accordion__location {
+  font-size: 0.8125rem;
+  color: #6c757d;
+}
+
+/* Date Section - 12% */
+.user-accordion__date {
+  font-size: 0.8125rem;
+  color: #6c757d;
+}
+
+/* Match Score Section - 10% */
+.user-accordion__score {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Status Section - 10% */
+.user-accordion__badge {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  border-radius: 12px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.user-accordion__badge--pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.user-accordion__badge--sent {
+  background: #d4edda;
+  color: #155724;
+}
+
+/* Actions Section - 10% */
+.user-accordion__details-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.5rem; /* match expand-all */
+  min-width: 102px; /* match expand-all button width */
+  border-radius: 4px; /* match expand-all */
+  font-weight: 600;
+  font-size: 0.7rem; /* match expand-all */
+  border: 1px solid #007bff;
+  background: transparent;
+  color: #007bff;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.18);
+  }
+}
+
+/* When expanded (hide details) we keep same appearance but show filled state to indicate active */
+/* Remove persistent filled state when row is expanded; blue should be hover only */
+
+/* Action Drawer - Expanded State (Single Line) */
+.user-accordion__drawer {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 1rem;
+  padding-inline-start: 2.5%;
+  max-width: 95%;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.user-accordion__drawer-divider {
+  width: 1px;
+  height: 1.25rem;
+  background: #dee2e6;
+  margin: 0 0.125rem;
+}
+
+.user-accordion__drawer-spacer {
+  flex: 1;
+}
+
+.user-accordion__drawer-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6c757d;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  color: #9ca3af;
+}
+
+/* Column A: Investigation */
+.user-accordion__report-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.8125rem;
+  align-self: flex-start;
+
+  &:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  }
+
+  & img {
+    width: 14px;
+    height: 14px;
+    filter: brightness(0) saturate(100%) invert(100%);
+  }
+}
+
+.user-accordion__cv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: #e8f4fd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+
+  &:hover {
+    background: #007bff;
+  }
+
+  & img {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) saturate(100%) invert(31%) sepia(72%) saturate(1179%) hue-rotate(192deg) brightness(97%) contrast(85%);
+  }
+
+  &:hover img {
+    filter: brightness(0) saturate(100%) invert(100%);
+  }
+
+  /* Lucide SVG rules: CV button should be blue stroke by default and white on hover */
+  & svg {
+    width: 18px;
+    height: 18px;
+    stroke: #007bff !important;
+    color: #007bff !important;
+    fill: none !important;
+    transition: stroke 0.18s ease, color 0.18s ease;
+  }
+
+  & svg * {
+    stroke: inherit !important;
+    fill: none !important;
+  }
+
+  &:hover svg {
+    stroke: #fff !important;
+    color: #fff !important;
+  }
+}
+
+/* SVG icon color for copy and job view buttons — nested inside their respective blocks above */
+
+/* Ensure job view button has same sizing/behavior as copy button */
+.user-accordion__job-view-btn {
+  background: #e8f4fd;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  color: #222 !important;
+
+  &:hover {
+    background: #007bff;
+    color: #fff !important;
+  }
+}
+
+/* cv-btn img/svg/hover states — nested above */
+
+.user-accordion__no-data {
+  font-size: 1.5rem;
+  color: #dee2e6;
+}
+
+/* Column B: Validation */
+.user-accordion__mmr-badge {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  align-self: flex-start;
+}
+
+.user-accordion__mmr-badge--yes {
+  background: #d4edda;
+  color: #155724;
+}
+
+.user-accordion__mmr-badge--no {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.user-accordion__relevance-btns {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.user-accordion__relevance-btn {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  & img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(64%) sepia(11%) saturate(324%) hue-rotate(192deg) brightness(95%) contrast(86%);
+    transition: filter 0.2s ease;
+  }
+
+  /* Lucide SVG support: default gray stroke, green/red when active */
+  & svg {
+    width: 20px;
+    height: 20px;
+    stroke: #6c757d !important; /* inactive gray */
+    color: #6c757d !important;
+    fill: none !important;
+    transition: stroke 0.18s ease, color 0.18s ease;
+  }
+
+  & svg * {
+    stroke: inherit !important;
+    fill: none !important;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  &:hover:not(:disabled) svg {
+    stroke: #495057 !important; /* slightly darker on hover */
+  }
+
+  &:hover:not(:disabled) img {
+    filter: brightness(0) saturate(100%) invert(45%) sepia(8%) saturate(665%) hue-rotate(192deg) brightness(93%) contrast(80%);
+  }
+
+  &:disabled {
+    background: transparent;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.user-accordion__relevance-btn.active.thumbs-up {
+  border: none;
+  box-shadow: 0 0 0 2px #6b7c32;
+  background: rgba(107,124,50,0.06);
+
+  &:hover:not(:disabled) {
+    background: rgba(40, 167, 69, 0.1);
+  }
+
+  & img {
+    filter: brightness(0) saturate(100%) invert(43%) sepia(16%) saturate(1158%) hue-rotate(65deg) brightness(91%) contrast(89%);
+  }
+
+  & svg {
+    stroke: #6b7c32 !important; /* active green */
+    color: #6b7c32 !important;
+  }
+}
+
+.user-accordion__relevance-btn.active.thumbs-down {
+  border: none;
+  box-shadow: 0 0 0 2px #dc3545;
+  background: rgba(220,53,69,0.06);
+
+  &:hover:not(:disabled) {
+    background: rgba(220, 53, 69, 0.1);
+  }
+
+  & img {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+  }
+
+  & svg {
+    stroke: #dc3545 !important; /* active red */
+  }
+}
+
+/* Column C: Execution */
+.user-accordion__external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background: white;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.user-accordion__external-link:hover {
+  background: #007bff;
+  color: white;
+}
+
+.user-accordion__external-link img {
+  width: 14px;
+  height: 14px;
+  filter: brightness(0) saturate(100%) invert(31%) sepia(72%) saturate(1179%) hue-rotate(192deg) brightness(97%) contrast(85%);
+}
+
+.user-accordion__external-link:hover img {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+.user-accordion__external-link:hover svg * {
+  stroke: inherit !important;
+}
+
+.user-accordion__primary-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  background: #28a745;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.6875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 15rem;
+  margin-inline-start: auto;
+  letter-spacing: 0.2px;
+
+  &:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+  }
+
+  &--revert {
+    background: #6c757d;
+
+    &:hover {
+      background: #5a6268;
+      box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  & img {
+    width: 12px;
+    height: 12px;
+    filter: brightness(0) saturate(100%) invert(100%);
+  }
+}
+
+/* RTL Support */
+:dir(rtl) {
+  & .user-accordion__strip {
+    direction: rtl;
+  }
+
+  & .user-accordion__drawer {
+    direction: rtl;
+  }
+
+  & .user-accordion__drawer-section--link {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide the header row on mobile — data is self-labelled in each card */
+  .user-accordion__header {
+    display: none;
+  }
+
+  /* Stack accordion rows as cards */
+  .user-accordion__strip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    cursor: default;
+  }
+
+  /* Each cell becomes a label-value row */
+  .user-accordion__strip-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  /* Expand button cell: keep centered and compact */
+  .user-accordion__strip-cell--expand {
+    justify-content: flex-end;
+    padding: 0;
+  }
+
+  .user-accordion__expand-btn {
+    width: auto;
+    height: auto;
+    min-height: unset;
+  }
+
+  /* Job ID cell: allow text to wrap */
+  .user-accordion__strip-cell--job-id {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .user-accordion__job-id {
+    white-space: normal;
+    word-break: break-all;
+  }
+
+  /* Title cell */
+  .user-accordion__strip-cell--title {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  /* Drawer becomes a stacked card below the strip */
+  .user-accordion__drawer {
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 100%;
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  .user-accordion__drawer-spacer {
+    display: none;
+  }
+
+  .user-accordion__drawer-divider {
+    width: 100%;
+    height: 1px;
+    margin: 0.25rem 0;
+  }
+
+  .user-accordion__primary-action {
+    max-width: 100%;
+    margin-inline-start: 0;
+  }
+
+  .user-accordion__relevance-btns {
+    gap: 0.5rem;
+  }
+
+  /* Row border/spacing adjustments */
+  .user-accordion__row {
+    margin-bottom: 0.75rem;
+    border-bottom: none;
+  }
+}

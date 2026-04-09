@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "quint-code": {
+      "command": "/home/ubuntu/.local/bin/quint-code",
+      "args": [
+        "serve"
+      ],
+      "cwd": "/mnt/f/study/shells/bash/scripts/CleanWSL2",
+      "env": {
+        "QUINT_PROJECT_ROOT": "/mnt/f/study/shells/bash/scripts/CleanWSL2"
+      }
+    }
+  }
+}

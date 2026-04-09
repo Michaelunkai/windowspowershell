@@ -1,0 +1,50 @@
+Use Snyk in the CLI
+Scan projects in your local or remote machine
+1
+Install Snyk CLI
+Executables
+npm
+Homebrew
+Scoop
+Use curl or GitHub Releases to download a standalone executable (macOS, Linux, Windows) of Snyk CLI for your platform.
+
+curl https://static.snyk.io/cli/latest/snyk-win.exe -o snyk.exe
+Move the executable or add the executable’s location to your PATH as desired
+2
+Authenticate your machine
+Authenticate your machine to associate it with your Snyk Account
+
+snyk auth
+snyk auth
+Opens a browser window with prompts to log in to your Snyk account and authenticate your machine. No repository permissions are needed at this stage.
+Thank you for authenticating your machine. You can now start scanning for issues.
+Want to run this on a remote machine? Configure for CI 
+3
+Scan for security issues
+Before scanning:
+
+Navigate into your code’s directory: cd ~/projects/my-project/
+Refer to the instructions that follow on specific content types: open-source packages, source code, containers and IaC (Infrastructure as Code).
+Open-source packages
+Source code
+Containers
+IaC
+To scan your open-source packages for vulnerabilities ensure all dependencies are installed or there is a supported lockfile.
+
+Scan your projects locally
+
+snyk test --all-projects --org=3b4a65d2-c715-48de-9e49-3fe5ca94a758
+Or continuously monitor your projects and view the latest snapshots in the Web UI
+
+snyk monitor --all-projects --org=3b4a65d2-c715-48de-9e49-3fe5ca94a758
+snyk test
+Scans your source code for open-source vulnerabilities and license issues.
+snyk monitor
+Creates projects in your Snyk account to be continuously monitored for open-source vulnerabilities and license issues. View the latest snapshots and scan results in the Web UI, on the Projects page.
+--all-projects
+Auto-detects all projects in the working directory.
+--org=<ORG_ID>
+Specifies the Organization ID to run Snyk commands for a specific organization. It influences where new projects are created after running the monitor command. Find the Org ID on your Organization’s Settings page (Settings > General).
+View all CLI commands
+View docs
+Snyk Studio is here. Secure new AI-generated code and clear your existing security debt. Learn more here!

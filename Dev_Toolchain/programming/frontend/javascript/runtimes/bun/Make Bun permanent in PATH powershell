@@ -1,0 +1,2 @@
+# Make Bun permanent in PATH
+[Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.bun\bin;$([Environment]::GetEnvironmentVariable('PATH', 'User'))", "User")

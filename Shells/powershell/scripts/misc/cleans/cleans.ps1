@@ -1,0 +1,6 @@
+﻿<#
+.SYNOPSIS
+    cleans
+#>
+& clean
+    & ress

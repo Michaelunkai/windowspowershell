@@ -1,0 +1,98 @@
+﻿WINDOWS 11 COMPLETE PROBLEM REPORT - 12/12/2025 04:01:51
+======================================================================
+
+
+>>> KERNEL-MODE EXCEPTIONS & BSOD TRIGGERS <<<
+
+[!!!CRITICAL!!!] BSOD DUMP FOUND: 121225-13593-01.dmp [12/12/2025 02:06:05] - CHECK FOR KMODE EXCEPTION
+[!!!CRITICAL!!!] RECENT KERNEL CRASH DUMP: C:\WINDOWS\MEMORY.DMP [12/12/2025 02:05:44]
+
+
+
+>>> STORE/UWP APP ISSUES <<<
+
+APPX: Microsoft.WindowsAppRuntime.1.5_5001.311.2039.0_x64__8wekyb3d8bbwe - AppX Deployment operation failed for package Microsoft.WindowsAppRuntime.1.5_5001.311.2039.0_x64__8wekyb3d8bbwe with error 0x80073D06. The specific er
+
+
+
+>>> CRASHES & BSOD <<<
+
+BSOD DUMP: 121225-13593-01.dmp - 12/12/2025 02:05:49
+
+
+
+>>> DOCKER & CONTAINER ISSUES <<<
+
+HNS ERROR: 'IpNatHlpStopSharing' : '0x80070032'.
+HNS ERROR: HNS failed to delete winnat instance with error '0x80070032', class name 'MSFT_NAT' and instance id = 'NAT23C73578-0992-4669-B86F-8254358C536C'.
+HNS ERROR: HNS-Network-Create :- 
+ Network id = '{790e58b4-7939-4434-9358-89ae7ddbe87e}'.
+ Network type = 'ICS'.
+  Result code = '0x80070032'. 
+HNS ERROR: 'IpICSHlpStopSharing' : '0x80070032'.
+HNS ERROR: 'IpNatICSHlpStartSharing' : '0x80070032'.
+HNS ERROR: 'IpICSHlpStopSharing' : '0x80070032'.
+HNS ERROR: HNS-Network-Create :- 
+ Network id = '{790e58b4-7939-4434-9358-89ae7ddbe87e}'.
+ Network type = 'ICS'.
+  Result code = '0x80070032'. 
+HNS ERROR: 'IpICSHlpStopSharing' : '0x80070032'.
+HNS ERROR: 'IpNatICSHlpStartSharing' : '0x80070032'.
+HNS ERROR: 'IpICSHlpStopSharing' : '0x80070032'.
+
+
+
+>>> MEMORY LEAK DETECTION <<<
+
+HANDLE LEAK CANDIDATE: mtkbtsvc has 18796 handles
+
+
+
+>>> PAGEFILE & VIRTUAL MEMORY <<<
+
+[!!!CRITICAL!!!] PAGEFILE EXHAUSTION: C:\pagefile.sys is 93.1% full - may cause freezes
+
+
+
+>>> SYSTEM FREEZE, HANG & CRASH DETECTION <<<
+
+[!!!CRITICAL!!!] PAGEFILE EXHAUSTION: C:\pagefile.sys at 93% - causes freezes
+
+
+
+======================================================================
+COMPREHENSIVE SYSTEM SCAN COMPLETE (v3.0 Enhanced)
+======================================================================
+Scan Duration: 70s
+Boot Time: 12/12/2025 03:35:01
+Problems Found: 17
+CRITICAL Issues: 4
+Timestamp: 2025-12-12 04:03:00
+Output: F:\study\shells\powershell\fixer\a.txt
+
+[!!!] 4 CRITICAL issue(s) + 13 other issue(s) - IMMEDIATE ACTION REQUIRED
+
+ENHANCED DETECTION v4.0 INCLUDES:
+- Kernel-mode exceptions (KMODE_EXCEPTION_NOT_HANDLED)
+- LoadLibrary error 126 and missing DLLs
+- Driver stopping/service dependency failures
+- Outdated and problematic drivers
+- BSOD crash dumps
+- Explorer.exe crashes & shell UI failures
+- Network performance & DNS latency
+- CPU/RAM performance (game lag, multitasking)
+- GPU/TDR events (frame drops, stuttering)
+- Thermal throttling detection
+- Disk I/O bottlenecks
+- Docker & container issues
+- Hyper-V & virtualization performance
+- WSL (Windows Subsystem for Linux) issues
+- Download/bandwidth throttling (QoS)
+- Freeze/hang detection (DPC watchdog)
+- Memory leak detection
+- Hardware errors (WHEA, RAM, PCI)
+- Pagefile/virtual memory exhaustion
+- Antivirus performance impact
+- Windows Update activity
+- Runtime/framework issues (.NET, VC++)
+- Proxy/firewall interference

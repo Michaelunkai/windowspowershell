@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y cargo && cargo install xsv && echo 'export PATH=$PATH:$HOME/.cargo/bin' >> ~/.bashrc && source ~/.bashrc && xsv --version && echo "xsv installed! Try: xsv stats file.csv, xsv select name,age file.csv, xsv search -s name 'John' file.csv, xsv sort -s age file.csv, xsv frequency -s country file.csv"

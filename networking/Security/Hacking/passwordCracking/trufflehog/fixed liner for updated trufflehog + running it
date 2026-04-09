@@ -1,0 +1,2 @@
+sudo apt update -y && sudo apt install -y curl wget ca-certificates git && sudo rm -f /usr/local/bin/trufflehog && cd ~ && sudo curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo bash && sudo mv ./bin/trufflehog /usr/local/bin/trufflehog && sudo chmod +x /usr/local/bin/trufflehog && export PATH=/usr/local/bin:$PATH && trufflehog filesystem /mnt/f/backup/windowsapps/Credentials
+

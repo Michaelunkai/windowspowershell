@@ -1,0 +1,47 @@
+---
+# TovPlay Servers - Ultra Fast Auto Update & Upgrade Playbook v3.0
+# Optimized for instant SSH connection - NO async with raw module
+- name: Force Update & Upgrade All TovPlay Servers
+  hosts: tovplay_servers
+  become: yes
+  gather_facts: no
+  serial: 1
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=2 -o ConnectionAttempts=1 -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+
+  tasks:
+    - name: "{{ inventory_hostname }} - Starting update"
+      raw: echo "=== Updating {{ inventory_hostname }} at $(date) ==="
+      changed_when: false
+
+    - name: "{{ inventory_hostname }} - Update apt cache"
+      raw: apt-get update -y 2>&1 | tail -5
+      changed_when: false
+
+    - name: "{{ inventory_hostname }} - Dist upgrade"
+      raw: DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y 2>&1 | tail -10
+      changed_when: false
+
+    - name: "{{ inventory_hostname }} - Full upgrade"
+      raw: DEBIAN_FRONTEND=noninteractive apt-get upgrade -y 2>&1 | tail -10
+      changed_when: false
+
+    - name: "{{ inventory_hostname }} - Autoremove"
+      raw: apt-get autoremove -y 2>&1 | tail -3
+      changed_when: false
+
+    - name: "{{ inventory_hostname }} - Autoclean"
+      raw: apt-get autoclean -y 2>&1 | tail -3
+      changed_when: false
+
+    - name: "{{ inventory_hostname }} - Check reboot status"
+      raw: "[ -f /var/run/reboot-required ] && echo 'REBOOT REQUIRED' || echo 'No reboot needed'"
+      changed_when: false
+
+    - name: "{{ inventory_hostname }} - Final status"
+      raw: |
+        echo "=== {{ inventory_hostname }} Complete ==="
+        echo "Kernel: $(uname -r)"
+        echo "Uptime: $(uptime -p)"
+        echo "Time: $(date)"
+      changed_when: false

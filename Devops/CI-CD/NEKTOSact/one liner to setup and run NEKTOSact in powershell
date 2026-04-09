@@ -1,0 +1,1 @@
+powershell -Command "Invoke-WebRequest -Uri 'https://github.com/nektos/act/releases/download/v0.2.82/act_Windows_x86_64.zip' -OutFile 'act.zip'; Expand-Archive -Path 'act.zip' -DestinationPath '.' -Force; Move-Item 'act.exe' 'C:\Windows\System\' -Force; Remove-Item 'act.zip'; & 'C:\Windows\System\act.exe' --version"

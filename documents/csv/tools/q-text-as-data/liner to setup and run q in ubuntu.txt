@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y python3 python3-pip && pip3 install q-text-as-data && echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc && source ~/.bashrc && q --version && echo "q installed! Try: q -H -d, 'SELECT * FROM file.csv WHERE age > 25', q -H 'SELECT name, COUNT(*) FROM file.csv GROUP BY name'"

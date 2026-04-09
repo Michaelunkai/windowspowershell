@@ -1,0 +1,114 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                     GitDesk v1.0.0                               ║
+║          Fast, Beautiful, Keyboard-Friendly Git GUI              ║
+╚══════════════════════════════════════════════════════════════════╝
+
+📦 INSTALLATION
+═══════════════════════════════════════════════════════════════════
+
+1. REQUIREMENT: .NET 9.0 Runtime
+   └─ Download: https://dotnet.microsoft.com/download/dotnet/9.0
+   └─ Or run: winget install Microsoft.DotNet.Runtime.9
+
+2. RUN GitDesk.exe
+   └─ No installation needed
+   └─ Portable — run from any location
+   └─ Total size: ~2.5 MB
+
+📖 QUICK START
+═══════════════════════════════════════════════════════════════════
+
+Open a repo:        Ctrl+O
+Clone a repo:       Click "📋 Clone"
+Stage all:          Ctrl+Shift+A
+Commit:             Ctrl+Enter
+Push:               Ctrl+Shift+U
+Show shortcuts:     Ctrl+/
+Refresh:            F5
+
+Full guide: See QUICKSTART.md
+
+✨ WHAT'S NEW IN 1.0.0
+═══════════════════════════════════════════════════════════════════
+
+✅ Zero UI freezing — All operations async with progress
+✅ Real-time progress for clone, fetch, pull, push
+✅ Optimized diff viewer (handles 10K+ line files)
+✅ Comprehensive keyboard shortcuts
+✅ Context menus on files, commits, branches
+✅ GitHub-inspired dark theme
+✅ Auto-refresh with file watcher
+✅ Blame support (right-click files)
+✅ Cherry-pick & revert (right-click commits)
+✅ Merge with squash option
+✅ Tag management
+✅ Terminal integration
+
+📋 CHANGELOG
+═══════════════════════════════════════════════════════════════════
+
+v1.0.0 (2026-02-23) — Initial Release
+- Full Git workflow (commit, push, pull, merge, stash)
+- Async operations throughout
+- Keyboard shortcuts for power users
+- Optimized performance vs GitHub Desktop
+- Beautiful UI with progress indicators
+
+🆚 VS GITHUB DESKTOP
+═══════════════════════════════════════════════════════════════════
+
+GitDesk Advantages:
+✅ No UI freezing during operations
+✅ 60x smaller (2.5MB vs 150MB)
+✅ More keyboard shortcuts
+✅ Faster diff rendering
+✅ Real-time progress everywhere
+
+GitHub Desktop Advantages:
+✅ Cross-platform (macOS, Linux)
+✅ GitHub PR integration
+✅ Submodules & Git LFS
+✅ Built-in merge conflict resolver
+
+📄 FILES INCLUDED
+═══════════════════════════════════════════════════════════════════
+
+GitDesk.exe          Main application (882 KB)
+git2-a418d9d.dll     LibGit2 native library (1.66 MB)
+README.md            Full documentation
+QUICKSTART.md        Getting started guide
+LICENSE.txt          MIT License
+INSTALL.txt          This file
+
+🐛 TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════
+
+Q: "Application won't start"
+A: Install .NET 9.0 Runtime (see above)
+
+Q: "Not a valid repository"
+A: Ensure folder contains .git directory
+
+Q: "Fetch/Pull/Push failed"
+A: Check internet connection and Git credentials
+
+Q: "Changes not showing"
+A: Press F5 to refresh
+
+🔗 LINKS
+═══════════════════════════════════════════════════════════════════
+
+.NET Runtime:    https://dotnet.microsoft.com/download/dotnet/9.0
+Documentation:   See README.md
+Quick Start:     See QUICKSTART.md
+Report Issues:   [Your GitHub repo URL]
+
+📜 LICENSE
+═══════════════════════════════════════════════════════════════════
+
+MIT License — See LICENSE.txt
+Copyright © 2026 GitDesk Contributors
+
+═══════════════════════════════════════════════════════════════════
+Made with ❤️ for developers who love Git but hate slow UIs
+═══════════════════════════════════════════════════════════════════

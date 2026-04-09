@@ -1,0 +1,482 @@
+/* Mobile Matches Container */
+.matches-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 0 1rem 0;
+}
+
+.matches-mobile__loading,
+.matches-mobile__error,
+.matches-mobile__empty {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.matches-mobile__error {
+  color: #dc3545;
+}
+
+/* Match Card (Job) */
+.match-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+
+  &:active {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Match Card Header */
+.match-card__header {
+  padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.match-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  cursor: pointer;
+  line-height: 1.4;
+
+  &:active {
+    color: #3498db;
+  }
+}
+
+/* Match Card Info */
+.match-card__info {
+  padding: 0 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.match-card__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.match-card__detail--id {
+  align-items: center;
+}
+
+.match-card__label {
+  font-weight: 500;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.match-card__value {
+  color: #333;
+  word-break: break-word;
+}
+
+/* Job ID with Copy */
+.match-card__id-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+  margin-top: 3px;
+  justify-content: flex-end;
+}
+
+.match-card__id {
+  color: #333;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+.match-card__copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+
+  &:active {
+    background: rgba(52, 152, 219, 0.1);
+  }
+}
+
+.match-card__copied-tooltip {
+  position: absolute;
+  background: #2c3e50;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  margin-inline-start: 2.5rem;
+  animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+/* Link Button */
+.match-card__link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.2s ease;
+
+  &:active {
+    background: #2980b9;
+  }
+}
+
+.match-card__link-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* View Candidates Toggle */
+.match-card__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  background: #f8f9fa;
+  border: none;
+  border-top: 1px solid #e9ecef;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3498db;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:active {
+    background: #e9ecef;
+  }
+}
+
+.match-card__toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.match-card__toggle-icon--rotated {
+  transform: rotate(180deg);
+}
+
+/* Candidates Container */
+.match-card__candidates {
+  padding: 1rem;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Candidate Card */
+.candidate-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.candidate-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.candidate-card__name-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.candidate-card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  cursor: pointer;
+
+  &:active {
+    color: #3498db;
+  }
+}
+
+.candidate-card__score {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+}
+
+/* Candidate Info */
+.candidate-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.candidate-card__badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.candidate-card__badge {
+  padding: 0.25rem 0.625rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.candidate-card__badge--mmr-yes {
+  background: #d4edda;
+  color: #155724;
+}
+
+.candidate-card__badge--mmr-no {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.candidate-card__badge--status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.candidate-card__badge--status-sent {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+/* Candidate Actions */
+.candidate-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.candidate-card__action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.625rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #333;
+
+  &:active:not(:disabled) {
+    background: #f8f9fa;
+    border-color: #bbb;
+  }
+
+  &--cv {
+    border-color: #3498db;
+    color: #3498db;
+  }
+
+  &--relevance {
+    &.candidate-card__action-btn--active {
+      background: #3498db;
+      border-color: #3498db;
+      color: white;
+    }
+  }
+
+  &--sent {
+    flex: 1;
+    justify-content: center;
+    background: #3498db;
+    color: white;
+    border-color: #3498db;
+
+    &:active:not(:disabled) {
+      background: #2980b9;
+      border-color: #2980b9;
+    }
+  }
+
+  &--revert {
+    background: #6c757d;
+    border-color: #6c757d;
+    color: white;
+
+    &:active:not(:disabled) {
+      background: #5a6268;
+      border-color: #5a6268;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.candidate-card__action-text {
+  white-space: nowrap;
+}
+
+/* User Section (Compact Match Info for Regular Users) */
+.match-card__user-section {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.match-card__user-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.match-card__user-score {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.5rem 0.875rem;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.match-card__user-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.match-card__user-badge {
+  padding: 0.25rem 0.625rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+
+  &--mmr-yes { background: #d4edda; color: #155724; }
+  &--mmr-no { background: #f8d7da; color: #721c24; }
+  &--status-pending { background: #fff3cd; color: #856404; }
+  &--status-sent { background: #d1ecf1; color: #0c5460; }
+}
+
+.match-card__user-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.match-card__user-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:active:not(:disabled) {
+    background: #f8f9fa;
+    border-color: #bbb;
+  }
+
+  &--active {
+    background: #3498db !important;
+    border-color: #3498db !important;
+    color: white;
+  }
+
+  &--sent {
+    flex: 1;
+    background: #3498db;
+    border-color: #3498db;
+    color: white;
+
+    &:active:not(:disabled) {
+      background: #2980b9;
+      border-color: #2980b9;
+    }
+  }
+
+  &--revert {
+    background: #6c757d;
+    border-color: #6c757d;
+    color: white;
+
+    &:active:not(:disabled) {
+      background: #5a6268;
+      border-color: #5a6268;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.match-card__user-view-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3498db;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:active {
+    background: #f8f9fa;
+    border-color: #3498db;
+  }
+}

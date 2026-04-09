@@ -1,0 +1,1 @@
+docker run -d -p 9005:9005 --name ouroboros --restart=always -v /var/run/docker.sock:/var/run/docker.sock pyouroboros/ouroboros:latest ; echo "Ouroboros: http://localhost:9005"

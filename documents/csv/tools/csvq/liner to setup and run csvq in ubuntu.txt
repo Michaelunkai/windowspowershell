@@ -1,0 +1,1 @@
+cd /tmp && wget https://github.com/mithrandie/csvq/releases/latest/download/csvq-v1.18.1-linux-amd64.tar.gz && tar xzf csvq-v1.18.1-linux-amd64.tar.gz && sudo mv csvq /usr/local/bin/ && csvq --version && echo "csvq installed! Try: csvq 'SELECT * FROM file.csv WHERE age > 25', csvq 'SELECT name, AVG(salary) FROM file.csv GROUP BY name'"

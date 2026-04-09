@@ -1,0 +1,6 @@
+name = "histadrut-front"
+compatibility_date = "2026-01-13"
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"

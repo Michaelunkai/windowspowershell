@@ -1,0 +1,135 @@
+.job-form__label {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #5a6c7d;
+  margin-bottom: 0.5rem;
+  text-align: start;
+  display: block;
+}
+.job-form__label-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+}
+.job-form__asterisk {
+  color: red;
+  font-size: 1.1em;
+  line-height: 1;
+}
+.job-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    box-shadow: none;
+    border-radius: 12px;
+  }
+}
+.job-form__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+
+  & label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #222;
+    gap: 0.5rem;
+  }
+
+  & textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+.job-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+/* RTL support for actions */
+.job-form--rtl {
+  & .job-form__actions {
+    justify-content: flex-start;
+  }
+
+  /* RTL support for inputs and selects */
+  & input,
+  & select,
+  & textarea {
+    text-align: start;
+  }
+}
+
+.job-form__cancel {
+  background: #eee;
+  color: #333;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    flex: 1;
+    padding: 0.875rem;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+}
+.job-form__ok {
+  background: #0078d4;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    flex: 1;
+    padding: 0.875rem;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+}
+.add-job-page {
+  & h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}
+
+/* Page title (shared) */
+.job-form__page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+}

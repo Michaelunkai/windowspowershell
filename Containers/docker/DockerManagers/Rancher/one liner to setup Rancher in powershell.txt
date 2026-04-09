@@ -1,0 +1,1 @@
+docker run -d -p 8443:443 --name rancher --restart=always --privileged rancher/rancher:latest ; echo "Rancher: https://localhost:8443"

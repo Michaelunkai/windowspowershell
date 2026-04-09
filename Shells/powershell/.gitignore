@@ -1,0 +1,10 @@
+
+# Auto-excluded files with secrets
+scripts/steep/fsteep/a.ps1
+scripts/steep/fsteep/c.ps1
+scripts/steep/new/a.ps1
+scripts/steep/new/b.ps1
+scripts/steep/new/win11PowershellMegaClean/a.ps1
+scripts/steep/new/win11PowershellMegaClean/b.ps1
+scripts/misc/gitlog/gitlog.ps1
+scripts/cfun/cfun.ps1

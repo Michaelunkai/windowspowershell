@@ -1,0 +1,1 @@
+docker run -d -p 8093:8080 --name traefik --restart=always -v /var/run/docker.sock:/var/run/docker.sock traefik:latest --api.insecure=true --providers.docker ; echo "Traefik: http://localhost:8093"

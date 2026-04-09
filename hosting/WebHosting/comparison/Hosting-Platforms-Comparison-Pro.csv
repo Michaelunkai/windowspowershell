@@ -1,0 +1,202 @@
+﻿Platform,Cloudflare Pages,Vercel,Netlify,AWS Amplify,Firebase Hosting,Azure Static Web Apps,Render,GitHub Pages,GitLab Pages,Surge.sh
+Company,Cloudflare Inc.,Vercel Inc.,Netlify Inc.,Amazon Web Services,Google,Microsoft Azure,Render Services Inc.,GitHub (Microsoft),GitLab Inc.,Surge.sh (Chloi Inc.)
+Launch Year,2021,2015 (ZEIT),2014,2017,2012,2020,2019,2008,2016,2015
+Platform Type,JAMstack Hosting,JAMstack & Edge Hosting,JAMstack Hosting,Full-Stack Cloud Platform,Static & Dynamic Hosting,Static & Serverless Platform,Cloud Application Platform,Static Site Hosting,Static Site Hosting,CLI-First Static Hosting
+Primary Focus,Static Sites & Edge Functions,Next.js & Full-Stack Apps,Static Sites & Serverless,JAMstack & Static Sites,Web Apps & Static Sites,Modern Web Apps,Web Services & Static Sites,Documentation & Project Sites,Project Documentation,Quick Static Deploys
+,,,,,,,,,,
+,,,,,,,,,,
+FREE TIER LIMITS,,,,,,,,,,
+Bandwidth,UNLIMITED,100 GB/month,100 GB/month,15 GB/month,10 GB/month,100 GB/month,100 GB/month,100 GB/month (soft),10 GB/month,UNLIMITED
+Requests,10,0,000/month,1,0,000/month,UNLIMITED,500,000/month,UNLIMITED
+Build Minutes,500/month,INCLUDED (no limit),300/month,1,000/month,N/A,INCLUDED,400/month,2,000/month
+Sites/Projects,UNLIMITED,UNLIMITED,UNLIMITED,UNLIMITED,MULTIPLE per project,10 apps,UNLIMITED,1 per repo/user/org,UNLIMITED,UNLIMITED
+Custom Domains,UNLIMITED,UNLIMITED,UNLIMITED,UNLIMITED,UNLIMITED,2 per app,UNLIMITED,1 per site,UNLIMITED,UNLIMITED
+SSL Certificates,FREE,FREE,FREE,FREE,FREE,FREE,FREE,FREE,FREE,FREE
+Analytics,INCLUDED (FREE),BASIC,FREE ($9/month),PAID,INCLUDED (FREE),PAID,NOT INCLUDED,NOT INCLUDED,NOT INCLUDED,NOT INCLUDED
+,,,,,,,,,,
+,,,,,,,,,,
+INFRASTRUCTURE,,,,,,,,,,
+Edge Locations,300+,100+,6,450+,200+,170+,Global CDN,30+,200+,?
+CDN Network,Cloudflare CDN,Cloudflare CDN,Custom CDN,CloudFront CDN,Google CDN,Azure CDN,Fastly CDN,Fastly CDN,Cloudflare CDN,?
+Average Latency,<50ms,~70ms,~90ms,~60ms,~70ms,~75ms,~80ms,~100ms,~90ms,~120ms
+DDoS Protection,ADVANCED,STANDARD,BASIC,AWS Shield Standard,STANDARD,STANDARD,BASIC,BASIC,BASIC,BASIC
+HTTP/3,ENABLED,ENABLED,ENABLED,ENABLED,ENABLED,ENABLED,ENABLED,NOT SUPPORTED,ENABLED,NOT SUPPORTED
+Brotli Compression,YES,YES,YES,YES,YES,YES,YES,NO,YES,NO
+,,,,,,,,,,
+,,,,,,,,,,
+BUILD & DEPLOYMENT,,,,,,,,,,
+Build Environment,V8 Isolate-based,Container-based,Ubuntu-based,EC2-based,Local or CI/CD,GitHub Actions/Azure DevOps,GitHub Actions/Azure DevOps,GitHub Actions,GitLab CI/CD,LOCAL ONLY
+Build Time Limit,20 min,45 min,15 min (free),30 min,60 min,60 min,15 min (free),10 min (Pages),60 min (free),N/A
+Concurrent Builds,1 (free),12+ (paid),3+ (paid),UNLIMITED,UNLIMITED,UNLIMITED,UNLIMITED,20 (free),4+ (paid),N/A
+Build Cache,AUTOMATIC,AUTOMATIC,AUTOMATIC,AUTOMATIC,LOCAL,AUTOMATIC,AUTOMATIC,MANUAL,AUTOMATIC,LOCAL
+Node Versions,12.x-20.x,12.x-20.x,12.x-20.x,12.x-20.x,Any (local),12.x-20.x,12.x-20.x,2.7.x (Jekyll),12.x-20.x,Any (local)
+,,,,,,,,,,
+,,,,,,,,,,
+GIT INTEGRATION,,,,,,,,,,
+GitHub,✅,✅,✅,✅,✅,✅,✅,✅,❌,❌
+GitLab,✅,✅,✅,✅,Via Actions,✅,✅,❌,✅,❌
+Bitbucket,❌,✅,✅,✅,❌,✅,❌,❌,❌,❌
+Other Git,❌,❌,❌,❌,❌,✅,❌,❌,✅,❌
+,,,,,,,,,,
+,,,,,,,,,,
+FRAMEWORK SUPPORT,,,,,,,,,,
+React/Vite,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,MANUAL,CI/CD setup,MANUAL
+Next.js,FULL SUPPORT,NATIVE (best-in-class),FULL SUPPORT,FULL SUPPORT,STATIC EXPORT only,HYBRID RENDERING,FULL SUPPORT,STATIC EXPORT only,STATIC EXPORT only,STATIC EXPORT only
+Vue/Nuxt,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,STATIC only,STATIC only,STATIC only
+Svelte/SvelteKit,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,GOOD,GOOD,EXCELLENT,STATIC only,STATIC only,STATIC only
+Angular,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,SUPPORTED,SUPPORTED,SUPPORTED
+Static Generators,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,EXCELLENT,JEKYLL NATIVE,HUGO NATIVE,MANUAL
+,,,,,,,,,,
+,,,,,,,,,,
+DEVELOPER FEATURES,,,,,,,,,,
+SPA Support,AUTOMATIC,AUTOMATIC,REQUIRES _redirects,AUTOMATIC,EXCELLENT,EXCELLENT,AUTOMATIC,404.html trick,404.html trick,200.html fallback
+Redirects,✅ _redirects,✅ vercel.json,✅ _redirects,✅ redirects.json,✅ firebase.json,✅ staticwebapp.config.json,✅ _redirects or render.yaml,❌,200,❌
+Environment Variables,✅,✅,✅,✅,✅,✅,✅,Via Actions,CI/CD vars,❌
+Custom Headers,✅ _headers,✅ vercel.json,✅ _headers,✅ customHeaders.yml,✅ firebase.json,✅ config.json,✅ _headers,❌,✅ _headers,❌ CORS.json only
+Preview Deploys,✅,✅,✅,✅,✅,✅,✅,❌,✅,❌
+,,,,,,,,,,
+,,,,,,,,,,
+SERVERLESS FUNCTIONS,,,,,,,,,,
+Runtime,N/A,V8/Node.js,Node.js,Node.js,Node.js,Node.js,Node.js/Python/Ruby/Go/Rust,N/A,N/A,N/A
+Memory,N/A,1.5-3008 MB,1024 MB,128 MB,128-8 GB,1.5 GB,512 MB-32 GB,N/A,N/A,N/A
+CPU Time,N/A,10s-60s,10s-26s,15s,540s max,5 min default,Always-on or auto-sleep,N/A,N/A,N/A
+Requests,N/A,100k/day (free),125k/month,UNLIMITED,2M free/month,UNLIMITED,Based on plan,N/A,N/A,N/A
+Cold Starts,N/A,Minimal,Yes,Yes,Minimal,Minimal,Yes,N/A,N/A,N/A
+,,,,,,,,,,
+,,,,,,,,,,
+MONITORING & ANALYTICS,,,,,,,,,,
+Built-in Analytics,✅ FREE,✅ BASIC,❌ ($9/month),❌ ($),✅ FREE,✅ Azure Monitor ($),❌,❌,❌,❌
+Real User Metrics,✅,✅,❌,✅ X-Ray ($),✅ Performance Monitoring,✅,❌,❌,❌,❌
+Error Tracking,✅,✅ Speed Insights,❌,❌ CloudWatch,✅ Crashlytics,✅,❌,❌,❌,❌
+Custom Events,✅,❌,❌,❌,✅,✅,❌,❌,❌,❌
+Privacy-First,✅,✅,❌,❌,✅,✅,❌,❌,❌,❌
+,,,,,,,,,,
+,,,,,,,,,,
+SECURITY & COMPLIANCE,,,,,,,,,,
+DDoS Protection,ENTERPRISE-GRADE,STANDARD,BASIC,ENTERPRISE,BASIC,STANDARD,BASIC,BASIC,BASIC,BASIC
+WAF,❌,❌,❌,AWS WAF,❌,Azure Front Door,❌,❌,❌,❌
+Rate Limiting,❌,❌,❌,❌,❌,❌,❌,❌,❌,❌
+IP Restrictions,❌,❌,❌,❌,❌,❌,❌,❌,❌,❌
+Password Protection,❌,❌,❌,❌,Firebase Auth,Azure AD,❌,❌,❌,❌ ($30/mo)
+SOC 2 Compliance,✅,✅,✅,✅,✅,✅,✅,✅,✅,❌
+GDPR Compliance,✅,✅,✅,✅,✅,✅,✅,✅,✅,BASIC
+HIPAA Available,❌,❌,❌,✅,✅,✅,❌,❌,❌,❌
+,,,,,,,,,,
+,,,,,,,,,,
+PRICING BREAKDOWN,,,,,,,,,,
+Free Tier Quality,EXCELLENT,GOOD,LIMITED,VERY LIMITED,LIMITED,GOOD,LIMITED,GOOD,LIMITED,EXCELLENT
+Entry Paid Plan,$20/project,$20/user,$19/user,Pay-as-you-go,$0.15/GB,$9/app,$7/service,$4/user,$29/user,$30/month
+Pro/Business Plan,$200/project,N/A,$99/user,Enterprise,$0.026/GB,N/A,$25/service,$21/user,$99/user,N/A
+Enterprise Pricing,CUSTOM,CUSTOM ($45k+/year),CUSTOM,CUSTOM,CUSTOM,CUSTOM,CUSTOM,CUSTOM,CUSTOM,N/A
+Hidden Costs,MINIMAL,MODERATE,MINIMAL,MODERATE,MINIMAL,MINIMAL,MINIMAL,MINIMAL,MINIMAL,MINIMAL
+,,,,,,,,,,
+,,,,,,,,,,
+PERFORMANCE RATINGS,,,,,,,,,,
+Overall Performance,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐,⭐⭐⭐,⭐⭐⭐,⭐⭐
+Global CDN Coverage,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐,⭐⭐,⭐⭐⭐,⭐
+Build Speed,⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐,⭐⭐⭐,⭐⭐⭐⭐⭐
+,,,,,,,,,,
+,,,,,,,,,,
+FEATURE COMPLETENESS,,,,,,,,,,
+Serverless Functions,❌,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,❌,❌,❌
+Analytics & Monitoring,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐,⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,❌,❌,❌,❌
+Developer Experience,⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐,⭐⭐⭐
+Ecosystem Integration,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,⭐
+Enterprise Features,⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐⭐⭐⭐,⭐⭐,⭐⭐⭐⭐,⭐⭐⭐⭐,❌
+,,,,,,,,,,
+,,,,,,,,,,
+OVERALL SCORES,,,,,,,,,,
+Total Score,4.7/5,4.4/5,4.1/5,4.1/5,4.3/5,4.3/5,3.4/5,3.3/5,3.4/5,2.3/5
+Best For,Performance & unlimited bandwidth,Next.js applications,Developer experience & forms,AWS ecosystem integration,Realtime features & auth,Enterprise & auth,Full-stack simplicity,Free static hosting,CI/CD integration,Quick prototypes
+Worst For,Feature complexity,Hidden function costs,Bandwidth costs,AWS complexity,Low bandwidth limit,Complexity & costs,High-traffic sites,Dynamic features,Serverless needs,Production use
+,,,,,,,,,,
+,,,,,,,,,,
+QUICK DECISIONS,,,,,,,,,,
+Choose for Performance,✅ TOP CHOICE,,,,,,,,,
+Choose for Next.js,✅ TOP CHOICE,,,,,,,,,
+Choose for Enterprise,✅ TOP CHOICE,,,,,,,,,
+Choose for Free/Low Budget,✅ TOP CHOICE,,,,,,,,,
+Choose for Developer Experience,,,,✅ TOP CHOICE,,,,,,
+
+
+🏆 HOSTING PLATFORMS RANKED: 1-10 BEST TO WORST
+
+1️⃣,CLOUDFLARE PAGES,Score: 4.7/5 🥇
+,Why #1:,"UNLIMITED bandwidth free, 300+ edge locations, best performance globally, free analytics"
+,Best For:,"High-traffic sites, global audience, performance-critical apps"
+,Killer Feature:,Unlimited bandwidth on free tier
+
+2️⃣,VERCEL,Score: 4.4/5 🥈
+,Why #2:,"Next.js native support, ISR capability, excellent DX, edge middleware"
+,Best For:,"Next.js applications, modern React apps, dynamic content"
+,Killer Feature:,Incremental Static Regeneration (ISR)
+
+3️⃣,FIREBASE HOSTING,Score: 4.3/5 🥉
+,Why #3:,"Google ecosystem, realtime database, built-in auth, ML integration"
+,Best For:,"Mobile + web apps, realtime features, Google users"
+,Major Flaw:,Only 10 GB bandwidth free
+
+4️⃣,AZURE STATIC WEB APPS,Score: 4.3/5
+,Why #4:,"Enterprise-ready, integrated APIs, staging environments free, auth built-in"
+,Best For:,"Microsoft ecosystem, enterprise compliance, .NET/Blazor"
+,Major Flaw:,Complex for simple sites
+
+5️⃣,NETLIFY,Score: 4.1/5
+,Why #5:,"Best developer experience, 100+ plugins, form handling, identity service"
+,Best For:,"JAMstack sites, rapid prototyping, team collaboration"
+,Major Flaw:,"Only 100 GB bandwidth, expensive overages"
+
+6️⃣,AWS AMPLIFY,Score: 4.1/5
+,Why #6:,"Full AWS ecosystem, 450+ edge locations, enterprise compliance"
+,Best For:,"AWS users, complex backends, enterprise scale"
+,Major Flaw:,"Only 15 GB bandwidth free, steep learning curve"
+
+7️⃣,RENDER,Score: 3.4/5
+,Why #7:,"Simple pricing, managed databases, background workers, Docker support"
+,Best For:,"Full-stack apps, startups, database-driven sites"
+,Major Flaw:,"Limited CDN coverage, services sleep on free tier"
+
+8️⃣,GITLAB PAGES,Score: 3.4/5
+,Why #8:,"Full CI/CD integration, self-hosting option, DevOps platform"
+,Best For:,"GitLab users, DevOps teams, private repos"
+,Major Flaw:,"Only 10 GB bandwidth, no serverless functions"
+
+9️⃣,GITHUB PAGES,Score: 3.3/5
+,Why #9:,"100% FREE for public repos, GitHub integration, zero config"
+,Best For:,"Documentation, portfolios, open source projects"
+,Major Flaw:,"Static only, no redirects, no serverless"
+
+🔟,SURGE.SH,Score: 2.3/5
+,Why #10:,"Instant deployment, unlimited bandwidth free, zero config"
+,Best For:,"Quick prototypes, demos, student projects"
+,Major Flaw:,"No features - no git, no functions, no analytics, no team features"
+
+
+📊 QUICK TIER LIST
+
+S-TIER (4.5+) - Industry Leaders
+,1. Cloudflare Pages (4.7)
+
+A-TIER (4.0-4.4) - Excellent Choices
+,2. Vercel (4.4)
+,3. Firebase (4.3)
+,4. Azure SWA (4.3)
+,5. Netlify (4.1)
+,6. AWS Amplify (4.1)
+
+B-TIER (3.0-3.9) - Good for Specific Needs
+,7. Render (3.4)
+,8. GitLab Pages (3.4)
+,9. GitHub Pages (3.3)
+
+C-TIER (<3.0) - Limited Use Cases
+,10. Surge.sh (2.3)
+
+
+🎯 THE VERDICT
+
+For 99% of projects:,Start with Cloudflare Pages (best free tier)
+For Next.js:,Use Vercel (they created it)
+For enterprises:,Choose AWS Amplify or Azure
+On a budget:,GitHub Pages (100% free) or Cloudflare Pages
+Need simplicity:,Netlify has the best DX

@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y cargo && cargo install csvlens && echo 'export PATH=$PATH:$HOME/.cargo/bin' >> ~/.bashrc && source ~/.bashrc && csvlens --version && echo "csvlens installed! Try: csvlens file.csv (interactive viewer - press q to quit, / to search, F1 for help)"

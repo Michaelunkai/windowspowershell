@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Filter v1.1</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 380px;
+      min-height: 500px;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+      color: #ffffff;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+      padding: 20px;
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    
+    .version {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+    
+    .tabs {
+      display: flex;
+      background: #1a1a1a;
+      border-bottom: 1px solid #333;
+    }
+    
+    .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    
+    .tab:hover {
+      background: #222;
+    }
+    
+    .tab.active {
+      background: #2d2d2d;
+      border-bottom-color: #ff0000;
+      font-weight: bold;
+    }
+    
+    .tab-content {
+      display: none;
+      padding: 15px;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .stat-card {
+      background: #252525;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #333;
+    }
+    
+    .stat-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #00ff00;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 11px;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+    
+    .toggle-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 8px;
+      background: #252525;
+      border-radius: 6px;
+      border: 1px solid #333;
+    }
+    
+    .toggle-label {
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    
+    .toggle-desc {
+      font-size: 10px;
+      color: #888;
+    }
+    
+    .switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #444;
+      transition: 0.3s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: #00ff00;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    
+    .slider-container {
+      margin-bottom: 15px;
+    }
+    
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    
+    .slider-value {
+      color: #00ff00;
+      font-weight: bold;
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      background: #333;
+      outline: none;
+      border-radius: 3px;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      background: #ff0000;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    
+    .input-group {
+      margin-bottom: 12px;
+    }
+    
+    .input-label {
+      font-size: 11px;
+      color: #aaa;
+      margin-bottom: 5px;
+      display: block;
+      text-transform: uppercase;
+    }
+    
+    input[type="text"], input[type="number"], textarea {
+      width: 100%;
+      padding: 8px;
+      background: #252525;
+      border: 1px solid #333;
+      border-radius: 4px;
+      color: white;
+      font-size: 12px;
+      font-family: inherit;
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 8px;
+      background: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background: #cc0000;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+    }
+    
+    button.secondary {
+      background: #333;
+    }
+    
+    button.secondary:hover {
+      background: #444;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    button.danger {
+      background: #990000;
+    }
+    
+    button.danger:hover {
+      background: #770000;
+    }
+    
+    .status {
+      text-align: center;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 12px;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .status.success {
+      background: rgba(0, 255, 0, 0.1);
+      border: 1px solid #00ff00;
+      color: #00ff00;
+    }
+    
+    .status.error {
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid #ff4444;
+      color: #ff4444;
+    }
+    
+    .keyboard-shortcuts {
+      background: #252525;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    
+    .shortcut {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+    
+    .key-combo {
+      background: #1a1a1a;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+      color: #00ff00;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎯 YouTube Filter</h1>
+    <div class="version">v1.1 Enhanced</div>
+  </div>
+  
+  <div class="tabs">
+    <div class="tab active" data-tab="overview">Overview</div>
+    <div class="tab" data-tab="settings">Settings</div>
+    <div class="tab" data-tab="advanced">Advanced</div>
+    <div class="tab" data-tab="help">Help</div>
+  </div>
+  
+  <!-- OVERVIEW TAB -->
+  <div class="tab-content active" data-content="overview">
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="watchedCount">0</div>
+        <div class="stat-label">Filtered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="blockedCount">0</div>
+        <div class="stat-label">Blocked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="boostedCount">0</div>
+        <div class="stat-label">Boosted</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="lastSync">Never</div>
+        <div class="stat-label">Last Sync</div>
+      </div>
+    </div>
+    
+    <button id="syncNow">🔄 Sync Watch History</button>
+    <button id="openYouTube" class="secondary">▶️ Open YouTube</button>
+    <button id="refilter" class="secondary">🔁 Refilter Current Page</button>
+  </div>
+  
+  <!-- SETTINGS TAB -->
+  <div class="tab-content" data-content="settings">
+    <div class="toggle-item">
+      <div class="toggle-label">
+        <span>Hide Watched Videos</span>
+        <span class="toggle-desc">Filter already watched content</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="hideWatched" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    
+    <div class="toggle-item">
+      <div class="toggle-label">
+        <span>Boost Subscriptions</span>
+        <span class="toggle-desc">Highlight unwatched subs</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="boostSubscriptions" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    
+    <div class="toggle-item">
+      <div class="toggle-label">
+        <span>Auto-Sync</span>
+        <span class="toggle-desc">Sync every 30 minutes</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="enableSync" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    
+    <div class="slider-container">
+      <div class="slider-header">
+        <span>Watch Threshold</span>
+        <span class="slider-value" id="thresholdValue">50%</span>
+      </div>
+      <input type="range" id="watchThreshold" min="10" max="90" value="50" step="5">
+    </div>
+  </div>
+  
+  <!-- ADVANCED TAB -->
+  <div class="tab-content" data-content="advanced">
+    <div class="toggle-item">
+      <div class="toggle-label">
+        <span>Hide Shorts</span>
+        <span class="toggle-desc">Filter all YouTube Shorts</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="hideShorts">
+        <span class="slider"></span>
+      </label>
+    </div>
+    
+    <div class="toggle-item">
+      <div class="toggle-label">
+        <span>Hide Livestreams</span>
+        <span class="toggle-desc">Filter live broadcasts</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="hideLivestreams">
+        <span class="slider"></span>
+      </label>
+    </div>
+    
+    <div class="input-group">
+      <label class="input-label">Min Duration (minutes)</label>
+      <input type="number" id="minDuration" min="0" max="300" value="0" placeholder="0 = no limit">
+    </div>
+    
+    <div class="input-group">
+      <label class="input-label">Max Duration (minutes)</label>
+      <input type="number" id="maxDuration" min="0" max="300" value="0" placeholder="0 = no limit">
+    </div>
+    
+    <div class="input-group">
+      <label class="input-label">Keyword Blacklist (comma separated)</label>
+      <textarea id="keywordBlacklist" placeholder="clickbait, must watch, shocking"></textarea>
+    </div>
+    
+    <button id="saveAdvanced" class="secondary">💾 Save Advanced Settings</button>
+    <button id="clearCache" class="danger">🗑️ Clear All Data</button>
+  </div>
+  
+  <!-- HELP TAB -->
+  <div class="tab-content" data-content="help">
+    <div class="keyboard-shortcuts">
+      <strong style="display: block; margin-bottom: 8px;">⌨️ Keyboard Shortcuts:</strong>
+      <div class="shortcut">
+        <span>Toggle Filter</span>
+        <span class="key-combo">Ctrl+Shift+F</span>
+      </div>
+      <div class="shortcut">
+        <span>Refresh Feed</span>
+        <span class="key-combo">Ctrl+Shift+R</span>
+      </div>
+      <div class="shortcut">
+        <span>Show Stats</span>
+        <span class="key-combo">Ctrl+Shift+S</span>
+      </div>
+    </div>
+    
+    <button id="exportData" class="secondary">📤 Export Data</button>
+    <button id="importData" class="secondary">📥 Import Data</button>
+    <button id="openHistory" class="secondary">📜 Open Watch History</button>
+    
+    <div style="margin-top: 15px; font-size: 11px; color: #666; text-align: center;">
+      <p>YouTube Recommendation Filter v1.1</p>
+      <p>Enhanced Edition</p>
+    </div>
+  </div>
+  
+  <div class="status" id="status"></div>
+  
+  <script src="enhanced_popup.js"></script>
+</body>
+</html>

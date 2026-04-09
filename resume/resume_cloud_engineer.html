@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Fedorovsky - Cloud Infrastructure Engineer Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 7.6pt;
+            line-height: 1.18;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            color: white;
+            padding: 13px 25px;
+        }
+        
+        .header-content { display: flex; align-items: flex-start; gap: 12px; }
+        
+        .profile-photo {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        
+        .header-text { flex: 1; }
+        
+        .name { font-size: 20pt; font-weight: 800; margin-bottom: 2px; letter-spacing: -0.5px; }
+        
+        .title { font-size: 8.8pt; font-weight: 600; margin-bottom: 4.5px; opacity: 0.96; }
+        
+        .contact-info { font-size: 7pt; display: flex; flex-wrap: wrap; gap: 2px 6.5px; opacity: 0.9; }
+        .contact-info span { white-space: nowrap; }
+        
+        .summary { font-size: 7.3pt; margin-top: 5.5px; line-height: 1.28; opacity: 0.95; }
+        
+        .content { padding: 11px 25px 15px 25px; }
+        
+        .section { margin-bottom: 7.5px; }
+        
+        .section-title {
+            font-size: 8.8pt;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4.5px;
+            color: #1a366d;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 2.8px;
+            height: 12px;
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            border-radius: 2px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 93px 1fr;
+            gap: 2.6px 7.5px;
+            font-size: 6.7pt;
+            line-height: 1.22;
+        }
+        
+        .skill-category { font-weight: 700; color: #1a366d; }
+        .skill-items { color: #2a2a2a; }
+        .skill-items strong { color: #1a366d; font-weight: 600; }
+        
+        .experience-item { margin-bottom: 6.5px; }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2.8px;
+        }
+        
+        .job-title { font-weight: 700; font-size: 8.3pt; color: #1a366d; }
+        .company { font-weight: 600; color: #333; }
+        .duration { font-size: 7pt; color: #666; font-weight: 600; }
+        
+        .experience-item ul { list-style: none; padding-left: 0; margin-top: 1.8px; }
+        
+        .experience-item li {
+            padding-left: 8.5px;
+            position: relative;
+            margin-bottom: 1.1px;
+            font-size: 6.7pt;
+            line-height: 1.18;
+        }
+        
+        .experience-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2b5282;
+            font-weight: bold;
+            font-size: 6.8pt;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4.2px;
+            margin-top: 3.8px;
+        }
+        
+        .project-card {
+            border: 1px solid #d5d5d5;
+            border-radius: 3px;
+            padding: 4.2px;
+            background: linear-gradient(to bottom, #fafafa 0%, #f5f5f5 100%);
+        }
+        
+        .project-title { font-weight: 700; font-size: 7pt; color: #1a366d; margin-bottom: 1.6px; line-height: 1.18; }
+        .project-tech { font-size: 6pt; color: #666; margin-bottom: 2.3px; font-weight: 600; line-height: 1.12; }
+        .project-desc { font-size: 6pt; line-height: 1.18; color: #444; }
+        
+        .education-item { margin-bottom: 2.8px; }
+        .degree { font-weight: 700; font-size: 7.8pt; color: #1a366d; }
+        .institution { font-size: 7pt; color: #555; font-weight: 500; }
+
+        @media print {
+            body { background: white; }
+            .page { width: 100%; min-height: auto; box-shadow: none; margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="header-content">
+                <img src="file:///F:/study/resume/profile_photo.jpg" alt="Michael Fedorovsky" class="profile-photo">
+                <div class="header-text">
+                    <h1 class="name">Michael Fedorovsky</h1>
+                    <div class="title">Cloud Infrastructure Engineer | Platform Engineer | Site Reliability Engineer (SRE)</div>
+                    <div class="contact-info">
+                        <span>📍 Bat Yam, Israel</span>
+                        <span>•</span>
+                        <span>📱 054-763-2418</span>
+                        <span>•</span>
+                        <span>✉ michaelovsky5@gmail.com</span>
+                        <span>•</span>
+                        <span>🔗 LinkedIn</span>
+                        <span>•</span>
+                        <span>💻 GitHub (100+ repos)</span>
+                    </div>
+                    <div class="summary">
+                        Cloud Infrastructure Engineer with 2 years of hands-on experience designing, deploying, and operating scalable cloud-native environments across AWS, Azure, and GCP. Deep expertise in Kubernetes orchestration, Infrastructure as Code (Terraform/Ansible), CI/CD automation, and GitOps. Proven ability to build resilient, cost-optimized platforms with full observability stacks. Passionate about automation-first engineering, reducing toil, and enabling teams to ship faster with confidence.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">☁️ CORE COMPETENCIES</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">AWS</div>
+                    <div class="skill-items"><strong>Compute:</strong> EC2, ECS, EKS, Lambda, Auto Scaling • <strong>Storage:</strong> S3, EFS, EBS • <strong>Network:</strong> VPC, Route53, ALB/NLB, CloudFront • IAM, CloudFormation, CloudWatch, SQS, SNS, RDS, Secrets Manager</div>
+
+                    <div class="skill-category">Azure</div>
+                    <div class="skill-items">AKS, Virtual Machines, Azure DevOps, ARM Templates, Azure Functions, Blob Storage, App Service, Entra ID, Virtual Network, Azure Monitor, Key Vault</div>
+
+                    <div class="skill-category">GCP</div>
+                    <div class="skill-items">GKE, Compute Engine, Cloud Run, Cloud Functions, Cloud Storage, Cloud Build, VPC, Cloud Monitoring, Artifact Registry • Cloudflare, Vercel</div>
+
+                    <div class="skill-category">Kubernetes</div>
+                    <div class="skill-items"><strong>Production K8s:</strong> Deployments, StatefulSets, DaemonSets, Ingress, RBAC, Network Policies, HPA, PV/PVC • Helm, Kustomize, ArgoCD, Flux, Rancher, Lens</div>
+
+                    <div class="skill-category">Service Mesh</div>
+                    <div class="skill-items">Istio, Linkerd, Envoy • mTLS, traffic shaping, canary deployments, circuit breaking, service discovery, distributed tracing</div>
+
+                    <div class="skill-category">IaC</div>
+                    <div class="skill-items"><strong>Terraform:</strong> Modules, workspaces, remote state (S3/Azure), drift detection, plan/apply pipelines • <strong>Ansible:</strong> Playbooks, roles, dynamic inventory, vault</div>
+
+                    <div class="skill-category">CI/CD & GitOps</div>
+                    <div class="skill-items">GitHub Actions, GitLab CI, Jenkins • ArgoCD, Flux CD • GitOps workflows, pipeline-as-code, progressive delivery, blue/green, canary deployments</div>
+
+                    <div class="skill-category">Containers</div>
+                    <div class="skill-items"><strong>Docker:</strong> Multi-stage builds, BuildKit, Compose, image optimization, private registries • Podman, Buildah, container security scanning</div>
+
+                    <div class="skill-category">Observability</div>
+                    <div class="skill-items">Prometheus, Grafana, Datadog, ELK Stack, Loki, Jaeger, OpenTelemetry, Splunk, PagerDuty • SLO/SLI/SLA definition, alerting, incident response</div>
+
+                    <div class="skill-category">Secrets & Security</div>
+                    <div class="skill-items"><strong>HashiCorp Vault, AWS Secrets Manager, Azure Key Vault</strong> • Trivy, Snyk, OPA/Gatekeeper, Falco, SonarQube, SAST/DAST, policy-as-code</div>
+
+                    <div class="skill-category">Networking</div>
+                    <div class="skill-items">Nginx, Traefik, HAProxy, Envoy, Kong • VPN (WireGuard, OpenVPN), DNS management, CDN, SSL/TLS, load balancing, zero-trust networking</div>
+
+                    <div class="skill-category">Scripting</div>
+                    <div class="skill-items"><strong>Python:</strong> API integrations, custom operators, automation frameworks, CLI tools • <strong>Go:</strong> Kubernetes controllers, microservices • Advanced Bash & PowerShell</div>
+
+                    <div class="skill-category">AI/Automation</div>
+                    <div class="skill-items">LangChain, OpenAI API, Claude API, LLM integration, AI-powered automation, agent frameworks, RAG systems, prompt engineering</div>
+
+                    <div class="skill-category">Databases</div>
+                    <div class="skill-items">PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch • Replication, automated backups, HA setup, connection pooling, performance tuning</div>
+
+                    <div class="skill-category">OS & Virt</div>
+                    <div class="skill-items">Linux (Ubuntu, Alpine, RHEL), Windows Server, WSL • Proxmox, VMware, KVM/QEMU, Hyper-V</div>
+
+                    <div class="skill-category">Collaboration</div>
+                    <div class="skill-items">Git, GitHub, GitLab, Jira, Slack, Confluence • Code review, ADRs, runbooks, on-call, incident management, cross-team enablement</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">💼 PROFESSIONAL EXPERIENCE</h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <span class="job-title">Cloud Infrastructure Engineer</span> <span class="company">@ TovTech</span>
+                        </div>
+                        <div class="duration">2 Years</div>
+                    </div>
+                    <ul>
+                        <li>Designed and operated multi-cloud infrastructure (AWS/Azure) with Terraform modules, remote state, and automated drift detection</li>
+                        <li>Built and maintained production Kubernetes clusters with ArgoCD GitOps, Helm charts, RBAC, network policies, and HPA auto-scaling</li>
+                        <li>Engineered CI/CD pipelines (GitHub Actions) with lint → test → build → scan → deploy stages, achieving zero-downtime deployments</li>
+                        <li>Deployed full observability stack (Prometheus, Grafana, ELK, Jaeger) with SLO/SLI dashboards and PagerDuty alerting; achieved 99.9% uptime</li>
+                        <li>Implemented secrets management with HashiCorp Vault and AWS Secrets Manager, automated rotation policies, zero hardcoded credentials</li>
+                        <li>Reduced infrastructure provisioning time by 80% through Ansible automation and Docker image optimization (60% size reduction)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🚀 CLOUD INFRASTRUCTURE PROJECTS</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-title">Multi-Cloud IaC Platform</div>
+                        <div class="project-tech">Terraform • AWS • Azure • GCP • Ansible</div>
+                        <div class="project-desc">Modular Terraform across 3 clouds with remote state, drift detection, automated plan/apply pipelines, environment parity</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Production K8s Platform</div>
+                        <div class="project-tech">Kubernetes • Helm • ArgoCD • Istio</div>
+                        <div class="project-desc">Enterprise K8s: service mesh, GitOps CD, RBAC, HPA, network policies, canary deployments, multi-cluster management</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">GitOps Delivery Pipeline</div>
+                        <div class="project-tech">ArgoCD • Flux • GitHub Actions • Helm</div>
+                        <div class="project-desc">Full GitOps workflow: declarative deployments, automated rollbacks, progressive delivery, drift reconciliation</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Observability Stack</div>
+                        <div class="project-tech">Prometheus • Grafana • ELK • OpenTelemetry</div>
+                        <div class="project-desc">Full-stack observability: metrics, logs, distributed traces, SLO dashboards, PagerDuty alerting, 40+ integrations</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Secrets Management Platform</div>
+                        <div class="project-tech">Vault • AWS Secrets Manager • Azure Key Vault</div>
+                        <div class="project-desc">Multi-cloud secrets lifecycle: dynamic secrets, auto-rotation, K8s integration, zero hardcoded credentials policy</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Container Security Pipeline</div>
+                        <div class="project-tech">Trivy • Snyk • OPA • Falco</div>
+                        <div class="project-desc">Shift-left security: image scanning in CI, runtime threat detection, policy-as-code enforcement, compliance reporting</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">AI-Powered Cloud Automation</div>
+                        <div class="project-tech">Python • LangChain • OpenAI • Go</div>
+                        <div class="project-desc">LLM-driven infra automation: intelligent log analysis, anomaly detection, auto-remediation, infrastructure Q&A agent</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Self-Hosted Platform</div>
+                        <div class="project-tech">Docker • Traefik • Nginx • SSL</div>
+                        <div class="project-desc">Dockerized service platform: reverse proxy, auto SSL, Cloudflare CDN, DNS management, health checks, monitoring</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Backup & DR System</div>
+                        <div class="project-tech">Restic • AWS S3 • PostgreSQL • PowerShell</div>
+                        <div class="project-desc">Multi-tier disaster recovery: encrypted cloud backups, DB snapshots, VM images, automated restore testing, RTO/RPO compliance</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Network Automation Suite</div>
+                        <div class="project-tech">Terraform • VPC • CloudFront • Route53</div>
+                        <div class="project-desc">Full network-as-code: VPC design, subnets, security groups, DNS zones, CDN config, WAF rules, VPN tunnels</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">TovPlay Cloud Platform</div>
+                        <div class="project-tech">Flask • Docker • PostgreSQL • CI/CD</div>
+                        <div class="project-desc">Production gaming backend: cloud deployment, auto-scaling, JWT auth, Discord OAuth, WebSocket, full pipeline automation</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Proxmox Private Cloud</div>
+                        <div class="project-tech">Proxmox • KVM • Terraform • Ansible</div>
+                        <div class="project-desc">On-prem private cloud: VM templates, automated provisioning, HA clustering, storage pools, hybrid cloud bridge</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Cost Optimization Engine</div>
+                        <div class="project-tech">Python • AWS Cost Explorer • Grafana</div>
+                        <div class="project-desc">Cloud cost analysis: resource right-sizing recommendations, idle resource detection, spot instance automation, budget alerts</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Patch & Compliance System</div>
+                        <div class="project-tech">Ansible • AWS SSM • PowerShell</div>
+                        <div class="project-desc">Fleet patch management across cloud/on-prem: automated OS updates, compliance reporting, rollback, maintenance windows</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Shell & API Automation</div>
+                        <div class="project-tech">Python • Bash • PowerShell • Go</div>
+                        <div class="project-desc">100+ production automation scripts: cloud API integrations, deployment helpers, health checks, incident response runbooks</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">StartupMaster Windows Tool</div>
+                        <div class="project-tech">C# • .NET 8.0 • WPF</div>
+                        <div class="project-desc">Production system admin app: boot impact analysis, startup optimization, service management, system tray integration</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Windows Repair Suite</div>
+                        <div class="project-tech">PowerShell • DISM • WMI</div>
+                        <div class="project-desc">Automated OS repair toolkit: Win11Reset/Repair, PrebootRepair, system diagnostics, recovery automation</div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">AndroidMonitor System</div>
+                        <div class="project-tech">C# • ADB • Real-time Monitoring</div>
+                        <div class="project-desc">Cross-platform device fleet monitoring via USB: health checks, storage analysis, automated state tracking, logging</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎓 EDUCATION & CERTIFICATIONS</h2>
+                <div class="education-item">
+                    <div class="degree">Data Analysis & Cloud Infrastructure Program</div>
+                    <div class="institution">TovTech (1 Year) • Cloud architecture, automation, infrastructure engineering</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Engineering Preparatory Year</div>
+                    <div class="institution">Ariel University • Physics, Mathematics, Technical English</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Self-Directed Cloud Certifications</div>
+                    <div class="institution">AWS Solutions Architect preparation • CKA (Certified Kubernetes Administrator) preparation • HashiCorp Terraform Associate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Fedorovsky - Computer Technician Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 7.6pt;
+            line-height: 1.18;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            color: white;
+            padding: 13px 25px;
+            position: relative;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .profile-photo {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        
+        .header-text {
+            flex: 1;
+        }
+        
+        .name {
+            font-size: 20pt;
+            font-weight: 800;
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+        }
+        
+        .title {
+            font-size: 8.8pt;
+            font-weight: 600;
+            margin-bottom: 4.5px;
+            opacity: 0.96;
+        }
+        
+        .contact-info {
+            font-size: 7pt;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px 6.5px;
+            opacity: 0.9;
+        }
+        
+        .contact-info span {
+            white-space: nowrap;
+        }
+        
+        .summary {
+            font-size: 7.3pt;
+            margin-top: 5.5px;
+            line-height: 1.28;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 11px 25px 15px 25px;
+        }
+        
+        .section {
+            margin-bottom: 7.5px;
+        }
+        
+        .section-title {
+            font-size: 8.8pt;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4.5px;
+            color: #1a366d;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 2.8px;
+            height: 12px;
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            border-radius: 2px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 93px 1fr;
+            gap: 2.6px 7.5px;
+            font-size: 6.7pt;
+            line-height: 1.22;
+        }
+        
+        .skill-category {
+            font-weight: 700;
+            color: #1a366d;
+        }
+        
+        .skill-items {
+            color: #2a2a2a;
+        }
+        
+        .skill-items strong {
+            color: #1a366d;
+            font-weight: 600;
+        }
+        
+        .experience-item {
+            margin-bottom: 6.5px;
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2.8px;
+        }
+        
+        .job-title {
+            font-weight: 700;
+            font-size: 8.3pt;
+            color: #1a366d;
+        }
+        
+        .company {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .duration {
+            font-size: 7pt;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1.8px;
+        }
+        
+        .experience-item li {
+            padding-left: 8.5px;
+            position: relative;
+            margin-bottom: 1.1px;
+            font-size: 6.7pt;
+            line-height: 1.18;
+        }
+        
+        .experience-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2b5282;
+            font-weight: bold;
+            font-size: 6.8pt;
+        }
+        
+        .projects-section {
+            margin-bottom: 7.5px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4.2px;
+            margin-top: 3.8px;
+        }
+        
+        .project-card {
+            border: 1px solid #d5d5d5;
+            border-radius: 3px;
+            padding: 4.2px;
+            background: linear-gradient(to bottom, #fafafa 0%, #f5f5f5 100%);
+        }
+        
+        .project-title {
+            font-weight: 700;
+            font-size: 7pt;
+            color: #1a366d;
+            margin-bottom: 1.6px;
+            line-height: 1.18;
+        }
+        
+        .project-tech {
+            font-size: 6pt;
+            color: #666;
+            margin-bottom: 2.3px;
+            font-weight: 600;
+            line-height: 1.12;
+        }
+        
+        .project-desc {
+            font-size: 6pt;
+            line-height: 1.18;
+            color: #444;
+        }
+        
+        .education-item {
+            margin-bottom: 2.8px;
+        }
+        
+        .degree {
+            font-weight: 700;
+            font-size: 7.8pt;
+            color: #1a366d;
+        }
+        
+        .institution {
+            font-size: 7pt;
+            color: #555;
+            font-weight: 500;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="header-content">
+                <img src="file:///F:/study/resume/profile_photo.jpg" alt="Michael Fedorovsky" class="profile-photo">
+                <div class="header-text">
+                    <h1 class="name">Michael Fedorovsky</h1>
+                    <div class="title">Computer Technician | System Administrator | Technical Support Specialist</div>
+                    <div class="contact-info">
+                        <span>📍 Bat Yam, Israel</span>
+                        <span>•</span>
+                        <span>📱 054-763-2418</span>
+                        <span>•</span>
+                        <span>✉ michaelovsky5@gmail.com</span>
+                        <span>•</span>
+                        <span>🔗 LinkedIn</span>
+                        <span>•</span>
+                        <span>💻 GitHub Portfolio</span>
+                    </div>
+                    <div class="summary">
+                        Expert Computer Technician with 2 years hands-on experience in hardware diagnostics, system repair, OS troubleshooting, and network configuration. Skilled in Windows/Linux system administration, PC assembly/upgrade, laptop repair, data recovery, and automated system optimization. Built 100+ diagnostic and repair tools including Windows startup analyzers, system repair utilities, and automated troubleshooting scripts. Strong customer service focus with ability to explain technical concepts to non-technical users.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">🔧 TECHNICAL EXPERTISE</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">Hardware</div>
+                    <div class="skill-items"><strong>PC Assembly & Repair:</strong> Desktop/laptop disassembly, component replacement, upgrades • RAM, SSD/HDD, GPU, PSU, motherboard installation • Thermal paste application, cooling systems</div>
+                    
+                    <div class="skill-category">Diagnostics</div>
+                    <div class="skill-items"><strong>Tools & Testing:</strong> Memtest86, CrystalDiskInfo, HWiNFO, CPU-Z, GPU-Z, Prime95 • Hardware diagnostics, stress testing, benchmark analysis, failure isolation</div>
+                    
+                    <div class="skill-category">Operating Systems</div>
+                    <div class="skill-items"><strong>Windows:</strong> 10/11 installation, configuration, troubleshooting, repair, optimization • DISM, SFC, Registry editing, Event Viewer • <strong>Linux:</strong> Ubuntu, Debian, system administration</div>
+                    
+                    <div class="skill-category">System Repair</div>
+                    <div class="skill-items">Boot failure recovery, BSOD troubleshooting, driver issues, malware removal, system restore, clean installation, data migration, BIOS/UEFI configuration</div>
+                    
+                    <div class="skill-category">Networking</div>
+                    <div class="skill-items">LAN/WLAN setup, router configuration, IP addressing, DNS troubleshooting, network diagnostics (ping, tracert, ipconfig, netstat), firewall configuration, VPN setup</div>
+                    
+                    <div class="skill-category">Data Recovery</div>
+                    <div class="skill-items">File system repair, partition recovery, backup/restore procedures, data migration, disk cloning, RAID recovery basics</div>
+                    
+                    <div class="skill-category">Software</div>
+                    <div class="skill-items">OS installation, driver updates, application deployment, software troubleshooting, antivirus/security tools, system optimization utilities</div>
+                    
+                    <div class="skill-category">Virtualization</div>
+                    <div class="skill-items">VMware, VirtualBox, Hyper-V, Proxmox • VM creation, configuration, snapshots, troubleshooting</div>
+                    
+                    <div class="skill-category">Automation</div>
+                    <div class="skill-items"><strong>Scripting:</strong> PowerShell, Batch, Bash for automated diagnostics, system maintenance, repair tasks • Task Scheduler, startup optimization</div>
+                    
+                    <div class="skill-category">Mobile Devices</div>
+                    <div class="skill-items">Android troubleshooting, ADB commands, USB debugging, device monitoring, firmware flashing basics</div>
+                    
+                    <div class="skill-category">Peripherals</div>
+                    <div class="skill-items">Printer setup/troubleshooting, scanner configuration, external storage devices, USB/Bluetooth troubleshooting, display connectivity</div>
+                    
+                    <div class="skill-category">Security</div>
+                    <div class="skill-items">Malware removal, antivirus deployment, Windows Defender configuration, security best practices, user account management, encryption basics</div>
+                    
+                    <div class="skill-category">Backup/DR</div>
+                    <div class="skill-items">Backup solutions (Macrium Reflect, Windows Backup), disaster recovery planning, system imaging, data archiving</div>
+                    
+                    <div class="skill-category">Remote Support</div>
+                    <div class="skill-items">TeamViewer, AnyDesk, Remote Desktop, SSH, remote diagnostics, remote software installation</div>
+                    
+                    <div class="skill-category">Documentation</div>
+                    <div class="skill-items">Technical documentation, troubleshooting guides, customer communication, ticket management (Jira), knowledge base creation</div>
+                    
+                    <div class="skill-category">Customer Service</div>
+                    <div class="skill-items">Technical support, user training, problem resolution, clear communication of technical issues, patience with non-technical users</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">💼 PROFESSIONAL EXPERIENCE</h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <span class="job-title">Computer Technician / System Administrator</span> <span class="company">@ TovTech</span>
+                        </div>
+                        <div class="duration">2 Years</div>
+                    </div>
+                    <ul>
+                        <li>Diagnosed and repaired 500+ hardware/software issues: boot failures, driver problems, BSOD errors, network connectivity</li>
+                        <li>Performed PC builds, upgrades, and component replacements including RAM, SSD/HDD, GPU, motherboard, PSU installations</li>
+                        <li>Automated Windows startup optimization reducing boot times 60% using custom diagnostic tools</li>
+                        <li>Managed system backups, data recovery, and disaster recovery procedures achieving 99.9% data integrity</li>
+                        <li>Provided remote and on-site technical support with high customer satisfaction ratings</li>
+                        <li>Created automated system repair scripts (PowerShell/Batch) for common Windows 10/11 issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="projects-section">
+                <h2 class="section-title">🛠 TECHNICAL PROJECTS & TOOLS</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-title">StartupMaster Diagnostic Tool</div>
+                        <div class="project-tech">C# • .NET • Windows System Analysis</div>
+                        <div class="project-desc">Production Windows startup analyzer: boot impact estimation, safe-to-disable filtering, system tray integration, automatic optimization recommendations</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Windows System Repair Suite</div>
+                        <div class="project-tech">PowerShell • DISM • System Recovery</div>
+                        <div class="project-desc">Automated repair tools: Win11Reset, Win11Repair, PrebootRepair, FixWin11 - one-click system diagnostics and recovery</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">AndroidMonitor Device Tool</div>
+                        <div class="project-tech">C# • ADB • Real-time Diagnostics</div>
+                        <div class="project-desc">Android device monitoring via USB: automated health checks, battery status, storage analysis, app management, system logs</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Network Optimization Tool</div>
+                        <div class="project-tech">PowerShell • Network Diagnostics</div>
+                        <div class="project-desc">MaximizeEthernet - automated network performance tuning, DNS optimization, latency reduction, bandwidth testing</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Backup Automation System</div>
+                        <div class="project-tech">PowerShell • File Management</div>
+                        <div class="project-desc">Multi-tier automated backup: system files, user data, application configs with scheduling, rotation policies, integrity verification</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">System Monitoring Dashboard</div>
+                        <div class="project-tech">Grafana • Prometheus • Windows Monitoring</div>
+                        <div class="project-desc">Real-time system health monitoring: CPU, RAM, disk usage, temperatures, network traffic with alerting for critical thresholds</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Driver Update Automation</div>
+                        <div class="project-tech">PowerShell • WMI • Device Management</div>
+                        <div class="project-desc">Automated driver detection, download, installation scripts for graphics, network, chipset drivers with rollback capability</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Malware Removal Toolkit</div>
+                        <div class="project-tech">Batch • PowerShell • Security Tools</div>
+                        <div class="project-desc">Comprehensive malware removal: safe mode boot automation, rootkit detection, browser cleanup, registry repair, security hardening</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Data Recovery Scripts</div>
+                        <div class="project-tech">PowerShell • File System Tools</div>
+                        <div class="project-desc">Automated data recovery from corrupted drives, deleted file restoration, partition recovery scripts, file carving utilities</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">PC Health Check Tool</div>
+                        <div class="project-tech">C# • System Diagnostics</div>
+                        <div class="project-desc">Comprehensive PC diagnostics: hardware stress testing, temperature monitoring, S.M.A.R.T. analysis, performance benchmarking</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Automated OS Deployment</div>
+                        <div class="project-tech">PowerShell • Windows Imaging</div>
+                        <div class="project-desc">Unattended Windows installation with driver injection, software pre-installation, user profile setup, network configuration</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Remote Support Toolkit</div>
+                        <div class="project-tech">PowerShell • Remote Desktop • Scripts</div>
+                        <div class="project-desc">Remote diagnostics and repair: system info collection, log analysis, remote script execution, automated troubleshooting</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Virtual Lab Environment</div>
+                        <div class="project-tech">VMware • VirtualBox • Proxmox</div>
+                        <div class="project-desc">Testing environment with multiple OS configurations for troubleshooting scenarios, software compatibility testing, training</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Inventory Management System</div>
+                        <div class="project-tech">Python • Database • Reporting</div>
+                        <div class="project-desc">Hardware inventory tracking: PC specs, warranty info, repair history, component stock management, automated reporting</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">BIOS/UEFI Utilities</div>
+                        <div class="project-tech">Batch • PowerShell • Firmware Tools</div>
+                        <div class="project-desc">BIOS configuration backup/restore, boot order management, secure boot configuration, TPM enablement scripts</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">USB Bootable Tools</div>
+                        <div class="project-tech">Windows PE • Linux Live USB</div>
+                        <div class="project-desc">Bootable diagnostic USB drives: system rescue, partition management, password reset, data recovery, malware scanning</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Print Server Management</div>
+                        <div class="project-tech">Windows Server • Print Management</div>
+                        <div class="project-desc">Centralized printer deployment, driver management, print queue monitoring, automated troubleshooting scripts</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">User Migration Tool</div>
+                        <div class="project-tech">PowerShell • File Transfer</div>
+                        <div class="project-desc">Automated user profile migration: documents, settings, browser data, email, application configs from old to new PCs</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎓 EDUCATION & CERTIFICATIONS</h2>
+                <div class="education-item">
+                    <div class="degree">Data Analysis & System Administration Program</div>
+                    <div class="institution">TovTech (1 Year) • System diagnostics, automation, technical analysis</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Engineering Preparatory Year</div>
+                    <div class="institution">Ariel University • Physics, Mathematics, Technical English</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Self-Taught Certifications</div>
+                    <div class="institution">CompTIA A+ preparation, Microsoft certifications, Linux system administration courses</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+
+# Auto-excluded large files (>49MB)
+C\#/AndroidMonitor/AndroidMonitor.exe
+C\#/StartupManagerClean/StartupManager/published/StartupManager.exe

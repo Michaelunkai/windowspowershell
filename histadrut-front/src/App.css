@@ -1,0 +1,143 @@
+/* Unified main page container */
+.main-page {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+/* Global page title style */
+.page__title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: start;
+}
+/* Global overflow prevention */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-y: auto; /* Allow vertical scrolling */
+  max-width: 100vw;
+}
+
+.app {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  max-width: 100vw;
+
+  /* Global language picker positioning */
+  & > .language-picker {
+    z-index: 1001;
+  }
+}
+
+.main-content {
+  flex: 1;
+  margin-inline-start: 80px; /* Updated for new collapsed nav width */
+  overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  background-color: #f8f9fa;
+  width: calc(100% - 80px); /* Ensure proper width calculation */
+  max-width: calc(100vw - 80px); /* Prevent viewport overflow */
+  min-width: 0; /* Allow flex shrinking */
+
+  /* Apply overflow hidden to all child elements */
+  & * {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  /* Exclude Highcharts tooltips from max-width constraint */
+  & .highcharts-tooltip,
+  & .highcharts-tooltip * {
+    max-width: none;
+    overflow-wrap: normal;
+  }
+
+  /* Specific table handling */
+  & table {
+    width: 100%;
+    table-layout: fixed;
+    overflow-x: auto;
+  }
+
+  /* Container for tables to add horizontal scroll if needed */
+  & .table-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    margin-inline: 0;
+    width: 100%;
+    max-width: 100vw;
+
+    & * {
+      max-width: 100vw;
+    }
+  }
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+
+  &:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+  }
+
+  &.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

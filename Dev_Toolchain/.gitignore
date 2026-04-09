@@ -1,0 +1,16 @@
+
+# >=95MB excluded by gitit v12 (GitHub limit)
+programming/.NET/projects/C#/StartupMaster/dist/StartupMaster_v1.7_ZeroDelay/StartupMaster.exe
+programming/.NET/projects/C#/StartupMaster/dist/StartupMaster_v1.7/StartupMaster.exe
+programming/.NET/projects/C#/StartupMaster/dist/StartupMaster_v1.8_BulletproofFix/StartupMaster.exe
+programming/.NET/projects/C#/StartupMaster/dist/StartupMaster_v1.9_Final/StartupMaster.exe
+programming/.NET/projects/C#/StartupMaster/dist/StartupMaster_v2.0_WithIcons/StartupMaster.exe
+programming/.NET/projects/C#/OpenClawRunner/dist/OpenClawRunner.exe
+programming/.NET/projects/C#/StartupManagerClean/StartupManager/published/StartupManager.exe
+
+# Auto-excluded large files (>49MB)
+programming/.NET/projects/C#/AndroidMonitor/AndroidMonitor.exe
+programming/.NET/projects/C#/game-launcher-pro/GameLauncherPro/bin/Release/net9.0-windows/win-x64/publish/GameLauncherPro.exe
+programming/.NET/projects/C#/game-launcher-pro/GameLauncherPro/bin/Publish/GameLauncherPro.exe
+programming/.NET/projects/C#/game-launcher-pro/dist/GameLauncherPro.exe
+programming/C++/mingw-complete.zip

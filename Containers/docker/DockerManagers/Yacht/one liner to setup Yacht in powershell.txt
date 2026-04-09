@@ -1,0 +1,1 @@
+docker run -d -p 8000:8000 --name yacht --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v yacht_data:/config selfhostedpro/yacht:latest ; echo "Yacht: http://localhost:8000"

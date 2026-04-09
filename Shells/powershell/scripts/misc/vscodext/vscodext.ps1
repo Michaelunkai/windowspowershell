@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    vscodext
+#>
+$SourcePath = 'C:\users\micha\.vscode'; $DestPath = 'F:\backup\windowsapps\vscode'; $TempPath = 'F:\backup\windowsapps\vscode_temp'; if (Test-Path $SourcePath) { if (Test-Path $DestPath) { Rename-Item -Path $DestPath -NewName 'vscode_old' -Force }; if (Test-Path $TempPath) { Remove-Item -Path $TempPath -Recurse -Force }; New-Item -ItemType Directory -Path $DestPath -Force | Out-Null; Get-ChildItem -Path $SourcePath -Recurse | ForEach-Object { if ($_.PSIsContainer) { New-Item -ItemType Directory -Path $_.FullName.Replace($SourcePath, $DestPath) -Force | Out-Null } else { Copy-Item -Path $_.FullName -Destination $_.FullName.Replace($SourcePath, $DestPath) -Force } }; Remove-Item -Path $SourcePath -Recurse -Force; [Environment]::SetEnvironmentVariable('APPDATA', 'F:\backup\windowsapps\vscode', 'User'); [Environment]::SetEnvironmentVariable('LOCALAPPDATA', 'F:\backup\windowsapps\vscode', 'User'); Write-Host "Migration complete. Verify folder sizes match before using VS Code." }

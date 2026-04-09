@@ -1,0 +1,74 @@
+[2025-10-22 19:28:27] INFO: Starting uninstallation of nvidia
+[2025-10-22 19:28:27] INFO: Terminated 0 processes
+[2025-10-22 19:28:27] INFO: Stopped 1 services
+[2025-10-22 19:28:27] INFO: Found 14 registry entries
+[2025-10-22 19:28:27] ERROR: Uninstallation failed: max_workers must be greater than 0
+[2025-10-22 19:29:05] INFO: Starting uninstallation of nvidia
+[2025-10-22 19:29:05] INFO: Terminated 0 processes
+[2025-10-22 19:29:05] INFO: Stopped 1 services
+[2025-10-22 19:29:05] INFO: Found 0 registry entries
+[2025-10-22 19:29:05] ERROR: Uninstallation failed: max_workers must be greater than 0
+[2025-10-22 19:34:52] EXTREME NVIDIA PURGE MODE ACTIVATED
+[2025-10-22 19:34:52] Aggressively removing ALL traces of NVIDIA from C: drive
+[2025-10-22 19:34:52] INFO: Starting EXTREME uninstallation of nvidia
+[2025-10-22 19:34:52] INFO: Terminated 0 processes
+[2025-10-22 19:34:52] INFO: Stopped 4 services
+[2025-10-22 19:34:52] INFO: Found 30 registry entries
+[2025-10-22 19:34:53] INFO: Found 3385 leftover files
+[2025-10-22 19:35:24] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\csaudioext.inf_amd64_4723ed8a8bc56907\Playback_6.61.1\default_tunings\CS35L41B\Calibration_and_Diagnostics_CS35L41B_48000_29.63.1_left_cal.bin: maximum recursion depth exceeded
+[2025-10-22 19:35:49] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\csaudioext.inf_amd64_4723ed8a8bc56907\Playback_6.63.0\default_tunings\CS35L41B\Calibration_and_Diagnostics_CS35L41B_48000_29.65.0_left_cal.bin: maximum recursion depth exceeded
+[2025-10-22 19:36:13] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\csaudioext.inf_amd64_4723ed8a8bc56907\Playback_6.61.1\default_tunings\CS35L41B\Enhance_Protect_Lite_Mono_CS35L41B_48000_29.63.1_left.bin: maximum recursion depth exceeded
+[2025-10-22 19:36:35] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\csaudioext.inf_amd64_4723ed8a8bc56907\Playback_6.63.0\default_tunings\CS35L41B\Enhance_Protect_Lite_Mono_CS35L41B_48000_29.65.0_left.bin: maximum recursion depth exceeded
+[2025-10-22 19:37:00] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\csaudioext.inf_amd64_4723ed8a8bc56907\Playback_6.68.0\default_tunings\CS35L41B\Calibration_and_Diagnostics_48000_29.70.0_left_cal.bin: maximum recursion depth exceeded
+[2025-10-22 19:37:26] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\hdx_asusext_apot_g5_gm_2p2h-80-1234_hqomni-off-off.inf_amd64_44678c32b760ade8\hdx_asusext_apot_g5_gm_2p2h-80-1234_hqomni-off-off.inf: maximum recursion depth exceeded
+[2025-10-22 19:37:45] EXTREME NVIDIA PURGE MODE ACTIVATED
+[2025-10-22 19:37:45] Aggressively removing ALL traces of NVIDIA from C: drive
+[2025-10-22 19:37:45] INFO: Starting EXTREME uninstallation of nvidia
+[2025-10-22 19:37:45] INFO: Terminated 0 processes
+[2025-10-22 19:37:45] INFO: Stopped 4 services
+[2025-10-22 19:37:45] INFO: Found 0 registry entries
+[2025-10-22 19:37:45] INFO: Found 3385 leftover files
+[2025-10-22 19:41:03] EXTREME NVIDIA PURGE MODE ACTIVATED
+[2025-10-22 19:41:03] Aggressively removing ALL traces of NVIDIA from C: drive
+[2025-10-22 19:41:03] INFO: Starting EXTREME uninstallation of nvidia
+[2025-10-22 19:41:03] INFO: Terminated 0 processes
+[2025-10-22 19:41:03] INFO: Stopped 4 services
+[2025-10-22 19:41:03] INFO: Found 0 registry entries
+[2025-10-22 19:41:03] INFO: Found 2870 leftover files
+[2025-10-22 19:41:21] EXTREME NVIDIA PURGE MODE ACTIVATED
+[2025-10-22 19:41:21] Aggressively removing ALL traces of NVIDIA from C: drive
+[2025-10-22 19:41:21] INFO: Starting EXTREME uninstallation of nvidia
+[2025-10-22 19:41:21] INFO: Terminated 0 processes
+[2025-10-22 19:41:21] INFO: Stopped 4 services
+[2025-10-22 19:41:22] INFO: Found 0 registry entries
+[2025-10-22 19:41:22] INFO: Found 2870 leftover files
+[2025-10-22 19:41:48] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\asussci2.inf_amd64_1c054a83d803f0c0\ASUSSoftwareManager\System.Runtime.CompilerServices.Unsafe.dll: maximum recursion depth exceeded
+[2025-10-22 19:42:13] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\asussci2.inf_amd64_1c054a83d803f0c0\ASUSSoftwareManager\SQLitePCLRaw.provider.dynamic_cdecl.dll: maximum recursion depth exceeded
+[2025-10-22 19:42:39] ERROR: Failed to take ownership of C:\Windows\System32\DriverStore\FileRepository\asussci2.inf_amd64_1c054a83d803f0c0\ASUSSoftwareManager\AsusBusinessIntelligenceCollection.dll: maximum recursion depth exceeded
+[2025-10-22 20:09:54] 🔥 EXTREME PURGE MODE ACTIVATED 🔥
+[2025-10-22 20:09:54] Aggressively removing ALL traces within 10 seconds
+[2025-10-22 20:09:54] INFO: Starting EXTREME uninstallation of nvidia
+[2025-10-22 20:09:54] INFO: Terminated 4 processes
+[2025-10-22 20:09:54] ERROR: Error stopping services: nothing to repeat at position 0
+[2025-10-22 20:09:54] INFO: Stopped 4 services
+[2025-10-22 20:09:54] INFO: Found 140 registry entries
+[2025-10-22 20:09:54] INFO: Found 0 leftover files
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: nothing to repeat at position 0
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: nothing to repeat at position 0
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: nothing to repeat at position 0
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: nothing to repeat at position 0
+[2025-10-22 20:09:54] INFO: Found 0 shortcuts
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:54] ERROR: Error in parallel scan: Can't get local object 'scan_entire_drive_for_app.<locals>.scan_chunk'
+[2025-10-22 20:09:55] INFO: Found 0 additional files/folders across C: drive
+[2025-10-22 20:09:55] INFO: EXTREME uninstallation of nvidia completed successfully
+[2025-10-22 20:09:55] Performing final verification scan for nvidia files...

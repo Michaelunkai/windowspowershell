@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y python3-pip && pip3 install tabview && echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc && source ~/.bashrc && tabview --version && echo "Try: tabview data.csv (use hjkl to navigate, q to quit, / to search)"

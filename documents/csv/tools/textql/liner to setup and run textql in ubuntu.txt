@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y golang-go && go install github.com/dinedal/textql/...@latest && echo 'export PATH=$PATH:$HOME/go/bin' >> ~/.bashrc && source ~/.bashrc && textql -version && echo "Try: textql -sql 'SELECT * FROM data' data.csv | textql -header -sql 'SELECT col1, COUNT(*) FROM data GROUP BY col1' data.csv"

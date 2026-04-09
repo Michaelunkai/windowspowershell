@@ -1,0 +1,1 @@
+irm bun.sh/install.ps1 | iex; $env:PATH = "$env:USERPROFILE\.bun\bin;$env:PATH"; refreshenv

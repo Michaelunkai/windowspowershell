@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y miller && mlr --version && echo "Miller installed! Try: mlr --csv cat file.csv, mlr --csv cut -f name,age file.csv, mlr --csv filter '\$age > 25' file.csv, mlr --csv stats1 -a sum,mean -f salary file.csv"

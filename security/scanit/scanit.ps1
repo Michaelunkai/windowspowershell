@@ -1,0 +1,11 @@
+﻿<#
+.SYNOPSIS
+    scanit
+#>
+mser
+    kvrt
+    fsec
+    hitman
+    sophos
+    runsas
+    adw

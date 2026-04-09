@@ -1,0 +1,2 @@
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts", "User")
+

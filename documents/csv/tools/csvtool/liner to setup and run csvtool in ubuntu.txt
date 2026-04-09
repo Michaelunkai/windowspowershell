@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y csvtool && csvtool --version && echo "csvtool installed! Try: csvtool cat file.csv, csvtool col 1,3 file.csv, csvtool drop 1 file.csv, csvtool join file1.csv file2.csv, csvtool transpose file.csv"

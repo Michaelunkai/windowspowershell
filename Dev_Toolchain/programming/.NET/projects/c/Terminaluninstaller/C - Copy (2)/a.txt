@@ -1,0 +1,55 @@
+CONTEXT FOR AI ASSISTANT - ULTIMATE UNINSTALLER PROJECT
+========================================================
+
+WHAT WAS DONE:
+--------------
+I created an enhanced version of a Windows uninstaller application called "ultimate_uninstaller.c"
+with the following major improvements over the previous "deep_uninstaller.c":
+
+1. **Restart Manager API Integration** - Added rstrtmgr.lib to detect and kill processes holding file handles
+2. **Enhanced Process Termination** - Debug privileges enabled, multiple termination attempts
+3. **Deeper Registry Scanning** - Increased to 3 levels, 3000 keys per location, both 32/64-bit registry views
+4. **Temp Folder Cleanup** - Dedicated function to clean system temp, user temp, and prefetch folders
+5. **Hidden/System File Handling** - Automatically strips file attributes before deletion
+6. **Driver Detection** - Scans for SERVICE_DRIVER in addition to SERVICE_WIN32
+7. **Enhanced Service Control** - Kills service processes directly if graceful stop fails
+8. **Increased Scan Depth** - 6 levels for Program Files, 5 for AppData, 4 for others
+9. **Extended Timeout** - 5 minutes per application (up from 3 minutes)
+
+SAFETY MECHANISMS MAINTAINED:
+-----------------------------
+- Protected Windows system directories (System32, SysWOW64, WinSxS, Boot, Fonts, etc.)
+- C: drive only operation
+- Administrator privilege requirement
+- 3-second warning before execution
+
+YOUR TASK:
+----------
+1. Compile the application using this EXACT command:
+
+gcc -o ultimate_uninstaller.exe ultimate_uninstaller.c -lshlwapi -ladvapi32 -luserenv -lkernel32 -lntdll -lrstrtmgr -municode -static-libgcc -O2
+
+2. After successful compilation, output the FULL ABSOLUTE PATH to the compiled executable in PowerShell format
+
+IMPORTANT NOTES:
+---------------
+- The source file is: ultimate_uninstaller.c
+- The output should be: ultimate_uninstaller.exe
+- Make sure you're in the correct directory: F:\study\Dev_Toolchain\programming\.net\projects\c\Terminaluninstaller\c
+- The -O2 flag is "dash O two" (letter O, number 2)
+- Do NOT include any extra characters when running the compile command
+
+EXPECTED OUTPUT PATH FORMAT:
+----------------------------
+F:\study\Dev_Toolchain\programming\.net\projects\c\Terminaluninstaller\c\ultimate_uninstaller.exe
+
+FILES IN THIS DIRECTORY:
+-----------------------
+- ultimate_uninstaller.c (NEW - enhanced source code)
+- deep_uninstaller.c (OLD - previous version)
+- compile.bat (batch script for compilation)
+- README.md (documentation)
+- COMPILE_INSTRUCTIONS.txt (compilation help)
+- a.txt (THIS FILE - context for you)
+
+COMPILE AND REPORT THE FULL PATH!

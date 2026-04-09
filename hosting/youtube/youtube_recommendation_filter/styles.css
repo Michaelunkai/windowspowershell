@@ -1,0 +1,48 @@
+/* YouTube Recommendation Filter - Content Styles */
+
+/* Hidden videos */
+[data-ytrf-hidden="true"] {
+  display: none !important;
+}
+
+/* Boosted videos */
+[data-ytrf-boosted="true"] {
+  position: relative;
+  border: 2px solid #00ff00 !important;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4) !important;
+  border-radius: 8px !important;
+}
+
+[data-ytrf-boosted="true"]::before {
+  content: "⭐ BOOSTED";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 255, 0, 0.9);
+  color: black;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 100;
+}
+
+/* Filter status indicator */
+#ytrf-status {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 12px;
+  z-index: 9999;
+  display: none;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,1 @@
+cd /tmp && wget https://github.com/TomWright/dasel/releases/latest/download/dasel_linux_amd64 && sudo mv dasel_linux_amd64 /usr/local/bin/dasel && sudo chmod +x /usr/local/bin/dasel && dasel --version && echo "dasel installed! Try: dasel -f file.csv -r csv '.all()', dasel -f file.csv -r csv '.[0].name', dasel -f file.csv -r csv 'filter(.age > 25)'"

@@ -1,0 +1,347 @@
+#========================
+# Interface configuration
+#========================
+pushd interface 
+
+
+popd
+# End of interface configuration
+
+
+
+# ----------------------------------
+# 6to4 Configuration
+# ----------------------------------
+pushd interface 6to4
+
+reset
+
+
+
+popd
+# End of 6to4 configuration
+
+
+
+# ----------------------------------
+# IPHTTPS Configuration
+# ----------------------------------
+pushd interface httpstunnel
+
+reset
+
+
+popd
+# End of IPHTTPS configuration
+
+
+
+# ----------------------------------
+# IPv4 Configuration
+# ----------------------------------
+pushd interface ipv4
+
+reset
+set global defaultcurhoplimit=255
+set interface interface="Wi-Fi 3" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Ethernet (Kernel Debugger)" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="vEthernet (Default Switch)" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+add address name="vEthernet (Default Switch)" address=172.25.224.1 mask=255.255.240.0
+
+
+popd
+# End of IPv4 configuration
+
+
+
+# ----------------------------------
+# IPv6 Configuration
+# ----------------------------------
+pushd interface ipv6
+
+reset
+set global defaultcurhoplimit=255
+set interface interface="Bluetooth Network Connection" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Wi-Fi 3" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Ethernet" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Wi-Fi" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Wi-Fi 2" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Wi-Fi 5" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Ethernet (Kernel Debugger)" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Wi-Fi 4" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Teredo Tunneling Pseudo-Interface" forwarding=disabled advertise=disabled mtu=1280 metric=0 siteprefixlength=0 nud=disabled routerdiscovery=disabled managedaddress=disabled otherstateful=disabled weakhostsend=disabled weakhostreceive=disabled ignoredefaultroutes=disabled advertisedrouterlifetime=0 advertisedefaultroute=disabled currenthoplimit=0 forcearpndwolpattern=disabled enabledirectedmacwolpattern=disabled ecncapability=ecndisabled rabaseddnsconfig=disabled dhcpstaticipcoexistence=disabled
+set interface interface="vEthernet (Default Switch)" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+
+
+popd
+# End of IPv6 configuration
+
+
+
+# ----------------------------------
+# ISATAP Configuration
+# ----------------------------------
+pushd interface isatap
+
+
+
+popd
+# End of ISATAP configuration
+
+
+
+# ----------------------------------
+# 6to4 Configuration
+# ----------------------------------
+pushd interface 6to4
+
+reset
+
+
+
+popd
+# End of 6to4 configuration
+
+
+
+# ----------------------------------
+# ISATAP Configuration
+# ----------------------------------
+pushd interface isatap
+
+
+
+popd
+# End of ISATAP configuration
+
+
+#========================
+# Port Proxy configuration
+#========================
+pushd interface portproxy
+
+reset
+
+
+popd
+
+# End of Port Proxy configuration
+
+
+
+# ----------------------------------
+# TCP Configuration
+# ----------------------------------
+pushd interface tcp
+
+reset
+
+set global rss=enabled autotuninglevel=normal congestionprovider=default ecncapability=enabled timestamps=enabled initialrto=1000 rsc=enabled nonsackrttresiliency=disabled maxsynretransmissions=4 fastopen=enabled fastopenfallback=enabled hystart=enabled prr=enabled pacingprofile=off
+
+
+popd
+# End of TCP configuration
+
+
+
+# ----------------------------------
+# Teredo Configuration
+# ----------------------------------
+pushd interface teredo
+set state type=natawareclient servername=win1910.ipv6.microsoft.com. servervirtualip=0.0.0.0
+
+
+
+popd
+# End of Teredo configuration
+
+
+
+# ----------------------------------
+# UDP Configuration
+# ----------------------------------
+pushd interface udp
+
+reset
+
+set global uro=enabled
+
+
+popd
+# End of UDP configuration
+
+
+# ------------------------------------
+# Bridge configuration (not supported)
+# ------------------------------------
+
+# ------------------------------------
+# End of Bridge configuration
+# ------------------------------------
+
+The 'netsh advfirewall dump' command is not implemented in this version
+of Windows. Instead, use the 'netsh advfirewall export' command to write
+the current Windows Defender Firewall with Advanced Security configuration from
+the current policy store to a file on disk. You can then use 'netsh
+advfirewall import' to read the file and load it into another policy
+store, such as a Group Policy object or the current policy store on
+another computer. To set the current policy store, use the 'netsh
+advfirewall set store' command.
+For more information about the commands in the netsh advfirewall context,
+see Netsh Commands for Windows Defender Firewall with Advanced Security at
+https://go.microsoft.com/fwlink/?linkid=111237.
+# ----------------------------------------
+# Wired LAN Configuration
+# ----------------------------------------
+pushd lan
+
+
+popd
+
+# End of Wired LAN Configuration.
+
+
+Mobile Broadband configuration dump is not supported
+
+                                            
+# ----------------------------------------- 
+# Remote Access Configuration               
+# ----------------------------------------- 
+pushd ras
+
+set authmode mode = standard
+delete authtype type = PAP
+delete authtype type = MD5CHAP
+delete authtype type = MSCHAPv2
+delete authtype type = EAP
+delete authtype type = CERT
+add authtype type = MSCHAPv2
+delete link type = SWC
+delete link type = LCP
+add link type = SWC
+add link type = LCP
+delete multilink type = MULTI
+add multilink type = MULTI
+set conf confstate = disabled
+set type ipv4rtrtype = lananddd ipv6rtrtype = none rastype = ipv4
+set wanports device = "WAN Miniport (SSTP)" rasinonly = disabled ddinout = disabled ddoutonly = disabled maxports = 2 
+set wanports device = "WAN Miniport (IKEv2)" rasinonly = disabled ddinout = disabled ddoutonly = disabled maxports = 2 
+set wanports device = "WAN Miniport (L2TP)" rasinonly = disabled ddinout = disabled ddoutonly = disabled maxports = 2 
+set wanports device = "WAN Miniport (PPTP)" rasinonly = disabled ddinout = disabled ddoutonly = disabled maxports = 2 
+set wanports device = "WAN Miniport (PPPOE)" ddoutonly = disabled
+
+set user name = Administrator dialin = policy cbpolicy = none 
+set user name = DefaultAccount dialin = policy cbpolicy = none 
+set user name = Guest dialin = policy cbpolicy = none 
+set user name = user dialin = policy cbpolicy = none 
+set user name = WDAGUtilityAccount dialin = policy cbpolicy = none 
+
+set ikev2connection idletimeout = 5 nwoutagetime = 30
+set ikev2saexpiry saexpirytime = 60 sadatasizelimit = 32767
+
+popd
+
+# End of Remote Access configuration.        
+                                             
+                                             
+
+                                            
+# ----------------------------------------- 
+# Remote Access Diagnostics Configuration   
+# ----------------------------------------- 
+pushd ras diagnostics
+
+set rastracing component = * state = disabled
+
+set modemtracing state = disabled
+
+set cmtracing state = disabled
+
+set securityeventlog state = disabled
+
+set loglevel events = warn
+
+
+popd
+
+# End of Remote Access Diagnostics Configuration.
+                                                 
+                                                 
+
+                                            
+# ----------------------------------------- 
+# Remote Access IP Configuration            
+# ----------------------------------------- 
+pushd ras ip
+
+delete pool
+
+set negotiation mode = allow
+set access mode = all
+set addrreq mode = deny
+set broadcastnameresolution mode = enabled
+set addrassign method = auto
+set preferredadapter 
+
+popd
+
+# End of Remote Access IP configuration.     
+                                             
+
+                                            
+# ----------------------------------------- 
+# Remote Access IPv6 Configuration          
+# ----------------------------------------- 
+pushd ras ipv6
+
+
+
+set negotiation mode = deny
+set access mode = all
+set routeradvertise mode = enabled
+
+popd
+
+# End of Remote Access IPv6 configuration.   
+                                             
+
+                                            
+# ----------------------------------------- 
+# Remote Access AAAA Configuration          
+# ----------------------------------------- 
+pushd ras aaaa
+
+
+popd
+
+# End of Remote Access AAAA configuration.     
+                                               
+                                               
+
+
+# -----------------------------------------
+# WinHTTP Proxy Configuration
+# -----------------------------------------
+pushd winhttp
+
+reset proxy
+
+popd
+
+# End of WinHTTP Proxy Configuration
+
+# ----------------------------------------
+# Wireless LAN configuration
+# ----------------------------------------
+pushd wlan
+
+# Allow filter list
+# ----------------------------------------
+
+
+# Block filter list
+# ----------------------------------------
+
+
+popd
+# End of Wireless LAN Configuration

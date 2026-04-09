@@ -1,0 +1,39 @@
+/* Truncated Text Component */
+.truncated-text {
+  position: relative;
+  display: inline-block;
+}
+
+.truncated-text__content {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  user-select: text;
+}
+
+.truncated-text__tooltip-portal {
+  max-width: min(300px, calc(100vw - 24px));
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  z-index: 99999;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.truncated-text__tooltip-portal::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+}

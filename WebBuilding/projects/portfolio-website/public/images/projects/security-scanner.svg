@@ -1,0 +1,13 @@
+﻿<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="security-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#security-grad)"/>
+  <path d="M 400 150 L 500 250 L 400 450 L 300 250 Z" fill="#1e293b" opacity="0.9"/>
+  <text x="400" y="100" text-anchor="middle" fill="#ffffff" font-size="38" font-family="Arial, sans-serif" font-weight="bold">Container Security Scanner</text>
+  <text x="400" y="320" text-anchor="middle" fill="#fecaca" font-size="64" font-family="Arial, sans-serif" font-weight="bold">ðŸ›¡ï¸</text>
+  <text x="400" y="500" text-anchor="middle" fill="#e2e8f0" font-size="16" font-family="monospace">Trivy â€¢ CVE Detection â€¢ CVSS Scoring</text>
+</svg>

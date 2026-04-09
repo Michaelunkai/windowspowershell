@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    vcx
+#>
+choco install vcxsrv -y --force; ws gx11

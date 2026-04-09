@@ -1,0 +1,6 @@
+﻿<#
+.SYNOPSIS
+    getdocker
+#>
+
+Install-DockerDesktopRobust

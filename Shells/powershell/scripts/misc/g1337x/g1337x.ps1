@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    g1337x
+#>
+python -m pip install --user git+https://github.com/NicKoehler/1337x

@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y sc-im && sc-im --version && echo "sc-im installed! Try: sc-im file.csv (spreadsheet TUI - :q to quit, i for insert mode, ESC for normal mode)"

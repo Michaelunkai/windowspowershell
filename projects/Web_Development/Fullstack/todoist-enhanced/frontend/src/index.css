@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/* ===== Todoist color scheme + Inter font ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --todo-primary: #DB4035;
+  --todo-secondary: #FF9933;
+  --todo-sidebar: #FAFAFA;
+  --todo-bg: #FFFFFF;
+  --todo-text: #1F1F1F;
+  --todo-accent: #DB4035;
+}
+
+.dark {
+  --todo-bg: #1F1F1F;
+  --todo-text: #FFFFFF;
+  --todo-accent: #DB4035;
+  --todo-sidebar: #202020;
+}
+
+* {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--todo-bg);
+  color: var(--todo-text);
+}
+
+/* ===== Task completion animation ===== */
+@keyframes taskComplete {
+  0%   { opacity: 1; transform: scale(1); }
+  30%  { opacity: 0.8; transform: scale(0.98); }
+  100% { opacity: 0; transform: scale(0.96) translateY(-4px); }
+}
+
+@keyframes checkboxFill {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes strikethrough {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.task-completing {
+  animation: taskComplete 0.4s ease-out forwards;
+}
+
+.task-check-mark {
+  animation: checkboxFill 0.25s ease-out forwards;
+}
+
+.task-strikethrough {
+  position: relative;
+  display: inline-block;
+}
+
+.task-strikethrough::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 1.5px;
+  background: #9ca3af;
+  animation: strikethrough 0.3s ease-out forwards;
+}
+
+/* ===== Search bar ===== */
+.search-overlay {
+  animation: fadeSlideIn 0.15s ease-out;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+  }
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 39;
+  }
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

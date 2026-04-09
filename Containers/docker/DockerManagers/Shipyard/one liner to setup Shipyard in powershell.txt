@@ -1,0 +1,1 @@
+docker run -d -p 8082:8080 --name shipyard --restart=always -v /var/run/docker.sock:/var/run/docker.sock shipyard/shipyard:latest ; echo "Shipyard: http://localhost:8082"

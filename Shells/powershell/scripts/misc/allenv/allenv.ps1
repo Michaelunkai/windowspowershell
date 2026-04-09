@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    allenv
+#>
+$env:path

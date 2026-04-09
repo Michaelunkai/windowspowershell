@@ -1,0 +1,7 @@
+
+# Files >=100MB excluded by gitit (GitHub limit)
+dist/StartupMaster_v1.7_ZeroDelay/StartupMaster.exe
+dist/StartupMaster_v1.7/StartupMaster.exe
+dist/StartupMaster_v1.8_BulletproofFix/StartupMaster.exe
+dist/StartupMaster_v1.9_Final/StartupMaster.exe
+dist/StartupMaster_v2.0_WithIcons/StartupMaster.exe

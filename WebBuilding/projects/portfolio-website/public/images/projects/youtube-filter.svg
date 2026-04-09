@@ -1,0 +1,15 @@
+﻿<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-youtube-filter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#84cc16;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#84cc16;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#grad-youtube-filter)"/>
+  <rect x="80" y="120" width="640" height="360" rx="15" fill="#0f172a" opacity="0.85"/>
+  <text x="400" y="220" text-anchor="middle" fill="#ffffff" font-size="48" font-family="Arial, sans-serif" font-weight="bold">YouTube Filter</text>
+  <text x="400" y="380" text-anchor="middle" fill="#e2e8f0" font-size="20" font-family="monospace">JavaScript â€¢ Browser Extension</text>
+  <rect x="150" y="280" width="120" height="8" rx="4" fill="#84cc16" opacity="0.6"/>
+  <rect x="340" y="280" width="120" height="8" rx="4" fill="#84cc16" opacity="0.8"/>
+  <rect x="530" y="280" width="120" height="8" rx="4" fill="#84cc16" opacity="0.6"/>
+</svg>

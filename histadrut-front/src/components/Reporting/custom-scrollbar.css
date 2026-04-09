@@ -1,0 +1,21 @@
+/* True light themed custom scrollbar for Reporting cards */
+.custom-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: #e0e0e0 #c5c5c5 !important;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px !important;
+  background: #c5c5c5 !important;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #dfe5ed !important; /* darker for visibility */
+  border-radius: 8px !important;
+  border: 3px solid #f3f4f6 !important;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cccccc !important;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #909090 !important; /* subtle light gray */
+  border-radius: 8px !important;
+}

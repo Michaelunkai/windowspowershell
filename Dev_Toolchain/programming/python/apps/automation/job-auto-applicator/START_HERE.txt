@@ -1,0 +1,143 @@
+================================================================================
+                      JOB APPLICATOR - START HERE
+================================================================================
+
+STATUS: Gmail password needs to be updated before running
+
+PROBLEM: Current Gmail app password in config.py is invalid/expired
+         Gmail rejected it with authentication error 535
+
+================================================================================
+                        AUTOMATED FIX (RECOMMENDED)
+================================================================================
+
+Copy and paste this ONE command:
+
+powershell -ExecutionPolicy Bypass -File "F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\fix-and-run.ps1"
+
+
+What it does:
+1. Opens browser to Google App Passwords page
+2. Opens config.py in Notepad for you to edit
+3. Waits for you to update the password
+4. Tests if new password works
+5. If valid, automatically sends applications to 7 companies
+
+Total time: 2-3 minutes
+
+================================================================================
+                        MANUAL FIX (IF NEEDED)
+================================================================================
+
+If the automated script doesn't work, follow these steps:
+
+1. Get new Gmail app password:
+   https://myaccount.google.com/apppasswords
+   
+2. Update config.py:
+   notepad "F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\config.py"
+   
+3. Test it works:
+   python "F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\test_gmail_credentials.py"
+   
+4. Run job applicator:
+   python "F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\job_applicator_smtp.py"
+
+================================================================================
+                           WHAT GETS SENT
+================================================================================
+
+Target: 7 Israeli tech companies (all relevant junior DevOps positions)
+
+Companies:
+1. Imubit - Junior DevOps Engineer (Central Israel)
+2. Oligo Security - DevOps Engineer (Tel Aviv/Ramat Gan)
+3. FireArc - DevOps Engineer (Herzliya)
+4. Prologic - DevOps Engineer (Ra'anana)
+5. SuperCom - Junior DevOps/QA (Tel Aviv)
+6. Consist Group - DevOps Engineer (Petah Tikva)
+7. Amazon Israel - DevOps Intern 2026 (Tel Aviv)
+
+Each email includes:
+- Personalized cover message
+- Your DevOps experience (1 year at TovTech)
+- Skills: Docker, K8s, AWS, CI/CD, Prometheus, Grafana
+- Portfolio: https://portfolio-website-psi-jade-83.vercel.app/
+- Contact: michaelovsky5@gmail.com, 054-763-2418
+- Resume PDF attached
+
+Safety features:
+- Tracks sent applications (won't send duplicates)
+- 7-day cooldown before re-applying to same company
+- Only sends to relevant jobs
+- Detailed logging
+
+================================================================================
+                           QUICK START
+================================================================================
+
+1. Copy this command:
+   
+   powershell -ExecutionPolicy Bypass -File "F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\fix-and-run.ps1"
+
+2. Paste in PowerShell and press ENTER
+
+3. Follow the on-screen instructions (2 minutes)
+
+4. Done! Applications sent to 7 companies
+
+================================================================================
+                          FILES OVERVIEW
+================================================================================
+
+Main files:
+- fix-and-run.ps1 .............. Automated setup & run script
+- job_applicator_smtp.py ....... Main application sender (SMTP)
+- config.py .................... Your data & Gmail password
+- test_gmail_credentials.py .... Test Gmail login
+- sent_applications.json ....... Tracks sent applications
+
+Documentation:
+- START_HERE.txt ............... This file
+- FIX_GMAIL_PASSWORD.txt ....... Detailed password fix guide
+- PRODUCTION_README.md ......... Full technical documentation
+
+Logs:
+- logs/ ........................ All run logs saved here
+
+================================================================================
+                       TROUBLESHOOTING
+================================================================================
+
+Q: Script says "Gmail credentials still invalid"
+A: Make sure you:
+   - Copied the full 16-character password
+   - Removed any extra spaces
+   - Saved config.py after editing
+   - Enabled 2-Step Verification on Google account
+
+Q: All emails show as "Failed"
+A: Gmail password is invalid - run fix-and-run.ps1 again
+
+Q: I don't see "App passwords" in Google account
+A: Enable 2-Step Verification first at https://myaccount.google.com/security
+
+Q: Test passes but emails don't send
+A: Check logs/ folder for detailed error messages
+
+================================================================================
+                           NEED HELP?
+================================================================================
+
+If you're stuck:
+1. Check logs/ folder for detailed error messages
+2. Read FIX_GMAIL_PASSWORD.txt for step-by-step instructions
+3. Copy your error message and ask for help
+
+================================================================================
+
+Ready to start? Run this command:
+
+powershell -ExecutionPolicy Bypass -File "F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\fix-and-run.ps1"
+
+================================================================================

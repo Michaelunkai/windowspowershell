@@ -1,0 +1,135 @@
+*created full production environment server for the entire project (backend and frontend repositories) with webdock , ssh and cloudflare
+*created full staging environment server for the entire project (backend and frontend repositories)  with webdock , ssh and cloudflare 
+* created full ci cd workflows for both repositores that do all the following before pushing to staging / production environmrnt for both repositores:
+
+
+   Backend (tovplay-backend) - .github/workflows/deploy.yml
+
+   Triggers: Push to main or develop, manual dispatch
+
+   Steps:
+
+     - Checkout code
+     - Set up Docker Buildx
+     - Login to DockerHub
+     - Determine Docker tag and environment (main→production/latest,
+   develop→staging/staging)
+     - Build and push Docker image to DockerHub
+     - If Staging: Deploy to staging server (92.113.144.59)
+       - Pull Docker image
+       - Stop old container
+       - Start container via docker-compose.staging.yml
+       - Wait 30s and verify container is running
+     - If Production: Deploy to production server (193.181.213.220)
+       - Pull Docker image
+       - Stop old containers
+       - Start container via docker-compose.production.yml
+       - Wait 30s and verify container is running
+     - Create GitHub deployment record (staging or production)
+     - Final deployment summary
+
+   --------------------------------------------------------------------
+   -----------
+
+   Frontend (tovplay-frontend) - .github/workflows/main.yml
+
+   Triggers: Push to main or develop, manual dispatch
+
+   Job 1: Test
+
+     - Checkout code
+     - Set up Node.js 20
+     - Install dependencies (npm ci)
+     - Run lint
+     - Run type check
+     - Run tests
+     - Build application (production settings)
+     - Verify build output (dist directory exists)
+
+   Job 2: Build & Deploy (only for main/develop, runs after test)
+
+     - Checkout code
+     - Determine environment (main→production/latest,
+   develop→staging/staging)
+     - Set up Docker Buildx
+     - Login to DockerHub
+     - Build and push Docker image with environment-specific build args
+     - If Staging: Deploy to staging server (92.113.144.59)
+       - Pull Docker image
+       - Extract files from image
+       - Copy to /var/www/tovplay-staging/ via rsync
+       - Set permissions
+       - Health check
+     - Create GitHub staging deployment record
+     - If Production: Deploy to production server (193.181.213.220)
+       - Pull Docker image
+       - Restart frontend container via docker-compose.production.yml
+       - Wait 15s and verify container is running
+       - Health check
+     - Create GitHub production deployment record
+     - Final deployment summary
+
+
+
+
+
+
+
+
+*** tools i have experience with in genereal, not neccerely in this project:
+
+cloud:
+AWS - a lot
+google cloud - good amount
+azure - basic
+webdock - expert
+cloudflare
+
+
+ci/cd:
+actions - a lot
+jenkis - medium
+
+
+Iac:
+terraform
+puppet
+ansible
+
+
+monitoring:
+prometheus
+grafana
+ELK
+
+
+coding/shells:
+python
+c | c++ | csharp
+rust
+javascript | typescript
+shell / powershell / scripting - expert
+golang
+
+
+
+containers:
+docker
+podman
+kubernetes
+
+
+version control:
+git 
+github
+gitlab
+
+
+
+communication / work tools:
+
+Jira
+slack
+kimawi cloud
+
+

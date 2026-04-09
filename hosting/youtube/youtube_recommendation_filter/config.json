@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "project_name": "YouTube Recommendation Filter",
+  "description": "Cross-platform YouTube recommendation filtering system",
+  
+  "paths": {
+    "database": "watched_videos.db",
+    "export": "sync_export.json",
+    "state": "android_state.json",
+    "adb": "C:\\Users\\micha\\.openclaw\\platform-tools\\adb.exe"
+  },
+  
+  "android": {
+    "device_id": "R5CY610XJGV",
+    "package_name": "com.google.android.youtube",
+    "check_interval_seconds": 30,
+    "filter_iterations": 10,
+    "screenshot_path": "screenshots"
+  },
+  
+  "extension": {
+    "manifest_version": 3,
+    "default_settings": {
+      "hideWatched": true,
+      "boostSubscriptions": true,
+      "enableSync": true,
+      "watchThreshold": 50
+    },
+    "sync_interval_minutes": 30,
+    "max_storage_videos": 100000
+  },
+  
+  "sync": {
+    "auto_sync_interval_seconds": 1800,
+    "cleanup_days": 90,
+    "export_format": "json",
+    "compression": false
+  },
+  
+  "filtering": {
+    "watch_threshold_percent": 50,
+    "enable_duration_filter": false,
+    "enable_keyword_filter": false,
+    "enable_shorts_filter": false,
+    "enable_livestream_filter": false
+  },
+  
+  "advanced_rules": [
+    {
+      "name": "Hide Shorts (Example)",
+      "type": "hideShorts",
+      "enabled": false,
+      "description": "Automatically hide YouTube Shorts"
+    },
+    {
+      "name": "Long Videos (Example)",
+      "type": "duration",
+      "enabled": false,
+      "maxMinutes": 60,
+      "description": "Hide videos longer than 60 minutes"
+    }
+  ],
+  
+  "logging": {
+    "console_output": true,
+    "file_logging": false,
+    "log_level": "info"
+  },
+  
+  "performance": {
+    "batch_size": 100,
+    "debounce_ms": 500,
+    "cache_ttl_minutes": 60
+  }
+}

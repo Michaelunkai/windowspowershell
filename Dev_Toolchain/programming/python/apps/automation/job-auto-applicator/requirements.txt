@@ -1,0 +1,4 @@
+# Email automation - no external dependencies needed
+# Python standard library is sufficient for this application
+# smtplib, email.mime - built-in
+# pathlib, logging, datetime - built-in

@@ -1,0 +1,7 @@
+
+# Auto-excluded (caught during push)
+secrets/Secret_Management/Set_Up_and_Configure_HashiCorp_Vault_with_AppRole_Authentication_and_Custom_TLS_Certificate_in_Ubuntu
+secrets/Secret_Management/Start_and_Initialize_the_Vault_Server
+
+# Auto-excluded (caught during push)
+secrets/Secret_Management/_Secure_the_Vault

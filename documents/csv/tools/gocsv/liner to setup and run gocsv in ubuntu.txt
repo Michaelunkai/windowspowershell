@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y wget && wget -qO- https://github.com/aotimme/gocsv/releases/latest/download/gocsv_linux_amd64.tar.gz | sudo tar xzf - -C /usr/local/bin/ && sudo chmod +x /usr/local/bin/gocsv && gocsv version && echo "Try: gocsv select -c col1,col2 data.csv | gocsv filter -c col1 -eq 'value' data.csv | gocsv stats data.csv"

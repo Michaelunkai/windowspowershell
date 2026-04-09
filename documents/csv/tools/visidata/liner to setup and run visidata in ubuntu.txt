@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y python3 python3-pip && pip3 install visidata && echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc && source ~/.bashrc && vd --version && echo "VisiData installed! Try: vd file.csv (interactive TUI - press q to quit, / to search, [ and ] to sort)"

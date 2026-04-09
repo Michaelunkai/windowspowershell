@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    ggem
+#>
+gemini --yolo

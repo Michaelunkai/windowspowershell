@@ -1,0 +1,99 @@
+═══════════════════════════════════════════════════════════════
+  ✅ WORKING SOLUTION - BROWSER AUTOMATION (NO PASSWORD NEEDED)
+═══════════════════════════════════════════════════════════════
+
+📁 Location: F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator
+
+═══════════════════════════════════════════════════════════════
+🚀 HOW TO RUN
+═══════════════════════════════════════════════════════════════
+
+COMMAND (in your clipboard):
+python "F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\job_applicator_simple.py"
+
+═══════════════════════════════════════════════════════════════
+📝 WHAT HAPPENS
+═══════════════════════════════════════════════════════════════
+
+1. ✅ Chrome browser opens automatically
+2. ✅ Goes to Gmail login page
+3. ⏳ YOU log in manually (you have 60 seconds)
+4. ✅ Script detects you're logged in
+5. ✅ Automatically composes 7 emails
+6. ✅ Attaches your resume to each
+7. ✅ Sends to all 7 companies
+8. ✅ Shows summary of sent applications
+9. ✅ Browser stays open 30 seconds for review
+10. ✅ DONE!
+
+Total time: ~2-3 minutes
+
+═══════════════════════════════════════════════════════════════
+🎯 TARGET COMPANIES (7)
+═══════════════════════════════════════════════════════════════
+
+1. Imubit - Junior DevOps Engineer (careers@imubit.com)
+2. Oligo Security - DevOps Engineer (jobs@oligosecurity.com)
+3. FireArc - DevOps Engineer (careers@firearc.com)
+4. Prologic - DevOps Engineer (hr@prologic.co.il)
+5. SuperCom - Junior DevOps/QA (jobs@supercom.com)
+6. Consist Group - DevOps Engineer (jobs@consistgroup.com)
+7. Amazon Israel - DevOps Intern 2026 (israel-jobs@amazon.com)
+
+═══════════════════════════════════════════════════════════════
+📄 WHAT'S INCLUDED IN EACH EMAIL
+═══════════════════════════════════════════════════════════════
+
+✅ Personalized message for each company
+✅ Your DevOps experience (1 year at TovTech)
+✅ Key skills (Docker, K8s, AWS, CI/CD, etc.)
+✅ Portfolio link: https://portfolio-website-psi-jade-83.vercel.app/
+✅ Contact: michaelovsky5@gmail.com, 054-763-2418
+✅ Resume PDF attached: Michael_Fedorovsky_Resume_devops.pdf
+
+═══════════════════════════════════════════════════════════════
+⚡ ADVANTAGES OF THIS METHOD
+═══════════════════════════════════════════════════════════════
+
+✅ NO password configuration needed
+✅ NO Gmail App Password required
+✅ NO 2-Factor Authentication setup
+✅ Works with ANY Gmail account
+✅ You see everything happening in real-time
+✅ Can stop at any time (Ctrl+C)
+✅ Fully automated after login
+✅ Saves detailed logs
+✅ Takes screenshots on errors
+
+═══════════════════════════════════════════════════════════════
+📊 LOGS
+═══════════════════════════════════════════════════════════════
+
+All runs are logged to:
+F:\study\Dev_Toolchain\programming\python\apps\automation\job-auto-applicator\logs\
+
+Filename format: simple_applications_YYYYMMDD_HHMMSS.log
+
+═══════════════════════════════════════════════════════════════
+🛠️ CUSTOMIZATION
+═══════════════════════════════════════════════════════════════
+
+Want to add more companies?
+Edit: config.py
+Add to COMPANIES list
+
+Want to change the message?
+Edit: config.py
+Update MESSAGE_TEMPLATE
+
+═══════════════════════════════════════════════════════════════
+🎉 READY TO LAUNCH!
+═══════════════════════════════════════════════════════════════
+
+1. Have your Gmail password ready
+2. Paste the command from your clipboard
+3. Press Enter
+4. Log in to Gmail when browser opens
+5. Watch it send all applications automatically!
+
+═══════════════════════════════════════════════════════════════

@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y python3 python3-pip && pip3 install csvkit && echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc && source ~/.bashrc && csvstat --version && echo "csvkit installed! Try: in2csv, csvcut, csvgrep, csvstat, csvjoin, csvsort, csvstack, csvformat, csvjson, csvsql"

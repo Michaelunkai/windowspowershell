@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    cbackup
+#>
+cleanapps; cleanwsl

@@ -1,0 +1,1 @@
+docker run -d -p 8090:80 --name heimdall --restart=always -v heimdall_data:/config linuxserver/heimdall:latest ; echo "Heimdall: http://localhost:8090"

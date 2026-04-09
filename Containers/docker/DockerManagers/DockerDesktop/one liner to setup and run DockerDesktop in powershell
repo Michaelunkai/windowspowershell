@@ -1,0 +1,1 @@
+  uni docker dockerd; winget install -e --id Docker.DockerDesktop --force --accept-package-agreements --accept-source-agreements; sdesktop

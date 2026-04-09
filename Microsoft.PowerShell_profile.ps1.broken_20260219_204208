@@ -1,0 +1,863 @@
+﻿# ========== CLAUDE CODE UNRESTRICTED MODE ==========
+# Force Claude to ALWAYS use PowerShell and NEVER be sandboxed
+$env:CLAUDE_SHELL = "C:\Windows\WinSxS\amd64_microsoft-windows-powershell-exe_31bf3856ad364e35_10.0.26100.5074_none_0509cc22b212fde4\powershell.exe"
+$env:CLAUDE_CODE_SHELL = "C:\Windows\WinSxS\amd64_microsoft-windows-powershell-exe_31bf3856ad364e35_10.0.26100.5074_none_0509cc22b212fde4\powershell.exe"
+$env:CLAUDE_FORCE_BYPASS = "1"
+$env:CLAUDE_NO_SANDBOX = "1"
+
+# ========== FIX CLAUDE_CODE_GIT_BASH_PATH PERMANENTLY ==========
+# Set Git Bash path for Claude Code to prevent "unable to find" errors
+$env:CLAUDE_CODE_GIT_BASH_PATH = "C:\Program Files\Git\bin\bash.exe"
+# Ensure it's set at User level if not already
+if (-not [Environment]::GetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', 'User')) {
+    [Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', 'C:\Program Files\Git\bin\bash.exe', 'User')
+}
+# ========== END GIT BASH PATH FIX ==========
+
+# Alias to start Claude with bypass permissions (NO RESTRICTIONS)
+function clau { & "F:\study\AI_ML\AI_and_Machine_Learning\Artificial_Intelligence\cli\claudecode\clau\clau.ps1" @args }
+
+# Alternative alias for unrestricted Claude
+Set-Alias -Name claude-full -Value clau
+
+# ========== END CLAUDE CONFIG ==========
+
+# ========== FIX PROGRESS BAR HANG (ccsizes and all recursive operations) ==========
+# PowerShell's progress bar causes massive slowdowns/hangs during Get-ChildItem -Recurse
+# Disabling it globally makes all recursive operations 100x faster
+$ProgressPreference = 'SilentlyContinue'
+# ========== END PROGRESS BAR FIX ==========
+
+# ========== POWERSHELL 5 && and || OPERATORS - NATIVE SYNTAX ==========
+# Make PowerShell 5 support && and || DIRECTLY without wrapper
+# Intercepts commands at PSReadLine level BEFORE parser sees them
+
+function Invoke-ChainedCommand {
+    param([string]$CommandString)
+    
+    # Split by && and || while preserving the operators
+    $pattern = '(\s*&&\s*|\s*\|\|\s*)'
+    $parts = $CommandString -split $pattern | Where-Object { $_ -and $_.Trim() }
+    
+    $lastExitCode = 0
+    $i = 0
+    
+    while ($i -lt $parts.Count) {
+        $part = $parts[$i].Trim()
+        
+        # Check if this is an operator
+        if ($part -match '^(&&|\|\|)$') {
+            $operator = $Matches[1]
+            $i++
+            if ($i -ge $parts.Count) { break }
+            $nextCommand = $parts[$i].Trim()
+            
+            # && = execute next only if previous succeeded (exit code 0)
+            if ($operator -eq '&&' -and $lastExitCode -ne 0) {
+                # Skip this command
+                $i++
+                continue
+            }
+            
+            # || = execute next only if previous failed (exit code non-zero)
+            if ($operator -eq '||' -and $lastExitCode -eq 0) {
+                # Skip this command
+                $i++
+                continue
+            }
+            
+            # Execute the next command
+            try {
+                Invoke-Expression $nextCommand
+                $lastExitCode = $LASTEXITCODE
+                if ($null -eq $lastExitCode) { $lastExitCode = 0 }
+            } catch {
+                $lastExitCode = 1
+            }
+        } else {
+            # This is a command, execute it
+            try {
+                Invoke-Expression $part
+                $lastExitCode = $LASTEXITCODE
+                if ($null -eq $lastExitCode) { $lastExitCode = 0 }
+            } catch {
+                $lastExitCode = 1
+            }
+        }
+        
+        $i++
+    }
+    
+    return $lastExitCode
+}
+
+# PSReadLine key handler to intercept Enter and preprocess && and ||
+Set-PSReadLineKeyHandler -Key Enter -ScriptBlock {
+    param($key, $arg)
+    
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+    
+    # Check if line contains && or ||
+    if ($line -match '&&|\|\|') {
+        # Clear the current line
+        [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+        [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+        
+        # Execute via our chain handler
+        Invoke-ChainedCommand $line
+    } else {
+        # Normal execution
+        [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+    }
+}
+
+# Fallback aliases (for scripts that can't use PSReadLine)
+Set-Alias -Name run -Value Invoke-ChainedCommand
+Set-Alias -Name x -Value Invoke-ChainedCommand
+
+# ========== END && || OPERATORS ==========
+
+# ========== ROBUST FILE DELETION HELPER ==========
+function Remove-ForceFully {
+    param([string]$Path)
+    if (!(Test-Path $Path)) { return }
+
+    # Kill processes that might be using files in this path
+    Get-Process | Where-Object {
+        $_.Path -and $_.Path -like "$Path*"
+    } | Stop-Process -Force -ErrorAction SilentlyContinue
+
+    # Reset attributes and take ownership
+    $items = Get-ChildItem -Path $Path -Recurse -Force -ErrorAction SilentlyContinue
+    foreach ($item in $items) {
+        try {
+            $item.Attributes = 'Normal'
+            takeown /F $item.FullName /A 2>$null | Out-Null
+            icacls $item.FullName /grant Administrators:F /T /Q 2>$null | Out-Null
+        } catch {}
+    }
+
+    # Try standard removal first
+    Remove-Item $Path -Recurse -Force -ErrorAction SilentlyContinue
+
+    # If still exists, use cmd rd
+    if (Test-Path $Path) {
+        cmd /c "rd /s /q `"$Path`"" 2>$null
+    }
+
+    # If still exists, try pwsh -NoProfile (avoids PS5 profile handle locks)
+    if ((Test-Path $Path) -and (Get-Command pwsh -ErrorAction SilentlyContinue)) {
+        pwsh -NoProfile -Command "Remove-Item '$Path' -Recurse -Force -ErrorAction SilentlyContinue" 2>$null
+    }
+
+    # Final attempt with robocopy empty folder trick
+    if (Test-Path $Path) {
+        $emptyDir = "$env:TEMP\empty_$(Get-Random)"
+        New-Item -ItemType Directory -Path $emptyDir -Force | Out-Null
+        robocopy $emptyDir $Path /MIR /R:1 /W:1 2>$null | Out-Null
+        Remove-Item $emptyDir -Force -ErrorAction SilentlyContinue
+        Remove-Item $Path -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+# ========== END ROBUST FILE DELETION HELPER ==========
+
+# Fix PATH - ensure system32 is first
+$env:PATH = "C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;" + ($env:PATH -replace '(?:^|;)C:\\WINDOWS\\system32(?:;|$)', ';' -replace '(?:^|;)C:\\WINDOWS(?:;|$)', ';' -replace ';;+', ';' -replace '^;|;$', '')
+
+# Add Bun to PATH
+$env:PATH = "C:\Users\micha\.bun\bin;$env:PATH"
+function upnpm { & "F:\study\Dev_Toolchain\programming\nodejs\upnpm\upnpm.ps1" @args }
+
+
+function addmcp { & "F:\study\AI_ML\AI_and_Machine_Learning\Artificial_Intelligence\cli\claudecode\addmcp\addmcp.ps1" @args }
+
+
+
+# rescommit help: rescommit <repo> [file] [commits_back] OR rescommit study/path/to/file [commits_back] | Use '+' to show FULL tree
+
+
+
+
+
+
+
+
+
+
+
+
+function addclip { & "F:\study\Shells\powershell\scripts\misc\addclip\addclip.ps1" @args }
+
+function endtask { & "F:\study\Shells\powershell\scripts\misc\endtask\endtask.ps1" @args }
+
+
+
+
+function bergres { & "F:\study\Version_control\git\bergres\bergres.ps1" @args }
+
+function bergrs { & "F:\study\Version_control\git\bergrs\bergrs.ps1" @args }
+
+
+
+
+
+
+function gitco { & "F:\study\Version_control\git\gitco\gitco.ps1" @args }
+
+Set-Alias -Name gitgo -Value gitco -Option AllScope
+
+function nn { & "F:\study\Platforms\linux\wsl2\nn-ubuntu\nn.ps1" @args }
+
+
+
+
+
+
+
+
+
+
+$env:LIB = $null
+
+function gcop { & "F:\study\Shells\powershell\scripts\misc\gcop\gcop.ps1" @args }
+
+
+
+
+function getc { & "F:\study\Platforms\windows\setups\getc\getc.ps1" @args }
+
+
+# PowerShell profile additions to fix Python commands
+# This should be added at the beginning of your profile to ensure python, python3, and py work correctly
+# Store the correct Python executable path
+# Override py to use the correct installation (if needed)
+# Note: py is the Python Launcher which should already work correctly
+# Only override if you're having issues with it
+
+# Fix python and pip commands to work in PowerShell profile
+
+
+function compile { & "F:\study\Dev_Toolchain\programming\.NET\projects\c++\Wallpapers\a\compile.ps1" @args }
+function tinder { & "F:\study\Shells\powershell\scripts\misc\tinder\tinder.ps1" @args }
+function bumble { & "F:\study\Shells\powershell\scripts\misc\bumble\bumble.ps1" @args }
+function screen { & "F:\study\Platforms\windows\tools\screen\screen.ps1" @args }
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path $ChocolateyProfile) {
+    Import-Module "$ChocolateyProfile"
+}
+function brc { & "F:\study\Shells\powershell\profile\brc\brc.ps1" @args }
+function cc { & "F:\study\projects\Desktop_Apps\AutoRunApps\usfullwin11appsliners\cc.ps1" @args }
+function ubu { & "F:\study\Platforms\linux\wsl2\ubu\ubu.ps1" @args }
+function stack { & "F:\study\Shells\powershell\scripts\misc\stack\stack.ps1" @args }
+function kali { & "F:\study\Platforms\linux\wsl2\kali\kali.ps1" @args }
+function down { & "F:\study\Shells\powershell\scripts\misc\down\down.ps1" @args }
+function stu { & "F:\study\Shells\powershell\scripts\misc\stu\stu.ps1" @args }
+function backup { & "F:\study\Devops\backup\backup\backup.ps1" @args }
+function windowsapps { & "F:\study\Platforms\windows\tools\windowsapps\windowsapps.ps1" @args }
+function sprox { & "F:\study\Shells\powershell\scripts\misc\sprox\sprox.ps1" @args }
+function sshubu { & "F:\study\Shells\powershell\scripts\misc\sshubu\sshubu.ps1" @args }
+function sshubuntu { & "F:\study\Shells\powershell\scripts\misc\sshubuntu\sshubuntu.ps1" @args }
+function bashrc { & "F:\study\Shells\powershell\scripts\misc\bashrc\bashrc.ps1" @args }
+function linkedin { & "F:\study\Shells\powershell\scripts\misc\linkedin\linkedin.ps1" @args }
+
+
+function scpstu { & "F:\study\networking\scpstu\scpstu.ps1" @args }
+function c { & "F:\study\AI_ML\AI_and_Machine_Learning\Artificial_Intelligence\MCP\claudecode\c.ps1" @args }
+function gitpush { & "F:\study\Shells\powershell\scripts\misc\gitpush\gitpush.ps1" @args }
+function gitgos { & "F:\study\Shells\powershell\scripts\misc\gitgos\gitgos.ps1" @args }
+function ubuntu2 { & "F:\study\Platforms\linux\wsl2\ubuntu2\ubuntu2.ps1" @args }
+function rmubu2 { & "F:\study\Shells\powershell\scripts\misc\rmubu2\rmubu2.ps1" @args }
+function ubu2 { & "F:\study\Platforms\linux\wsl2\ubu2\ubu2.ps1" @args }
+function vid { & "F:\study\Shells\powershell\scripts\misc\vid\vid.ps1" @args }
+function wsls { & "F:\study\Platforms\linux\wsl2\wsls\wsls.ps1" @args }
+function shrink { & "F:\study\Shells\powershell\scripts\misc\shrink\shrink.ps1" @args }
+function shrink2 { & "F:\study\Shells\powershell\scripts\misc\shrink2\shrink2.ps1" @args }
+function ccwsl { & "F:\study\Shells\powershell\scripts\cleanup\ccwsl\ccwsl.ps1" @args }
+function text { & "F:\study\Shells\powershell\scripts\misc\text\text.ps1" @args }
+function updatepip { & "F:\study\Shells\powershell\scripts\misc\updatepip\updatepip.ps1" @args }
+function getpip { & "F:\study\Platforms\windows\setups\getpip\getpip.ps1" @args }
+function rmkali { & "F:\study\Shells\powershell\scripts\misc\rmkali\rmkali.ps1" @args }
+function rmubu { & "F:\study\Shells\powershell\scripts\misc\rmubu\rmubu.ps1" @args }
+function rmk { & "F:\study\Shells\powershell\scripts\remove\rmk\rmk.ps1" @args }
+function rmu { & "F:\study\Shells\powershell\scripts\remove\rmu\rmu.ps1" @args }
+function refresh { & "F:\study\Shells\powershell\scripts\misc\refresh\refresh.ps1" @args }
+
+function update { & "F:\study\Platforms\windows\Updates\update-script\update.ps1" @args }
+
+function fixupdate { & "F:\study\Platforms\windows\Updates\fixupdate\fixupdate.ps1" @args }
+function exports { & "F:\study\Shells\powershell\scripts\misc\exports\exports.ps1" @args }
+function track { & "F:\study\Shells\powershell\scripts\misc\track\track.ps1" @args }
+function venv { & "F:\study\Dev_Toolchain\programming\python\venv\venv.ps1" @args }
+function venv11 { & "F:\study\Dev_Toolchain\programming\python\venv11\venv11.ps1" @args }
+function word { & "F:\study\Shells\powershell\scripts\misc\word\word.ps1" @args }
+function reubu2 { & "F:\study\Platforms\linux\wsl2\reubu2\reubu2.ps1" @args }
+function defender { & "F:\study\security\defender\defender.ps1" @args }
+function wallp { & "F:\study\Platforms\windows\tools\wallp\wallp.ps1" @args }
+function cool { & "F:\study\Platforms\windows\performance\cool\cool.ps1" @args }
+
+
+
+function hot { & "F:\study\Shells\powershell\scripts\misc\hot\hot.ps1" @args }
+
+
+
+
+
+
+function fire { & "F:\study\Shells\powershell\scripts\misc\fire\fire.ps1" @args }
+function autofill { & "F:\study\Shells\powershell\scripts\misc\autofill\autofill.ps1" @args }
+function editfill { & "F:\study\Shells\powershell\scripts\misc\editfill\editfill.ps1" @args }
+function sshec2 { & "F:\study\networking\sshec2\sshec2.ps1" @args }
+function exubu2 { & "F:\study\Platforms\linux\wsl2\exubu2\exubu2.ps1" @args }
+function fixwsl { & "F:\study\Platforms\windows\troubleshooting\fixwsl\fixwsl.ps1" @args }
+function 3way { & "F:\study\Shells\powershell\scripts\misc\3way\3way.ps1" @args }
+function webhtml { & "F:\study\Shells\powershell\scripts\misc\webhtml\webhtml.ps1" @args }
+function scanfast { & "F:\study\security\scanfast\scanfast.ps1" @args }
+function scanfull { & "F:\study\security\scanfull\scanfull.ps1" @args }
+function pya { & "F:\study\Dev_Toolchain\programming\python\pya\pya.ps1" @args }
+
+function sshplex { & "F:\study\networking\sshplex\sshplex.ps1" @args }
+function pipreq { & "F:\study\Dev_Toolchain\programming\python\pipreq\pipreq.ps1" @args }
+function streamlit { & "F:\study\Shells\powershell\scripts\misc\streamlit\streamlit.ps1" @args }
+function backupec2 { & "F:\study\Devops\backup\backupec2\backupec2.ps1" @args }
+function backupec2db { & "F:\study\Devops\backup\backupec2db\backupec2db.ps1" @args }
+function awsl { & "F:\study\Platforms\linux\wsl2\awsl\awsl.ps1" @args }
+
+
+function nalias { & "F:\study\Shells\powershell\aliases\nalias\nalias.ps1" @args }
+
+
+
+function restorewsl { & "F:\study\Devops\backup\restorewsl\restorewsl.ps1" @args }
+
+function restorewsl2 { & "F:\study\Devops\backup\restorewsl2\restorewsl2.ps1" @args }
+function ds { & "F:\study\Containers\docker\ds\ds.ps1" @args }
+function dps { & "F:\study\Containers\docker\dps\dps.ps1" @args }
+function dpsa { & "F:\study\Containers\docker\dpsa\dpsa.ps1" @args }
+function dim { & "F:\study\Containers\docker\dim\dim.ps1" @args }
+function built { & "F:\study\Shells\powershell\scripts\built\built.ps1" @args }
+function dp { & "F:\study\Containers\docker\dp\dp.ps1" @args }
+function drun { & "F:\study\Containers\docker\drun\drun.ps1" @args }
+function dr { & "F:\study\Containers\docker\dr\dr.ps1" @args }
+function drc { & "F:\study\Containers\docker\drc\drc.ps1" @args }
+function dri { & "F:\study\Containers\docker\dri\dri.ps1" @args }
+function dc { & "F:\study\Containers\docker\dc\dc.ps1" @args }
+function conip { & "F:\study\networking\conip\conip.ps1" @args }
+function killc { & "F:\study\Shells\powershell\scripts\misc\killc\killc.ps1" @args }
+function dcu { & "F:\study\Containers\docker\dcu\dcu.ps1" @args }
+function backupwsl { & "F:\study\Devops\backup\backupwsl\backupwsl.ps1" @args }
+function backupapps { & "F:\study\Devops\backup\backupapps\backupapps.ps1" @args }
+function backitup { & "F:\study\Devops\backup\backitup\backitup.ps1" @args }
+function restoreapps { & "F:\study\Devops\backup\restoreapps\restoreapps.ps1" @args }
+function RestoreLinux { & "F:\study\Devops\backup\RestoreLinux\RestoreLinux.ps1" @args }
+function restorebackup { & "F:\study\Devops\backup\restorebackup\restorebackup.ps1" @args }
+function restorestu { & "F:\study\Devops\backup\restorestu\restorestu.ps1" @args }
+function dcreds { & "F:\study\Containers\docker\dcreds\dcreds.ps1" @args }
+function saveweb { & "F:\study\Browsers\saveweb\saveweb.ps1" @args }
+
+function savegames { & "F:\study\hosting\games\savegames\savegames.ps1" @args }
+function saveplex { & "F:\study\hosting\media\saveplex\saveplex.ps1" @args }
+function drmariadb { & "F:\study\Databases\MariaDB\drmariadb\drmariadb.ps1" @args }
+function dcode { & "F:\study\Shells\powershell\scripts\misc\dcode\dcode.ps1" @args }
+function mp3 { & "F:\study\Shells\powershell\scripts\misc\mp3\mp3.ps1" @args }
+function mp4 { & "F:\study\Shells\powershell\scripts\misc\mp4\mp4.ps1" @args }
+function getjenkins { & "F:\study\Devops\CI_CD\jenkins\getjenkins\getjenkins.ps1" @args }
+function getkuma { & "F:\study\monitoring\uptime-kuma\getkuma\getkuma.ps1" @args }
+function getsplunk { & "F:\study\Platforms\windows\setups\getsplunk\getsplunk.ps1" @args }
+function bbb { & "F:\study\Shells\powershell\scripts\misc\bbb\bbb.ps1" @args }
+function rma { & "F:\study\Shells\powershell\scripts\remove\rma\rma.ps1" @args }
+function rms { & "F:\study\Shells\powershell\scripts\remove\rms\rms.ps1" @args }
+function applied { & "F:\study\Shells\powershell\scripts\misc\applied\applied.ps1" @args }
+function link { & "F:\study\Shells\powershell\scripts\misc\link\link.ps1" @args }
+function hardware { & "F:\study\Platforms\windows\tools\hardware\hardware.ps1" @args }
+function mygames { & "F:\study\hosting\games\mygames\mygames.ps1" @args }
+function sweb { & "F:\study\Shells\powershell\scripts\misc\sweb\sweb.ps1" @args }
+function slink { & "F:\study\Shells\powershell\scripts\misc\slink\slink.ps1" @args }
+function wslgg { & "F:\study\Platforms\linux\wsl2\wslgg\wslgg.ps1" @args }
+function telebot { & "F:\study\Shells\powershell\scripts\misc\telebot\telebot.ps1" @args }
+
+function cbackup { & "F:\study\Shells\powershell\scripts\misc\cbackup\cbackup.ps1" @args }
+
+
+function ex { & "F:\study\Shells\powershell\scripts\misc\ex\ex.ps1" @args }
+
+function rmqb { & "F:\study\Shells\powershell\scripts\remove\rmqb\rmqb.ps1" @args }
+function qb { & "F:\study\Shells\powershell\scripts\misc\qb\qb.ps1" @args }
+function cchrome { & "F:\study\Browsers\Chrome\cchrome\cchrome.ps1" @args }
+function logs2 { & "F:\study\Shells\powershell\scripts\misc\logs2\logs2.ps1" @args }
+function doc { & "F:\study\Shells\powershell\scripts\misc\doc\doc.ps1" @args }
+function mas { & "F:\study\Shells\powershell\scripts\misc\mas\mas.ps1" @args }
+function maleware { & "F:\study\security\maleware\maleware.ps1" @args }
+function dislock { & "F:\study\Platforms\windows\tools\dislock\dislock.ps1" @args }
+function rmg { & "F:\study\Shells\powershell\scripts\rmg\rmg.ps1" @args }
+function getorch { & "F:\study\Platforms\windows\setups\getorch\getorch.ps1" @args }
+function click { & "F:\study\Shells\powershell\scripts\misc\click\click.ps1" @args }
+
+
+function ld { & "F:\study\Shells\powershell\scripts\misc\ld\ld.ps1" @args }
+function lu { & "F:\study\Shells\powershell\scripts\lu\lu.ps1" @args }
+function sjob { & "F:\study\Shells\powershell\scripts\misc\sjob\sjob.ps1" @args }
+function rjob { & "F:\study\Shells\powershell\scripts\misc\rjob\rjob.ps1" @args }
+function splex { & "F:\study\Shells\powershell\scripts\misc\splex\splex.ps1" @args }
+function myapps { & "F:\study\Shells\powershell\scripts\misc\myapps\myapps.ps1" @args }
+function rmp { & "F:\study\Shells\powershell\scripts\remove\rmp\rmp.ps1" @args }
+function rmps { & "F:\study\Shells\powershell\scripts\remove\rmps\rmps.ps1" @args }
+function fix { & "F:\study\AI_ML\AI_and_Machine_Learning\Artificial_Intelligence\cli\claudecode\prompt\winfix\fix.ps1" @args }
+function lid { & "F:\study\Platforms\windows\tools\lid\lid.ps1" @args }
+function getparsec { & "F:\study\Platforms\windows\setups\getparsec\getparsec.ps1" @args }
+function getmodel { & "F:\study\Platforms\windows\setups\getmodel\getmodel.ps1" @args }
+
+function timer { & "F:\study\Shells\powershell\scripts\misc\timer\timer.ps1" @args }
+function scan { & "F:\study\security\scan\scan.ps1" @args }
+function dsubs { & "F:\study\Shells\powershell\scripts\misc\dsubs\dsubs.ps1" @args }
+function subs { & "F:\study\Shells\powershell\scripts\misc\subs\subs.ps1" @args }
+function cnwsl { & "F:\study\Platforms\linux\wsl2\cnwsl\cnwsl.ps1" @args }
+function scpmyg { & "F:\study\networking\scpmyg\scpmyg.ps1" @args }
+function keyubu { & "F:\study\Platforms\linux\wsl2\keyubu\keyubu.ps1" @args }
+function keyprox { & "F:\study\Shells\powershell\scripts\misc\keyprox\keyprox.ps1" @args }
+function sub { & "F:\study\Shells\powershell\scripts\misc\sub\sub.ps1" @args }
+function exai { & "F:\study\Shells\powershell\scripts\misc\exai\exai.ps1" @args }
+function updates { & "F:\study\Shells\powershell\scripts\updates.ps1" @args }
+function ws2 { & "F:\study\Platforms\linux\wsl2\ws2\ws2.ps1" @args }
+function wsls1 { & "F:\study\Platforms\linux\wsl2\wsls1\wsls1.ps1" @args }
+function wsls2 { & "F:\study\Platforms\linux\wsl2\wsls2\wsls2.ps1" @args }
+
+function venvit { & "F:\study\Dev_Toolchain\programming\python\venvit\venvit.ps1" @args }
+function venvit2 { & "F:\study\Dev_Toolchain\programming\python\venvit2\venvit2.ps1" @args }
+function subit { & "F:\study\Shells\powershell\scripts\misc\subit\subit.ps1" @args }
+# Function to backup, remove, and recreate WSL instance
+
+# Alias for easier calling
+Set-Alias -Name rmwsl -Value Restart-WSLEnvironment
+
+function getge { & "F:\study\Platforms\windows\setups\getge\getge.ps1" @args }
+function display { & "F:\study\Platforms\windows\tools\display\display.ps1" @args }
+function cccc { & "F:\study\Shells\powershell\scripts\cccc\cccc.ps1" @args }
+function de1 { & "F:\study\Shells\powershell\scripts\misc\de1\de1.ps1" @args }
+function de2 { & "F:\study\Shells\powershell\scripts\misc\de2\de2.ps1" @args }
+
+function fxs { & "F:\study\Shells\powershell\scripts\misc\fxs\fxs.ps1" @args }
+
+# PSReadLine Configuration - FORCE ListView with 10 history suggestions
+$ErrorActionPreference_Backup = $ErrorActionPreference
+$ErrorActionPreference = 'SilentlyContinue'
+
+Import-Module PSReadLine -RequiredVersion 2.4.5 -Force
+
+# Maximum history
+Set-PSReadLineOption -MaximumHistoryCount 10000
+
+# FORCE History predictions with ListView (dropdown with 10 items)
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView
+
+# Key bindings for predictions
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+Set-PSReadLineKeyHandler -Key RightArrow -Function ForwardChar
+Set-PSReadLineKeyHandler -Key Ctrl+RightArrow -Function ForwardWord
+Set-PSReadLineKeyHandler -Key F2 -Function SwitchPredictionView
+
+# History search moves cursor to end
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+
+# Colors for better visibility of predictions
+Set-PSReadLineOption -Colors @{
+    InlinePrediction = [ConsoleColor]::DarkGray
+    ListPrediction = [ConsoleColor]::Yellow
+    ListPredictionSelected = [ConsoleColor]::Black
+}
+
+$ErrorActionPreference = $ErrorActionPreference_Backup
+
+# Only show PSReadLine info in TRULY interactive terminals
+# Checks: ConsoleHost + UserInteractive + NOT OpenClaw + NOT NonInteractive param + NOT piped/redirected
+$isReallyInteractive = (
+    $Host.Name -eq 'ConsoleHost' -and 
+    [Environment]::UserInteractive -and 
+    -not $env:OPENCLAW_EXEC -and
+    -not ([Environment]::GetCommandLineArgs() -contains '-NonInteractive') -and
+    [Console]::IsInputRedirected -eq $false
+)
+if ($isReallyInteractive) {
+    Write-Host "PSReadLine: ListView with 10 history suggestions ENABLED" -ForegroundColor Green
+    Write-Host "Type any command - suggestions will appear below!" -ForegroundColor Cyan
+    Write-Host "Press F2 to toggle ListView/InlineView" -ForegroundColor Yellow
+}
+function wsgg { & "F:\study\Platforms\linux\wsl2\wsgg\wsgg.ps1" @args }
+function bst { & "F:\study\Shells\powershell\scripts\misc\bst\bst.ps1" @args }
+function latest { & "F:\study\Shells\powershell\scripts\misc\latest\latest.ps1" @args }
+function clap { & "F:\study\Shells\powershell\scripts\clap\clap.ps1" @args }
+function mac { & "F:\study\Shells\powershell\scripts\misc\mac\mac.ps1" @args }
+function bios { & "F:\study\Platforms\windows\tools\bios\bios.ps1" @args }
+function add_keys { & "F:\study\security\ssh\add_keys\add_keys.ps1" @args }
+function ggrwsl { & "F:\study\Shells\powershell\scripts\misc\ggrwsl\ggrwsl.ps1" @args }
+function ss { & "F:\study\Platforms\windows\tools\screenshot\ss.ps1" @args }
+function ggss { & "F:\study\Platforms\windows\setups\ggss\ggss.ps1" @args }
+function path { & "F:\study\Shells\powershell\scripts\misc\path\path.ps1" @args }
+function audio { & "F:\study\Platforms\windows\tools\audio\audio.ps1" @args }
+function html2db { & "F:\study\Shells\powershell\scripts\misc\html2db\html2db.ps1" @args }
+function rmal { & "F:\study\Shells\powershell\scripts\remove\rmal\rmal.ps1" @args }
+function summ { & "F:\study\Shells\powershell\scripts\summ\summ.ps1" @args }
+function paste { & "F:\study\Shells\powershell\scripts\misc\paste\paste.ps1" @args }
+function dislog { & "F:\study\Platforms\windows\tools\dislog\dislog.ps1" @args }
+function crere { & "F:\study\Shells\powershell\scripts\misc\crere\crere.ps1" @args }
+
+function rmnps { & "F:\study\Shells\powershell\scripts\remove\rmnps\rmnps.ps1" @args }
+function formatf { & "F:\study\Shells\powershell\scripts\misc\formatf\formatf.ps1" @args }
+function backsys { & "F:\study\Devops\backup\backsys\backsys.ps1" @args }
+function gs1 { & "F:\study\Shells\powershell\scripts\misc\gs1\gs1.ps1" @args }
+function gs2 { & "F:\study\Platforms\windows\setups\gs2\gs2.ps1" @args }
+function autocomplete { & "F:\study\Shells\powershell\scripts\misc\autocomplete\autocomplete.ps1" @args }
+function ytmp { & "F:\study\Browsers\FireFox\ytmp\ytmp.ps1" @args }
+function newprofile { & "F:\study\Shells\powershell\profile\newprofile\newprofile.ps1" @args }
+function sss { & "F:\study\Platforms\windows\tools\sss\sss.ps1" @args }
+function rmdock { & "F:\study\Containers\docker\rmdock\rmdock.ps1" @args }
+
+function vcx { & "F:\study\Shells\powershell\scripts\misc\vcx\vcx.ps1" @args }
+function cpit { & "F:\study\Shells\powershell\scripts\cpit\cpit.ps1" @args }
+function ghe { & "F:\study\Platforms\windows\setups\ghe\ghe.ps1" @args }
+function Safe { & "F:\study\Platforms\windows\Boot\Safe\Safe.ps1" @args }
+function sfil { & "F:\study\Shells\powershell\scripts\sfil\sfil.ps1" @args }
+function btf { & "F:\study\Shells\powershell\scripts\misc\btf\btf.ps1" @args }
+function gs3 { & "F:\study\Shells\powershell\scripts\misc\gs3\gs3.ps1" @args }
+function gsteam { & "F:\study\Platforms\windows\setups\gsteam\gsteam.ps1" @args }
+function rmgamebar { & "F:\study\Shells\powershell\scripts\remove\rmgamebar\rmgamebar.ps1" @args }
+function ggss2 { & "F:\study\Platforms\windows\setups\ggss2\ggss2.ps1" @args }
+
+function nnn { & "F:\study\Shells\powershell\scripts\misc\nnn\nnn.ps1" @args }
+
+
+# Convenience alias (matches your old pattern)
+Set-Alias -Name rmwsl -Value nnn
+
+
+function top { & "F:\study\Shells\powershell\scripts\top\top.ps1" @args }
+function desk { & "F:\study\Platforms\windows\tools\desk\desk.ps1" @args }
+function fixtime { & "F:\study\Platforms\windows\troubleshooting\fixtime\fixtime.ps1" @args }
+function g1337x { & "F:\study\Browsers\FireFox\g1337x\g1337x.ps1" @args }
+function trim { & "F:\study\Shells\powershell\scripts\misc\trim\trim.ps1" @args }
+
+
+function myg { & "F:\study\hosting\games\myg\myg.ps1" @args }
+function bcu { & "F:\study\Shells\powershell\scripts\misc\bcu\bcu.ps1" @args }
+function drim { & "F:\study\Containers\docker\drim\drim.ps1" @args }
+function getssh { & "F:\study\Platforms\windows\setups\getssh\getssh.ps1" @args }
+function cleanup { & "F:\study\AI_ML\AI_and_Machine_Learning\Artificial_Intelligence\cli\claudecode\fixwin11\cleanup.ps1" @args }
+function wish { & "F:\study\Shells\powershell\scripts\misc\wish\wish.ps1" @args }
+function draft { & "F:\study\Shells\powershell\scripts\misc\draft\draft.ps1" @args }
+function rmn { & "F:\study\Dev_Toolchain\programming\nodejs\rmn\rmn.ps1" @args }
+function kil { & "F:\study\Shells\powershell\scripts\misc\kil\kil.ps1" @args }
+function sand { & "F:\study\Shells\powershell\scripts\misc\sand\sand.ps1" @args }
+function rewemod { & "F:\study\Shells\powershell\scripts\misc\rewemod\rewemod.ps1" @args }
+function wemod { & "F:\study\Shells\powershell\scripts\misc\wemod\wemod.ps1" @args }
+function desc { & "F:\study\Shells\powershell\scripts\misc\desc\desc.ps1" @args }
+function SafeBoot { & "F:\study\Platforms\windows\Boot\SafeBoot\SafeBoot.ps1" @args }
+# Add a function to return to normal boot mode
+function DisableSafeBoot { & "F:\study\Platforms\windows\Boot\DisableSafeBoot\DisableSafeBoot.ps1" @args }
+
+
+
+function compress { & "F:\study\Shells\powershell\scripts\compress\compress.ps1" @args }
+# Disable mouse tracking (prevents escape sequence spam from MCP tools like claude-in-chrome)
+function nomouse { & "F:\study\Shells\powershell\scripts\misc\nomouse\nomouse.ps1" @args }
+# Only call nomouse in truly interactive terminals (not OpenClaw exec)
+if ($Host.Name -eq 'ConsoleHost' -and [Environment]::UserInteractive -and -not ([Environment]::GetCommandLineArgs() -contains '-NonInteractive')) {
+    try { nomouse } catch { }
+}
+# PSReadLine configuration for command suggestions
+try {
+    if ($env:TERM -eq 'dumb' -or $env:CLAUDE_CODE -or -not [Environment]::UserInteractive) {
+        Set-PSReadLineOption -PredictionSource None -ErrorAction SilentlyContinue
+    } elseif (Get-Command Set-PSReadLineOption -ParameterName PredictionSource -ErrorAction SilentlyContinue) {
+        Set-PSReadLineOption -PredictionSource History -ErrorAction SilentlyContinue
+        Set-PSReadLineOption -PredictionViewStyle InlineView -ErrorAction SilentlyContinue
+    } else {
+        Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+        Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+        Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+    }
+} catch { }
+function uninstall { & "F:\study\Shells\powershell\scripts\misc\uninstall\uninstall.ps1" @args }
+function discord { & "F:\study\Shells\powershell\scripts\misc\discord\discord.ps1" @args }
+function uac { & "F:\study\Shells\powershell\scripts\misc\uac\uac.ps1" @args }
+function reuac { & "F:\study\Shells\powershell\scripts\misc\reuac\reuac.ps1" @args }
+function ahk2exe { & "F:\study\Platforms\windows\autohotkey\ahk2exe\ahk2exe.ps1" @args }
+
+function smyg { & "F:\study\Shells\powershell\scripts\misc\smyg\smyg.ps1" @args }
+function scp2ubu2($folderName) {
+    if ([string]::IsNullOrEmpty($folderName)) {
+        Write-Output "Usage: scp2ubu2 <folder_name>"
+        return
+    }
+    $srcPath = $folderName
+    $dstUser = "ubuntu"
+    $dstIP = "192.168.1.193"
+    $dstPath = "/home/ubuntu"
+    $scpCommand = "scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o Compression=no -o Ciphers=aes128-gcm@openssh.com -o MACs=umac-128-etm@openssh.com -o IPQoS=throughput `"$srcPath`" ${dstUser}@${dstIP}:`"$dstPath`""
+    Invoke-Expression $scpCommand
+}
+
+function compc { & "F:\study\Shells\powershell\scripts\misc\compc\compc.ps1" @args }
+function sss2 { & "F:\study\Platforms\windows\tools\sss2\sss2.ps1" @args }
+
+
+function ee { & "F:\study\Shells\powershell\scripts\misc\ee\ee.ps1" @args }
+    function nets {
+    cd F:\\\study\\Dev_Toolchain\\programming\python\apps\networkbooster\windows11; py b.py
+}
+function rmdocker { & "F:\study\Containers\docker\rmdocker\rmdocker.ps1" @args }
+function specs { & "F:\study\Platforms\windows\tools\system-specs\specs.ps1" @args }
+
+
+function steam { & "F:\study\hosting\games\steam\steam.ps1" @args }
+function game { & "F:\study\Shells\powershell\scripts\misc\game\game.ps1" @args }
+
+
+function short3 { & "F:\study\Platforms\windows\tools\game-shortcuts-v3\short3.ps1" @args }
+function robs { & "F:\study\Shells\powershell\scripts\misc\robs\robs.ps1" @args }
+function rjoy { & "F:\study\Platforms\windows\tools\rjoy\rjoy.ps1" @args }
+function rg { & "F:\study\Shells\powershell\scripts\misc\rg\rg.ps1" @args }
+function rr2 { & "F:\study\Shells\powershell\scripts\misc\rr2\rr2.ps1" @args }
+function rr { & "F:\study\Shells\powershell\scripts\misc\rr\rr.ps1" @args }
+function rlas { & "F:\study\Shells\powershell\scripts\rlas\rlas.ps1" @args }
+function doom { & "F:\study\Shells\powershell\scripts\misc\doom\doom.ps1" @args }
+function bully { & "F:\study\Shells\powershell\scripts\misc\bully\bully.ps1" @args }
+function rgg { & "F:\study\Shells\powershell\scripts\misc\rgg\rgg.ps1" @args }
+function tmnt { & "F:\study\Shells\powershell\scripts\misc\tmnt\tmnt.ps1" @args }
+function ashen { & "F:\study\Shells\powershell\scripts\misc\ashen\ashen.ps1" @args }
+function getdirectx { & "F:\study\troubleshooting\dx\getdirectx\getdirectx.ps1" @args }
+
+function unlock { & "F:\study\Platforms\windows\tools\unlock\unlock.ps1" @args }
+function get7z { & "F:\study\Platforms\windows\setups\get7z\get7z.ps1" @args }
+function getarm { & "F:\study\Platforms\windows\setups\getarm\getarm.ps1" @args }
+
+function getf4 { & "F:\study\Platforms\windows\setups\getf4\getf4.ps1" @args }
+function fixtaskbar { & "F:\study\Platforms\windows\troubleshooting\fixtaskbar\fixtaskbar.ps1" @args }
+function sfol { & "F:\study\Shells\powershell\scripts\sfol\sfol.ps1" @args }
+function rche { & "F:\study\Shells\powershell\scripts\rche\rche.ps1" @args }
+function superf4 { & "F:\study\Platforms\windows\tools\superf4\superf4.ps1" @args }
+function ytp { & "F:\study\Browsers\FireFox\ytp\ytp.ps1" @args }
+function sg { & "F:\study\Shells\powershell\scripts\sg\sg.ps1" @args }
+function ssg { & "F:\study\Shells\powershell\scripts\ssg\ssg.ps1" @args }
+function FixWinStore { & "F:\study\Platforms\windows\troubleshooting\FixWinStore\FixWinStore.ps1" @args }
+function disadmin { & "F:\study\Platforms\windows\tools\disadmin\disadmin.ps1" @args }
+function win { & "F:\study\Shells\powershell\scripts\misc\win\win.ps1" @args }
+
+function ytapi { & "F:\study\Browsers\FireFox\ytapi\ytapi.ps1" @args }
+function up { & "F:\study\Platforms\windows\Updates\up\up.ps1" @args }
+function cpsec { & "F:\study\Shells\powershell\scripts\misc\cpsec\cpsec.ps1" @args }
+function ytp3 { & "F:\study\Browsers\FireFox\ytp3\ytp3.ps1" @args }
+function ccpatch { & "F:\study\Shells\powershell\scripts\cleanup\ccpatch\ccpatch.ps1" @args }
+function ext { & "F:\study\Shells\powershell\scripts\misc\ext\ext.ps1" @args }
+function ext2 { & "F:\study\Shells\powershell\scripts\misc\ext2\ext2.ps1" @args }
+function wmpatch { & "F:\study\Shells\powershell\scripts\misc\wmpatch\wmpatch.ps1" @args }
+function walls { & "F:\study\Platforms\windows\tools\wallpaper\walls.ps1" @args }
+function wallst { & "F:\study\Shells\powershell\scripts\wallst\wallst.ps1" @args }
+function sus { & "F:\study\Shells\powershell\scripts\misc\sus\sus.ps1" @args }
+function res { & "F:\study\Shells\powershell\scripts\misc\res\res.ps1" @args }
+function sused { & "F:\study\Shells\powershell\scripts\misc\sused\sused.ps1" @args }
+function resed { & "F:\study\Shells\powershell\scripts\misc\resed\resed.ps1" @args }
+function comps { & "F:\study\Shells\powershell\scripts\misc\comps\comps.ps1" @args }
+function rmd { & "F:\study\Containers\docker\rmd\rmd.ps1" @args }
+function setup { & "F:\study\Dev_Toolchain\programming\python\apps\Uninstaller\setup.ps1" @args }
+function close { & "F:\study\Shells\powershell\scripts\misc\close\close.ps1" @args }
+function up2 { & "F:\study\Platforms\windows\Updates\up2\up2.ps1" @args }
+function liners { & "F:\study\Shells\powershell\scripts\misc\liners\liners.ps1" @args }
+function closeahk { & "F:\study\Platforms\windows\autohotkey\closeahk\closeahk.ps1" @args }
+function stopstart { & "F:\study\Platforms\windows\performance\stopstart\stopstart.ps1" @args }
+function liststart { & "F:\study\Platforms\windows\tools\liststart\liststart.ps1" @args }
+function susp { & "F:\study\Shells\powershell\scripts\misc\susp\susp.ps1" @args }
+
+function ahk2ps { & "F:\study\Shells\powershell\scripts\ahk2ps\ahk2ps.ps1" @args }
+function getdotnet { & "F:\study\Platforms\windows\setups\getdotnet\getdotnet.ps1" @args }
+function nvc { & "F:\study\Shells\powershell\scripts\misc\nvc\nvc.ps1" @args }
+
+
+function installall { & "F:\study\Platforms\windows\setups\installall\installall.ps1" @args }
+function runall { & "F:\study\Shells\powershell\scripts\runall\runall.ps1" @args }
+
+function gchome { & "F:\study\Browsers\Chrome\gchome\gchome.ps1" @args }
+function macro { & "F:\study\Shells\powershell\scripts\misc\macro\macro.ps1" @args }
+
+
+function dboost { & "F:\study\Shells\powershell\scripts\misc\dboost\dboost.ps1" @args }
+function dbo { & "F:\study\Containers\docker\dbo\dbo.ps1" @args }
+
+function time { & "F:\study\Shells\powershell\scripts\time\time.ps1" @args }
+function maxpower { & "F:\study\Platforms\windows\performance\maxpower\maxpower.ps1" @args }
+function minpower { & "F:\study\Platforms\windows\performance\minpower\minpower.ps1" @args }
+function killt { & "F:\study\Shells\powershell\scripts\misc\killt\killt.ps1" @args }
+function ffhome { & "F:\study\Browsers\FireFox\ffhome\ffhome.ps1" @args }
+function ffyt { & "F:\study\Browsers\FireFox\ffyt\ffyt.ps1" @args }
+# Create an alias for backward compatibility
+# Set-Alias -Name ffhome -Value Set-FirefoxHomepage
+# Example usage:
+# ffhome
+# Or with custom homepage:
+# ffhome -Homepage "https://example.com"
+function Copy { & "F:\study\Shells\powershell\scripts\Copy\Copy.ps1" @args }
+## --- put the two functions in your profile -------------------------------
+function CopyClip { & "F:\study\Shells\powershell\scripts\CopyClip\CopyClip.ps1" @args }
+function cco { & "F:\study\AI_ML\AI_and_Machine_Learning\Artificial_Intelligence\cli\claudecode\cco\cco.ps1" @args }
+function rmwinold { & "F:\study\Shells\powershell\scripts\remove\rmwinold\rmwinold.ps1" @args }
+function driverdu { & "F:\study\Shells\powershell\scripts\misc\driverdu\driverdu.ps1" @args }
+function bbel { & "F:\study\Shells\powershell\scripts\misc\bbel\bbel.ps1" @args }
+function startit { & "F:\study\Shells\powershell\scripts\startit\startit.ps1" @args }
+function terminaladmin { & "F:\study\Shells\powershell\scripts\misc\terminaladmin\terminaladmin.ps1" @args }
+function taskbar { & "F:\study\Platforms\windows\tools\taskbar\taskbar.ps1" @args }
+function rewsl { & "F:\study\Platforms\linux\wsl2\rewsl\rewsl.ps1" @args }
+function rrewsl { & "F:\study\Platforms\linux\wsl2\rrewsl\rrewsl.ps1" @args }
+function 3ubu { & "F:\study\Platforms\linux\wsl2\3ubu\3ubu.ps1" @args }
+function ddefender { & "F:\study\security\ddefender\ddefender.ps1" @args }
+function ubu3 { & "F:\study\Platforms\linux\wsl2\ubu3\ubu3.ps1" @args }
+function n1 { & "F:\study\Shells\powershell\scripts\misc\n1\n1.ps1" @args }
+function swemod { & "F:\study\Shells\powershell\scripts\misc\swemod\swemod.ps1" @args }
+function armourycrate { & "F:\study\Shells\powershell\scripts\misc\armourycrate\armourycrate.ps1" @args }
+
+
+function ytmp4 { & "F:\study\Browsers\FireFox\ytmp4\ytmp4.ps1" @args }
+function before { & "F:\study\Shells\powershell\scripts\misc\before\before.ps1" @args }
+
+# WSL2 Memory Management Functions
+# These functions configure WSL2 to use specific memory limits and enforce them
+function w1gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w1gb\w1gb.ps1" @args }
+function w2gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w2gb\w2gb.ps1" @args }
+function w3gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w3gb\w3gb.ps1" @args }
+function w4gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w4gb\w4gb.ps1" @args }
+function w5gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w5gb\w5gb.ps1" @args }
+function w6gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w6gb\w6gb.ps1" @args }
+function w7gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w7gb\w7gb.ps1" @args }
+function w8gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w8gb\w8gb.ps1" @args }
+function w9gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w9gb\w9gb.ps1" @args }
+function w10gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w10gb\w10gb.ps1" @args }
+function w11gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w11gb\w11gb.ps1" @args }
+function w12gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w12gb\w12gb.ps1" @args }
+function w13gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w13gb\w13gb.ps1" @args }
+function w14gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w14gb\w14gb.ps1" @args }
+function w15gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w15gb\w15gb.ps1" @args }
+function w16gb { & "F:\study\Platforms\linux\wsl2\wsl-ram\w16gb\w16gb.ps1" @args }
+# Additional utility functions
+function Get-WSL2Memory {
+    Write-Output "Current WSL2 memory usage:" -ForegroundColor Cyan
+    wsl -e bash -c "free -h && echo '---' && ps aux --sort=-%mem | head -10"
+}
+function Reset-WSL2Config {
+    $configPath = "$env:USERPROFILE\.wslconfig"
+    if (Test-Path $configPath) {
+        Remove-Item $configPath -Force
+        Write-Output "WSL2 configuration reset. WSL will use default settings." -ForegroundColor Green
+        wsl --shutdown
+    } else {
+        Write-Output "No WSL2 configuration file to reset." -ForegroundColor Yellow
+    }
+}
+# Custom memory allocation function
+function Set-WSL2CustomMemory {
+    param(
+        [Parameter(Mandatory=$true)]
+        [int]$MemoryGB,
+        [int]$SwapGB,
+        [int]$ProcessorCount = 4,
+        [string]$Distribution = "Ubuntu"
+    )
+    if (-not $SwapGB) { $SwapGB = [math]::Max(1, [math]::Floor($MemoryGB / 2)) }
+    Set-WSL2Memory -MemoryGB $MemoryGB -SwapGB $SwapGB -Distribution $Distribution
+}
+# Functions are automatically available when sourced in PowerShell profile
+# Usage examples:
+# w8gb                                    # Set 8GB memory with 8GB swap
+# Set-WSL2CustomMemory -MemoryGB 6 -SwapGB 2  # Set 6GB memory with 2GB swap
+# Get-WSL2Config                          # View current configuration
+# Get-WSL2Memory                          # Check memory usage
+# Reset-WSL2Config                        # Reset to defaults
+function short { & "F:\study\Platforms\windows\tools\game-shortcuts\short.ps1" @args }
+function short2 { & "F:\study\Platforms\windows\tools\game-shortcuts-v2\short2.ps1" @args }
+function getwinget { & "F:\study\Platforms\windows\setups\getwinget\getwinget.ps1" @args }
+function gparsec { & "F:\study\Platforms\windows\setups\gparsec\gparsec.ps1" @args }
+
+function gobs { & "F:\study\Platforms\windows\setups\gobs\gobs.ps1" @args }
+function grambox { & "F:\study\Platforms\windows\setups\grambox\grambox.ps1" @args }
+function gsavestate { & "F:\study\Platforms\windows\setups\gsavestate\gsavestate.ps1" @args }
+function gcursor { & "F:\study\Shells\powershell\scripts\misc\gcursor\gcursor.ps1" @args }
+function bright1 { & "F:\study\Shells\powershell\scripts\misc\bright1\bright1.ps1" @args }
+function bright0 { & "F:\study\Shells\powershell\scripts\misc\bright0\bright0.ps1" @args }
+function greflect { & "F:\study\Platforms\windows\setups\greflect\greflect.ps1" @args }
+function gstremio { & "F:\study\Platforms\windows\setups\gstremio\gstremio.ps1" @args }
+function gplaynite { & "F:\study\Platforms\windows\setups\gplaynite\gplaynite.ps1" @args }
+function gcompressedinstalled { & "F:\study\Shells\powershell\scripts\misc\gcompressedinstalled\gcompressedinstalled.ps1" @args }
+function compressedinstall { & "F:\study\Shells\powershell\scripts\misc\compressedinstall\compressedinstall.ps1" @args }
+function gchrome { & "F:\study\Shells\powershell\scripts\misc\gchrome\gchrome.ps1" @args }
+function gtodoist { & "F:\study\Platforms\windows\setups\gtodoist\gtodoist.ps1" @args }
+function gfirefox { & "F:\study\Shells\powershell\scripts\misc\gfirefox\gfirefox.ps1" @args }
+function gdriverbooster { & "F:\study\Platforms\windows\setups\gdriverbooster\gdriverbooster.ps1" @args }
+function cccclean { & "F:\study\Shells\powershell\scripts\cccclean\cccclean.ps1" @args }
+function clean { & "F:\study\Shells\powershell\scripts\cleanup\clean\clean.ps1" @args }
+
+function psv { & "F:\study\Shells\powershell\scripts\misc\psv\psv.ps1" @args }
+function ps7 { & "F:\study\Shells\powershell\scripts\misc\ps7\ps7.ps1" @args }
+function ps5 { & "F:\study\Shells\powershell\scripts\misc\ps5\ps5.ps1" @args }
+function gdbooster { & "F:\study\hosting\games\gdbooster\gdbooster.ps1" @args }
+function amd { & "F:\study\Shells\powershell\scripts\misc\amd\amd.ps1" @args }
+function gccleaner { & "F:\study\Platforms\windows\tools\gccleaner\gccleaner.ps1" @args }
+function getps7 { & "F:\study\Platforms\windows\setups\getps7\getps7.ps1" @args }
+function repoint { & "F:\study\Shells\powershell\scripts\misc\repoint\repoint.ps1" @args }
+function sdesktop { & "F:\study\Shells\powershell\scripts\misc\sdesktop\sdesktop.ps1" @args }
+function startahk { & "F:\study\Platforms\windows\autohotkey\startahk\startahk.ps1" @args }
+function disahk { & "F:\study\Shells\powershell\scripts\misc\disahk\disahk.ps1" @args }
+function gahk { & "F:\study\Platforms\windows\setups\gahk\gahk.ps1" @args }
+function ress { & "F:\study\Shells\powershell\scripts\ress.ps1" @args }
+function gv1 { & "F:\study\Shells\powershell\scripts\gv1.ps1" @args }
+function upit { & "F:\study\Platforms\windows\Updates\upit\upit.ps1" @args }
+function pipip { & "F:\study\Dev_Toolchain\programming\python\pipip\pipip.ps1" @args }
+function cleans { & "F:\study\Shells\powershell\scripts\cleanup\cleans\cleans.ps1" @args }
+function ccbb { & "F:\study\Shells\powershell\scripts\cleanup\ccbb\ccbb.ps1" @args }
+function ccbbr { & "F:\study\Shells\powershell\scripts\cleanup\ccbbr\ccbbr.ps1" @args }
+function ssss { & "F:\study\Shells\powershell\scripts\misc\ssss\ssss.ps1" @args }
+
+$ExecutionContext.SessionState.InvokeCommand.CommandNotFoundAction = { param($name, $e) if ($name -match "\.ahk$") { $v = if ((Get-Content $name -Raw -EA 0) -match "MsgBox\(|Array\(|#Requires.*v2") {2} else {1}; $exe = @{1="C:\Program Files\AutoHotkey\AutoHotkey.exe"; 2="C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe"}[$v]; $e.CommandScriptBlock = [scriptblock]::Create("& `"$exe`" `"$name`"") }}
+$ExecutionContext.SessionState.InvokeCommand.CommandNotFoundAction = { param($name, $e) if ($name -match "\.[\\/]?(.+\.ahk)$") { $file = if($name.StartsWith("./") -or $name.StartsWith(".\")) {$matches[1]} else {$name}; if(Test-Path $file) { $v = if ((Get-Content $file -Raw -EA 0) -match "MsgBox\s*\(|Array\s*\(|#Requires.*v2") {2} else {1}; $exe = if($v -eq 2){"C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe"}else{"C:\Program Files\AutoHotkey\AutoHotkey.exe"}; $e.CommandScriptBlock = [scriptblock]::Create("& `"$exe`" `"$file`"") }}}
+function used2 { & "F:\study\Shells\powershell\scripts\misc\used2\used2.ps1" @args }
+function runahk { & "F:\study\Platforms\windows\autohotkey\runahk\runahk.ps1" @args }
+
+function gshort { & "F:\study\Shells\powershell\scripts\misc\gshort\gshort.ps1" @args }
+function a2e { & "F:\study\Shells\powershell\scripts\a2e\a2e.ps1" @args }
+function killmacrium { & "F:\study\Devops\backup\killmacrium\killmacrium.ps1" @args }
+function dsubs2 { & "F:\study\Shells\powershell\scripts\misc\dsubs2\dsubs2.ps1" @args }
+function rmod { & "F:\study\Shells\powershell\scripts\remove\rmod\rmod.ps1" @args }
+function everything { & "F:\study\Shells\powershell\scripts\misc\everything\everything.ps1" @args }
+function rmdup { & "F:\study\Shells\powershell\scripts\remove\rmdup\rmdup.ps1" @args }
+function lhunter { & "F:\study\Shells\powershell\scripts\misc\lhunter\lhunter.ps1" @args }
+function backupf { & "F:\study\Devops\backup\backupf\backupf.ps1" @args }
+function rmf { & "F:\study\Shells\powershell\scripts\remove\rmf\rmf.ps1" @args }
+function restoref { & "F:\study\Devops\backup\restoref\restoref.ps1" @args }
+function sahk { & "F:\study\Platforms\windows\autohotkey\sahk\sahk.ps1" @args }
+function Set-WSL2Memory { param([int]$MemoryGB) $config="[wsl2]`nmemory=${MemoryGB}GB"; $config | Out-File "$env:USERPROFILE\.wslconfig" -Encoding utf8; wsl --shutdown; Write-Host "WSL2 memory set to ${MemoryGB}GB. Restart WSL to apply." }
+function ssave { & "F:\study\Shells\powershell\scripts\misc\ssave\ssave.ps1" @args }
+function setups { & "F:\study\Shells\powershell\scripts\misc\setups\setups.ps1" @args }
+function asus { & "F:\study\Platforms\windows\tools\asus-tools\asus.ps1" @args }
+
+function updater3 { & "F:\study\Platforms\windows\Updates\updater3\updater3.ps1" @args }
+function phonel { & "F:\study\Shells\powershell\scripts\misc\phonel\phonel.ps1" @args }
+function renotes { & "F:\study\Shells\powershell\scripts\misc\renotes\renotes.ps1" @args }
+function nvid { & "F:\study\Shells\powershell\scripts\misc\nvid\nvid.ps1" @args }
+
+
+
+
+
+function grevouninstaller { & "F:\study\Platforms\windows\setups\grevouninstaller\grevouninstaller.ps1" @args }
+function grevo { & "F:\study\Platforms\windows\setups\grevo\grevo.ps1" @args }
+function macback { & "F:\study\Devops\backup\macback\macback.ps1" @args }
+function rmback { & "F:\study\Shells\powershell\scripts\remove\rmback\rmback.ps1" @args }
+function rmrmrm { & "F:\study\Shells\powershell\scripts\remove\rmrmrm\rmrmrm.ps1" @args }
+function gscoop { & "F:\study\Platforms\windows\setups\gscoop\gscoop.ps1" @args }
+function cfun { & "F:\study\Shells\powershell\scripts\cfun\cfun.ps1" @args }

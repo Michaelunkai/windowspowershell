@@ -1,0 +1,21 @@
+===============================================
+ULTIMATE UNINSTALLER - COMPILATION INSTRUCTIONS
+===============================================
+
+Copy and paste EXACTLY this command (no extra characters):
+
+gcc -o ultimate_uninstaller.exe ultimate_uninstaller.c -lshlwapi -ladvapi32 -luserenv -lkernel32 -lntdll -lrstrtmgr -municode -static-libgcc -O2
+
+IMPORTANT:
+- Make sure you're in the correct directory first
+- Do NOT copy any extra characters or symbols
+- The -O2 flag is "dash O two" (letter O, number 2)
+
+After successful compilation, the executable will be:
+ultimate_uninstaller.exe
+
+To run:
+ultimate_uninstaller.exe AppName
+
+Example:
+ultimate_uninstaller.exe Fortect

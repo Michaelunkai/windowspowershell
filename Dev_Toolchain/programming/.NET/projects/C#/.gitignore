@@ -1,0 +1,12 @@
+
+# Large files (≥95MB) excluded by gitit v14 - 2026-02-23 16:31
+OpenClawRunner/dist/OpenClawRunner.exe
+StartupManagerClean/StartupManager/published/StartupManager.exe
+StartupMaster/dist/StartupMaster_v1.7_ZeroDelay/StartupMaster.exe
+StartupMaster/dist/StartupMaster_v1.7/StartupMaster.exe
+StartupMaster/dist/StartupMaster_v1.8_BulletproofFix/StartupMaster.exe
+StartupMaster/dist/StartupMaster_v1.9_Final/StartupMaster.exe
+StartupMaster/dist/StartupMaster_v2.0_WithIcons/StartupMaster.exe
+
+# Auto-excluded large files (>49MB)
+AndroidMonitor/AndroidMonitor.exe

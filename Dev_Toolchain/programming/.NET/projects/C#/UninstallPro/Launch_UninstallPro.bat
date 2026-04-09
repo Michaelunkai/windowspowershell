@@ -1,0 +1,3 @@
+@echo off
+echo Starting UninstallPro with Administrator privileges...
+powershell -Command "Start-Process -FilePath '%~dp0UninstallPro\bin\Release\net9.0-windows\win-x64\publish\UninstallPro.exe' -Verb RunAs"

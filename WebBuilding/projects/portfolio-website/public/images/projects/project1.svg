@@ -1,0 +1,5 @@
+﻿<svg width="800" height="450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#141528"/>
+  <rect x="50" y="50" width="700" height="350" fill="#0f1020" rx="10"/>
+  <text x="400" y="235" text-anchor="middle" fill="#7c3aed" font-family="sans-serif" font-size="32">Project Screenshot</text>
+</svg>

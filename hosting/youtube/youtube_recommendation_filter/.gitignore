@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Database
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Logs
+*.log
+
+# Screenshots
+screenshots/
+screenshot_*.png
+
+# Temporary files
+*.tmp
+*.bak
+~*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Extension specific
+sync_export.json
+android_state.json

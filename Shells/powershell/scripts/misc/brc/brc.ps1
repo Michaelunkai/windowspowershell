@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    brc
+#>
+notepad $PROFILE

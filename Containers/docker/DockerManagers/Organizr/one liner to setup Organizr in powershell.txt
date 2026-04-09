@@ -1,0 +1,1 @@
+docker run -d -p 8091:80 --name organizr --restart=always -v organizr_data:/config organizr/organizr:latest ; echo "Organizr: http://localhost:8091"

@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y wget && wget -qO- https://github.com/shenwei356/csvtk/releases/latest/download/csvtk_linux_amd64.tar.gz | sudo tar xzf - -C /usr/local/bin/ && sudo chmod +x /usr/local/bin/csvtk && csvtk version && echo "Try: csvtk stats data.csv | csvtk cut -f col1,col2 data.csv | csvtk filter -f 'col1>100' data.csv | csvtk pretty data.csv"

@@ -1,0 +1,103 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║                   🔥 ACTION REQUIRED - DO THIS NOW! 🔥               ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+⚡ STEP 1: RECOMPILE (DO THIS FIRST!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Double-click this file in Windows Explorer:
+
+    RECOMPILE_FUZZY.bat
+
+Wait 30-60 seconds for compilation to finish.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 STEP 2: TEST IT!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After recompiling, test with these commands:
+
+PowerShell:
+    skill 'samsung notes' 'quick share' vscode firefox chrome
+
+Cmd:
+    skill "samsung notes" "quick share" vscode firefox chrome
+
+Or without quotes (spaces become separate args):
+    skill samsungnotes quickshare vscode firefox chrome
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ WHAT'S NEW?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Quoted names:         skill 'samsung notes'
+✅ Spaces in names:      skill "quick share"  
+✅ Fuzzy matching:       skill vscode → finds Code.exe
+✅ Case insensitive:     skill CHROME → finds chrome.exe
+✅ Partial matching:     skill quick → finds QuickShare.exe
+✅ Kills ALL matches:    If 5 chrome processes, kills all 5!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 EXAMPLES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Kill processes with spaces in names
+skill 'samsung notes' 'quick share' 'visual studio code'
+
+# Mix of quoted and unquoted
+skill 'samsung notes' firefox chrome todoist
+
+# Fuzzy matching (finds partial names)
+skill samsung quick vs firefox
+
+# All uppercase works too
+skill FIREFOX CHROME EDGE TODOIST
+
+# Kill everything at once
+skill 'samsung notes' 'quick share' vscode firefox chrome edge todoist docker node
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 HOW FUZZY MATCHING WORKS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your Search        →  Finds These Processes
+─────────────────────────────────────────────────────────────────
+'samsung notes'    →  SamsungNotes.exe
+'quick share'      →  QuickShare.exe
+vscode             →  Code.exe (VS Code)
+vs                 →  Code.exe
+samsung            →  SamsungNotes.exe, SamsungFlow.exe, etc.
+quick              →  QuickShare.exe, QuickTime.exe, etc.
+firefox            →  firefox.exe
+CHROME             →  chrome.exe (case insensitive!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ IMPORTANT NOTES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. USE QUOTES for process names with spaces!
+   ✅ skill 'samsung notes'
+   ❌ skill samsung notes  (kills "samsung" then "notes" separately)
+
+2. Fuzzy matching finds ALL matches
+   - "quick" might find: QuickShare.exe AND QuickTime.exe
+   - Be specific if needed!
+
+3. Multiple instances = ALL killed
+   - If 10 chrome processes, kills ALL 10!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 DO IT NOW!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Double-click: RECOMPILE_FUZZY.bat
+2. Wait for "SUCCESS!"
+3. Test: skill 'samsung notes' firefox chrome
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

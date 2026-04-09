@@ -1,0 +1,3 @@
+docker rm -f cyberchef; docker run -d --name cyberchef -p 8081:8000 mpepping/cyberchef:latest; Write-Host "CyberChef
+  running at: http://localhost:8081"
+  Access: http://localhost:8081

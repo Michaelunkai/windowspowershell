@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y wget && wget -qO- https://github.com/aswinkarthik/csvdiff/releases/latest/download/csvdiff_linux_amd64.tar.gz | sudo tar xzf - -C /usr/local/bin/ && sudo chmod +x /usr/local/bin/csvdiff && csvdiff --version && echo "Try: csvdiff file1.csv file2.csv | csvdiff --primary-key col1 file1.csv file2.csv | csvdiff -o diff.csv file1.csv file2.csv"

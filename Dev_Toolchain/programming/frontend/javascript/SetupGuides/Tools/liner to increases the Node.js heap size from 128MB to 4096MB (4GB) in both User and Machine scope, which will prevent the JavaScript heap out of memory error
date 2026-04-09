@@ -1,0 +1,1 @@
+[System.Environment]::SetEnvironmentVariable('NODE_OPT IONS', '--max-old-space-size=4096 --max-http-header-size=8192 --expose-gc', 'User'); [System.Environment]::SetEnvironmentVariable('NODE_OPT IONS', '--max-old-space-size=4096 --max-http-header-size=8192 --expose-gc', 'Machine')

@@ -1,0 +1,7 @@
+﻿<#
+.SYNOPSIS
+    cc69 - PowerShell script
+.NOTES
+    Extracted: 2026-02-19
+#>
+ccontext "0.15" 430000 7200

@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y curl gcc && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && source $HOME/.cargo/env && cargo install csview && echo 'export PATH=$PATH:$HOME/.cargo/bin' >> ~/.bashrc && source ~/.bashrc && csview --version && echo "Try: csview data.csv | csview -H data.csv | csview --style=grid data.csv"

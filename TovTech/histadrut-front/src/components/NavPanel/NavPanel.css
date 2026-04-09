@@ -1,0 +1,338 @@
+.nav-panel {
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  height: 100dvh;
+  padding: 1rem;
+  box-sizing: border-box;
+  position: fixed;
+  inset-inline-start: 0;
+  top: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+  z-index: 1000;
+
+  &:dir(rtl).nav-panel--mobile {
+    transform: translateX(100%);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+
+    &.nav-panel--expanded {
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Desktop states */
+.nav-panel--desktop {
+  width: 80px;
+
+  &.nav-panel--expanded {
+    width: 250px;
+  }
+}
+
+/* Mobile states */
+.nav-panel--mobile {
+  width: 70vw;
+  max-width: 280px;
+  min-width: 200px;
+  transform: translateX(-100%);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &.nav-panel--expanded {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile hamburger button */
+.nav-panel__mobile-toggle {
+  position: fixed;
+  top: 1rem;
+  inset-inline-start: 1rem;
+  z-index: 1002;
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: var(--nav-hover);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    z-index: 1003;
+  }
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+/* Toggle button */
+.nav-panel__toggle {
+  background: none;
+  border: none;
+  color: var(--nav-text);
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-inline-end: 2px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #ffffff;
+  }
+}
+
+.nav-panel__header {
+  border-bottom: 1px solid var(--nav-border);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.nav-panel__header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.nav-panel__header--collapsed {
+  border-bottom: 1px solid transparent;
+  margin-bottom: 2rem;
+  height: 80px;
+}
+
+.nav-panel__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--nav-text);
+  transition: opacity 0.3s ease;
+}
+
+.nav-panel__user {
+  font-size: 0.9rem;
+  color: var(--nav-text-dim);
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide text but keep space in collapsed state */
+.nav-panel--collapsed {
+  & .nav-panel__header-text {
+    display: none;
+  }
+
+  & .nav-panel__title,
+  & .nav-panel__user {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  & .nav-panel__link {
+    padding: 0.75rem;
+  }
+
+  & .nav-panel__text {
+    opacity: 0;
+    width: 0;
+  }
+}
+
+.nav-panel__nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 172px; /* Room for footer with ThemeToggle */
+}
+
+.nav-panel__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-panel__link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.75rem;
+  color: var(--nav-text);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-height: 44px;
+  height: 44px;
+  position: relative;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: var(--nav-hover);
+  }
+}
+
+.nav-panel__link--active {
+  background-color: var(--nav-active);
+  color: white;
+}
+
+.nav-panel__icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+  flex-shrink: 0;
+  position: absolute;
+  inset-inline-start: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: inset-inline-start 0.3s ease;
+}
+
+.nav-panel__text {
+  opacity: 1;
+  transition: opacity 0.3s ease, width 0.3s ease;
+  overflow: hidden;
+  flex: 1;
+  margin-inline-start: 44px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+}
+
+/* RTL support */
+.nav-panel:dir(rtl) {
+  & .nav-panel__title,
+  & .nav-panel__user {
+    text-align: start;
+  }
+}
+
+.nav-panel__footer {
+  position: absolute;
+  bottom: 1rem;
+  inset-inline: 1rem;
+  border-top: 1px solid var(--nav-border);
+  padding-top: 1rem;
+  transition: all 0.3s ease;
+  height: 172px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-panel__footer--collapsed {
+  border-top: 1px solid transparent;
+  padding-top: 1rem;
+  height: 172px;
+}
+
+.nav-panel__theme-toggle {
+  width: 100%;
+}
+
+.nav-panel__logout {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--accent-red);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 44px;
+  height: 44px;
+  position: relative;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: var(--accent-red-hover);
+  }
+}
+
+.nav-panel__logout-text--hidden {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  margin-inline-start: 44px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+}
+
+.nav-panel__logout-icon {
+  flex-shrink: 0;
+  position: absolute;
+  inset-inline-start: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: inset-inline-start 0.3s ease;
+}
+
+/* Overlay for mobile when nav is open */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-overlay--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Move icon to start when expanded for text */
+.nav-panel--expanded .nav-panel__icon {
+  inset-inline-start: 12px;
+}

@@ -1,0 +1,7 @@
+venv/
+pycache/
+*.pyc
+logs/
+cleanup_config.json
+*.log
+.DS_Store

@@ -1,0 +1,1 @@
+winget install NirSoft.CSVFileView --silent --accept-source-agreements --accept-package-agreements; Start-Sleep -Seconds 5;CSVFileView "F:\Downloads\claude-models-comparison.csv"

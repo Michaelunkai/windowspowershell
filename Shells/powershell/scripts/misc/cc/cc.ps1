@@ -1,0 +1,5 @@
+﻿<#
+.SYNOPSIS
+    cc
+#>
+Clear-Host

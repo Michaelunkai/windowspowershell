@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "F:\\study\\Shells\\bash\\scripts\\CleanWSL2\\logs\\.50bbe7704aacfa8cfdeb8ffc99e342e9fdc991dd-audit.json",
+    "files": [
+        {
+            "date": 1761144492565,
+            "name": "F:\\study\\Shells\\bash\\scripts\\CleanWSL2\\logs\\mcp-puppeteer-2025-10-22.log",
+            "hash": "5359bc5d46c55dacef1b8f71457cf9e26b9117385a6e08db30b2c4c7b4896103"
+        }
+    ],
+    "hashType": "sha256"
+}

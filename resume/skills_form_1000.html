@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skills Assessment - 1000 Technologies</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #0d1117; color: #e6edf3; }
+        h1 { color: #58a6ff; text-align: center; font-size: 28px; }
+        h2 { color: #58a6ff; border-bottom: 2px solid #30363d; padding-bottom: 8px; margin-top: 30px; font-size: 18px; }
+        .legend { text-align: center; margin: 15px 0; padding: 12px; background: #161b22; border-radius: 8px; font-size: 14px; position: sticky; top: 0; z-index: 100; }
+        .legend span { margin: 0 10px; padding: 4px 12px; border-radius: 4px; }
+        .l1 { background: #f85149; color: #fff; }
+        .l2 { background: #f0883e; color: #fff; }
+        .l3 { background: #d29922; color: #fff; }
+        .l4 { background: #3fb950; color: #fff; }
+        .l5 { background: #58a6ff; color: #fff; }
+        .category { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .tool-row { display: flex; align-items: center; padding: 6px 10px; background: #161b22; border-radius: 6px; border: 1px solid #30363d; }
+        .tool-row:hover { border-color: #58a6ff; }
+        .tool-name { flex: 1; font-size: 12px; font-weight: 500; }
+        .hot { color: #f85149; }
+        .rating { display: flex; gap: 4px; }
+        .rating label { cursor: pointer; }
+        .rating input { display: none; }
+        .rating span { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: #21262d; border-radius: 4px; font-size: 11px; font-weight: bold; transition: 0.2s; }
+        .rating input:checked + span { background: #58a6ff; color: #0d1117; }
+        .rating label:hover span { background: #30363d; }
+        button { background: #238636; color: #fff; border: none; padding: 15px 50px; font-size: 18px; cursor: pointer; border-radius: 8px; margin: 30px auto; display: block; font-weight: bold; }
+        button:hover { background: #2ea043; }
+        .saved { color: #3fb950; text-align: center; font-size: 20px; display: none; padding: 20px; background: #161b22; border-radius: 8px; margin: 20px 0; }
+        .progress { text-align: center; color: #58a6ff; font-size: 16px; margin: 10px 0; }
+        .filter { text-align: center; margin: 15px 0; }
+        .filter input { padding: 10px 20px; width: 300px; border-radius: 6px; border: 1px solid #30363d; background: #161b22; color: #e6edf3; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <h1>Skills Assessment - 1000 Unique Technologies</h1>
+    <div class="legend">
+        <span class="l1">1 = Heard of it</span>
+        <span class="l2">2 = Basic</span>
+        <span class="l3">3 = Intermediate</span>
+        <span class="l4">4 = Proficient</span>
+        <span class="l5">5 = Expert</span>
+        <span style="margin-left: 30px; color: #f85149;">★ = Hot 2026</span>
+    </div>
+    <div class="filter"><input type="text" id="search" placeholder="Search tools..." oninput="filterTools()"></div>
+    <div class="progress" id="progress">Completed: 0 / 1000</div>
+    <div class="saved" id="saved">Saved! Tell Claude "done" to update your resume.</div>
+
+    <form id="skillsForm">
+        <h2>☁️ Cloud Platforms (40)</h2><div class="category" id="cloud"></div>
+        <h2>🐳 Containers & Orchestration (60)</h2><div class="category" id="containers"></div>
+        <h2>🔄 CI/CD & Build Tools (80)</h2><div class="category" id="cicd"></div>
+        <h2>🏗️ Infrastructure as Code (60)</h2><div class="category" id="iac"></div>
+        <h2>📊 Monitoring & Observability (80)</h2><div class="category" id="monitoring"></div>
+        <h2>💻 Programming Languages (60)</h2><div class="category" id="languages"></div>
+        <h2>🗄️ Databases & Data Stores (80)</h2><div class="category" id="databases"></div>
+        <h2>🔒 Security Tools (80)</h2><div class="category" id="security"></div>
+        <h2>🌐 Networking & Web (60)</h2><div class="category" id="networking"></div>
+        <h2>📝 Version Control & Collaboration (50)</h2><div class="category" id="collab"></div>
+        <h2>🖥️ Operating Systems (40)</h2><div class="category" id="os"></div>
+        <h2>💾 Virtualization & VMs (30)</h2><div class="category" id="virt"></div>
+        <h2>🧪 Testing & QA (50)</h2><div class="category" id="testing"></div>
+        <h2>🤖 AI/ML & Data (60)</h2><div class="category" id="aiml"></div>
+        <h2>📨 Message Queues & Streaming (40)</h2><div class="category" id="messaging"></div>
+        <h2>🔧 DevOps Tools & Utilities (80)</h2><div class="category" id="devtools"></div>
+        <h2>📱 Frontend & Mobile (40)</h2><div class="category" id="frontend"></div>
+        <h2>📜 Certifications (30)</h2><div class="category" id="certs"></div>
+        <button type="button" onclick="saveResults()">💾 Save Results</button>
+    </form>
+
+<script>
+const tools = {
+cloud: [
+"AWS★","Azure★","GCP★","DigitalOcean","Linode","Vultr","Hetzner","OVHcloud","Scaleway","Oracle Cloud",
+"IBM Cloud","Alibaba Cloud","Tencent Cloud","Cloudflare★","Vercel★","Netlify","Heroku","Railway","Render","Fly.io",
+"PlanetScale★","Supabase★","Neon","Upstash","Aiven","MongoDB Atlas","Redis Cloud","Elastic Cloud","Confluent Cloud","Databricks★",
+"Snowflake★","Fivetran","Airbyte","dbt Cloud","Terraform Cloud★","Pulumi Cloud","Spacelift","env0","Scalr","Argo CD Cloud"
+],
+containers: [
+"Docker★","Docker Compose★","Docker Swarm","Docker Hub","Podman★","Buildah","Skopeo","containerd★","runc","cri-o",
+"Kubernetes★","Helm★","Kustomize★","kubectl","K9s","Lens","Minikube","kind","k3s★","k3d",
+"MicroK8s","Rancher★","OpenShift★","Tanzu","Nomad","Amazon ECS","Amazon EKS","Azure AKS","Google GKE","Knative",
+"Istio★","Linkerd","Consul Connect","Envoy★","Cilium★","Calico","Flannel","Weave Net","MetalLB","Traefik★",
+"Kong","NGINX Ingress","HAProxy Ingress","Ambassador","Gloo Edge","Contour","Skipper","Emissary","Kuma","OSM",
+"Kata Containers","gVisor","Firecracker","LXC","LXD","Singularity","Apptainer","Sysbox","Podman Desktop","Colima"
+],
+cicd: [
+"GitHub Actions★","GitLab CI★","Jenkins★","CircleCI","Travis CI","Azure Pipelines","Bitbucket Pipelines","TeamCity","Bamboo","Drone CI",
+"Buildkite","Semaphore","Codefresh","Harness★","GoCD","Concourse","Tekton★","Argo Workflows★","Argo CD★","Flux CD★",
+"Spinnaker","Jenkins X","Weave GitOps","Keptn","PipeCD","dagger.io★","Earthly","Bazel","Pants","Buck2",
+"Gradle★","Maven★","Ant","Make","CMake","Meson","Ninja","SCons","Rake","MSBuild",
+"npm★","yarn","pnpm★","pip","poetry","pipenv","cargo","go mod","composer","bundler",
+"NuGet","Conan","vcpkg","Homebrew","Chocolatey","Scoop","winget","asdf","mise","SDKMAN",
+"Nexus Repository","JFrog Artifactory★","Harbor★","Quay.io","GitHub Packages","GitLab Registry","Verdaccio","Sonatype","ProGet","Cloudsmith"
+],
+iac: [
+"Terraform★","Terragrunt★","OpenTofu★","Pulumi★","AWS CloudFormation","AWS CDK★","Azure Bicep★","Azure ARM","GCP Deployment Manager","Crossplane★",
+"Ansible★","Ansible Tower","AWX","Puppet","Puppet Bolt","Chef","Chef InSpec★","SaltStack","CFEngine","pyinfra",
+"Vagrant★","Packer★","cloud-init","Ignition","Butane","Serverless Framework★","AWS SAM","Claudia.js","Zappa","Chalice",
+"NixOS","NixOps","Guix","Colmena","deploy-rs","mgmt","Rudder","Foreman","Katello","MAAS",
+"Tinkerbell","Ironic","Cobbler","xCAT","Warewulf","Atlantis","Scalr","Spacelift","env0","Firefly"
+],
+monitoring: [
+"Prometheus★","Grafana★","InfluxDB","TimescaleDB","VictoriaMetrics★","Thanos★","Cortex","Mimir","M3DB","QuestDB",
+"Datadog★","New Relic★","Dynatrace","AppDynamics","Splunk★","Sumo Logic","Elastic Stack★","Logstash","Kibana","Filebeat",
+"Fluentd★","Fluent Bit★","Vector★","Loki★","Promtail","Graylog","Papertrail","Loggly","Humio","Mezmo",
+"Jaeger★","Zipkin","Tempo","OpenTelemetry★","Honeycomb★","Lightstep","Sentry★","Rollbar","Bugsnag","Raygun",
+"PagerDuty★","Opsgenie","VictorOps","Incident.io","Rootly","FireHydrant","Statuspage","Uptime Kuma★","Pingdom","Better Stack",
+"Nagios","Zabbix","Icinga","Sensu","Netdata★","Monit","Telegraf★","collectd","StatsD","cAdvisor",
+"kube-state-metrics","Node Exporter","Blackbox Exporter","Alertmanager","Grafana OnCall","Grafana k6★","Checkly","Synthetic Monitoring"
+],
+languages: [
+"Python★","JavaScript★","TypeScript★","Go★","Rust★","Java★","Kotlin","Scala","C","C++",
+"C#★","F#","Ruby","PHP","Perl","Lua","R","Julia","MATLAB","Groovy",
+"Bash★","PowerShell★","Zsh","Fish","AWK","sed","jq★","yq","HCL★","YAML★",
+"JSON","TOML","XML","Jsonnet","CUE","Dhall","Rego★","Starlark","SQL★","PL/pgSQL",
+"GraphQL★","Protocol Buffers","Thrift","Avro","MessagePack","CBOR","Assembly","WebAssembly★","Zig","Nim",
+"Elixir","Erlang","Haskell","OCaml","Clojure","Common Lisp","Scheme","Racket","Prolog","Forth"
+],
+databases: [
+"PostgreSQL★","MySQL★","MariaDB","SQLite","SQL Server","Oracle DB","IBM Db2","CockroachDB★","TiDB","YugabyteDB",
+"Vitess","Citus","TimescaleDB","QuestDB","ClickHouse★","DuckDB★","Apache Druid","Apache Pinot","SingleStore","Percona",
+"MongoDB★","Couchbase","CouchDB","RavenDB","FerretDB","ArangoDB","OrientDB","SurrealDB★","EdgeDB","Fauna",
+"Redis★","KeyDB","DragonflyDB","Valkey","Memcached","etcd★","Consul","ZooKeeper","FoundationDB","RocksDB",
+"Cassandra","ScyllaDB","HBase","Bigtable","DynamoDB★","Cosmos DB★","Firestore★","Riak","Voldemort","Aerospike",
+"Neo4j★","Amazon Neptune","JanusGraph","TigerGraph","Dgraph","Memgraph","TypeDB","ArcadeDB","TerminusDB","Nebula Graph",
+"Elasticsearch★","OpenSearch★","Solr","Algolia","Meilisearch★","Typesense","Zinc","Quickwit","Manticore","Sphinx",
+"Pinecone★","Weaviate★","Milvus","Qdrant★","Chroma","pgvector","FAISS","Annoy","ScaNN","Vespa"
+],
+security: [
+"HashiCorp Vault★","AWS Secrets Manager","Azure Key Vault","GCP Secret Manager","CyberArk","Doppler","Infisical★","1Password","SOPS★","age",
+"Keycloak★","Auth0","Okta","Authentik","Zitadel","Ory","Dex","FreeIPA","LDAP","Active Directory",
+"OAuth 2.0","OpenID Connect","SAML","JWT★","SPIFFE","SPIRE","Boundary","Teleport★","StrongDM","Tailscale★",
+"WireGuard★","OpenVPN","IPsec","Nebula","ZeroTier","Cloudflare Tunnel","ngrok★","frp","rathole","bore",
+"Trivy★","Grype","Syft","Clair","Anchore","Snyk★","Aqua Security","Sysdig","Falco★","Tetragon",
+"KubeArmor","Kyverno★","OPA★","Gatekeeper","Polaris","Kubescape","Checkov★","tfsec★","Terrascan","Prowler",
+"OWASP ZAP","Burp Suite","Nikto","sqlmap","nmap★","Metasploit","Nessus","OpenVAS","Qualys","Nuclei★",
+"SonarQube★","Semgrep★","CodeQL","Bandit","Gosec","Brakeman","ESLint Security","npm audit","Dependabot★","Renovate★"
+],
+networking: [
+"Nginx★","Apache HTTP","Caddy★","HAProxy★","Traefik★","Envoy★","Kong★","APISIX","Tyk","Express Gateway",
+"AWS ALB","AWS NLB","AWS API Gateway","Azure Load Balancer","Azure Application Gateway","GCP Load Balancing","Cloudflare LB★","F5 BIG-IP","Citrix ADC","Kemp",
+"Varnish","Squid","Apache Traffic Server","Redis Cache","CDN77","Fastly★","Akamai","KeyCDN","Bunny CDN","StackPath",
+"Consul★","CoreDNS","PowerDNS","BIND","Unbound","dnsmasq","Pi-hole","AdGuard","Technitium","Knot DNS",
+"iptables","nftables","pfSense","OPNsense","Firewalld","UFW","Fail2ban","CrowdSec★","ModSecurity","Coraza",
+"Wireshark","tcpdump","tshark","Zeek","Suricata","Snort","Arkime","NetworkMiner","Shodan","Censys"
+],
+collab: [
+"Git★","GitHub★","GitLab★","Bitbucket","Azure Repos","Gitea","Forgejo","Gogs","sourcehut","Phabricator",
+"Jira★","Linear★","Asana","Monday.com","Trello","Notion★","Coda","Airtable","ClickUp","Basecamp",
+"Shortcut","Plane","Taiga","OpenProject","Redmine","YouTrack","Height","Zenhub","GitHub Projects","GitLab Boards",
+"Confluence★","GitBook","ReadTheDocs","Docusaurus★","MkDocs","Sphinx","VuePress","Mintlify","Readme.io","Archbee",
+"Slack★","Microsoft Teams","Discord","Mattermost","Rocket.Chat","Zulip","Element","Google Chat","Zoom","Loom"
+],
+os: [
+"Ubuntu★","Debian","RHEL★","CentOS Stream","Rocky Linux★","AlmaLinux","Fedora","Amazon Linux★","SUSE","openSUSE",
+"Arch Linux","Manjaro","Alpine Linux★","NixOS","Gentoo","Void Linux","Clear Linux","Flatcar★","Bottlerocket★","Talos Linux★",
+"Windows Server★","Windows 11","WSL★","macOS","FreeBSD","OpenBSD","NetBSD","DragonFly BSD","illumos","SmartOS",
+"CoreOS","RancherOS","k3OS","Photon OS","CBL-Mariner","Wolfi","Chainguard","Chimera Linux","Kairos","Sidero"
+],
+virt: [
+"VMware vSphere★","VMware ESXi","VMware Workstation","VirtualBox","Hyper-V★","KVM★","QEMU","libvirt","Proxmox★","oVirt",
+"Xen","Citrix Hypervisor","Nutanix","OpenStack★","CloudStack","OpenNebula","Apache CloudStack","Harvester","Ganeti","ConVirt",
+"Vagrant★","Multipass","Lima","UTM","Parallels","GNOME Boxes","virt-manager","Cockpit","WebVirtCloud","Virtlyst"
+],
+testing: [
+"Jest★","Mocha","Jasmine","Vitest★","pytest★","unittest","nose2","RSpec","JUnit★","TestNG",
+"NUnit","xUnit","Go testing","Rust test","PHPUnit","Pest","Codeception","Robot Framework","Behave","Cucumber",
+"Playwright★","Cypress★","Selenium","Puppeteer","WebdriverIO","TestCafe","Nightwatch","Appium","Detox","Espresso",
+"k6★","Locust","JMeter","Gatling","Artillery","wrk","hey","vegeta","Bombardier","autocannon",
+"Terratest","kitchen-terraform","Molecule","Testinfra","ServerSpec","InSpec★","Goss","Pester","Bats","ShellCheck"
+],
+aiml: [
+"TensorFlow","PyTorch★","Keras","JAX","scikit-learn","XGBoost","LightGBM","CatBoost","Hugging Face★","LangChain★",
+"OpenAI API★","Claude API★","Gemini API","Cohere","Anthropic","Mistral","Llama","Ollama★","vLLM","TensorRT",
+"MLflow★","Kubeflow","Airflow★","Prefect","Dagster★","Mage","Kestra","Temporal","Argo Workflows","Luigi",
+"dbt★","Great Expectations","Soda","Monte Carlo","Atlan","Alation","Collibra","DataHub","Amundsen","OpenMetadata",
+"Spark★","Flink","Beam","Dask","Ray★","Vaex","Polars★","pandas","NumPy","Arrow",
+"Delta Lake★","Iceberg★","Hudi","Parquet","ORC","Avro","Feast","Tecton","Hopsworks","Bytewax"
+],
+messaging: [
+"Apache Kafka★","Confluent","Amazon Kinesis","Azure Event Hubs","GCP Pub/Sub","RabbitMQ★","Amazon SQS","Azure Service Bus","NATS★","NATS JetStream",
+"Apache Pulsar","Apache ActiveMQ","Amazon MQ","IBM MQ","ZeroMQ","Redis Streams","Redpanda★","Mosquitto","EMQ X","HiveMQ",
+"VerneMQ","RabbitMQ Streams","Kafka Streams","ksqlDB","Kafka Connect","Debezium★","Benthos","Apache NiFi","StreamSets","Airbyte",
+"Temporal★","Cadence","AWS Step Functions","Azure Logic Apps","n8n★","Zapier","Make","Pipedream","Windmill","Inngest"
+],
+devtools: [
+"VS Code★","Neovim★","Vim","Emacs","JetBrains IDEs★","Cursor★","Zed","Sublime Text","Atom","Eclipse",
+"tmux★","screen","Warp","iTerm2","Windows Terminal★","Alacritty","Kitty","Hyper","Tabby","WezTerm",
+"oh-my-zsh","Starship★","Powerlevel10k","Fig","Warp AI","GitHub Copilot★","Tabnine","Amazon CodeWhisperer","Codeium","Continue",
+"lazygit★","tig","gitui","gh CLI★","glab","hub","pre-commit★","husky","lint-staged","commitlint",
+"direnv","dotenv","envchain","chamber","teller","pass","gopass","op CLI","bitwarden-cli","rbw",
+"fzf★","ripgrep★","fd","bat★","exa/eza","delta","diff-so-fancy","hyperfine","tokei","cloc",
+"htop★","btop","glances","bottom","duf","ncdu","dust","procs","bandwhich","speedtest-cli",
+"curl★","wget","httpie★","xh","grpcurl","websocat","wscat","postman★","insomnia","hoppscotch"
+],
+frontend: [
+"React★","Next.js★","Vue.js","Nuxt","Angular","Svelte","SvelteKit","Solid.js","Qwik","Astro★",
+"Remix","Gatsby","Vite★","Webpack","Rollup","esbuild★","SWC","Parcel","Turbopack","Rome/Biome",
+"Tailwind CSS★","Bootstrap","Material UI","Chakra UI","Ant Design","shadcn/ui★","Radix","Headless UI","DaisyUI","Mantine",
+"React Native","Flutter★","Expo","Ionic","Capacitor","NativeScript","Tauri★","Electron","Swift","SwiftUI"
+],
+certs: [
+"AWS Solutions Architect★","AWS DevOps Engineer★","AWS SysOps Admin","AWS Developer","AWS Security Specialty","AWS Database Specialty","AWS Networking Specialty","AWS ML Specialty",
+"Azure Administrator★","Azure Solutions Architect★","Azure DevOps Engineer★","Azure Developer","Azure Security Engineer","Azure Data Engineer","Azure AI Engineer",
+"GCP Cloud Architect★","GCP Cloud Engineer","GCP DevOps Engineer","GCP Data Engineer","GCP Security Engineer","GCP ML Engineer",
+"CKA★","CKAD","CKS★","Terraform Associate★","Vault Associate","Consul Associate","RHCSA★","RHCE","CompTIA Linux+","LPIC",
+"CompTIA Security+★","CISSP","CEH","OSCP","CCNA","CCNP"
+]
+};
+
+let completed = 0;
+const total = Object.values(tools).flat().length;
+
+function createToolRow(tool) {
+    const isHot = tool.includes('★');
+    const cleanName = tool.replace('★', '');
+    const div = document.createElement('div');
+    div.className = 'tool-row';
+    div.dataset.name = cleanName.toLowerCase();
+    div.innerHTML = `
+        <span class="tool-name ${isHot ? 'hot' : ''}">${isHot ? '★ ' : ''}${cleanName}</span>
+        <div class="rating" data-tool="${cleanName}">
+            ${[1,2,3,4,5].map(i => `<label><input type="radio" name="${cleanName}" value="${i}" onchange="updateProgress()"><span>${i}</span></label>`).join('')}
+        </div>
+    `;
+    return div;
+}
+
+function updateProgress() {
+    completed = document.querySelectorAll('.rating input:checked').length;
+    document.getElementById('progress').textContent = `Completed: ${completed} / ${total}`;
+}
+
+function filterTools() {
+    const search = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.tool-row').forEach(row => {
+        row.style.display = row.dataset.name.includes(search) ? 'flex' : 'none';
+    });
+}
+
+function saveResults() {
+    const results = { _meta: { date: new Date().toISOString(), total: total, completed: completed } };
+    document.querySelectorAll('.rating').forEach(div => {
+        const tool = div.dataset.tool;
+        const selected = div.querySelector('input:checked');
+        if (selected) results[tool] = parseInt(selected.value);
+    });
+    const blob = new Blob([JSON.stringify(results, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'skills_results_1000.json';
+    a.click();
+    document.getElementById('saved').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+Object.entries(tools).forEach(([category, items]) => {
+    const container = document.getElementById(category);
+    items.forEach(tool => container.appendChild(createToolRow(tool)));
+});
+document.getElementById('progress').textContent = `Completed: 0 / ${total}`;
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+========================================
+  YOUTUBE RECOMMENDATION FILTER
+  Installation & Activation Guide
+========================================
+
+PROJECT LOCATION:
+F:\study\hosting\youtube\youtube_recommendation_filter
+
+DATABASE STATUS: ✓ Initialized
+FILES: ✓ All 20+ files ready
+
+
+=== QUICK START (5 MINUTES) ===
+
+STEP 1: INSTALL BROWSER EXTENSION
+----------------------------------
+1. Open Chrome or Edge
+2. Type in address bar: chrome://extensions
+3. Toggle ON "Developer mode" (top-right corner)
+4. Click "Load unpacked" button
+5. Navigate to this folder:
+   F:\study\hosting\youtube\youtube_recommendation_filter
+6. Click "Select Folder"
+7. Extension now installed! ✓
+
+STEP 2: ACTIVATE FILTERING
+---------------------------
+1. Click the extension icon in your browser toolbar
+   (Look for red/black filter icon - pin it for easy access)
+2. Click "🔄 Sync Watch History Now" button
+3. Wait 5-10 seconds for sync to complete
+4. Extension popup shows number of watched videos
+
+STEP 3: VERIFY IT WORKS
+------------------------
+1. Open YouTube homepage: youtube.com
+2. Press F5 to refresh the page
+3. Videos you've watched should NO LONGER appear!
+4. Check sidebar, search results - all filtered!
+
+
+=== ALTERNATIVE: USE THE LAUNCHER ===
+
+Double-click: launcher.bat
+Then follow the on-screen menu
+
+
+=== FEATURES ENABLED ===
+
+✓ Hide watched videos from all feeds
+✓ Never see duplicate content again
+✓ Boost unwatched subscription content
+✓ Filter by watch percentage (default 50%)
+✓ Cross-platform sync (desktop + Android)
+✓ Auto-sync every 30 minutes
+✓ Lightweight - no slowdown
+
+
+=== ANDROID (OPTIONAL) ===
+
+If you want filtering on Android too:
+1. Connect device via USB
+2. Enable USB debugging on phone
+3. Run: python android_filter.py
+4. Select option 2 (background mode)
+
+
+=== NEED HELP? ===
+
+Read the guides:
+- README.md - Overview
+- USAGE_GUIDE.md - Detailed instructions
+- VERIFICATION_CHECKLIST.md - Testing steps
+
+Or run: launcher.bat (menu-driven interface)
+
+
+=== WHAT HAPPENS NOW ===
+
+Once installed, the extension will:
+1. Monitor every video you watch on YouTube
+2. Track which videos you've seen >50%
+3. Automatically hide those from recommendations
+4. Prioritize fresh content from your subscriptions
+5. Sync across all your devices (if you enable Android)
+
+Your YouTube algorithm is about to get MUCH better! 🚀
+
+
+========================================
+Created: 2026-02-23
+Status: READY TO USE
+Till Thelet - Personal YouTube Filter
+========================================

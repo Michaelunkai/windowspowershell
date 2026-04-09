@@ -1,0 +1,4 @@
+ docker run -d --name netalertx -p 20211:20211 -v
+  netalertx_config:/app/config -v netalertx_db:/app/db -e TZ=UTC
+  jokobsk/netalertx:latest; Write-Host "NetAlertX running at:
+  http://localhost:20211"

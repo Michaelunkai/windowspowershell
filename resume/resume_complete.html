@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Fedorovsky - DevOps Engineer Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 7.8pt;
+            line-height: 1.2;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            color: white;
+            padding: 14px 26px;
+            position: relative;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+        }
+        
+        .profile-photo {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        
+        .header-text {
+            flex: 1;
+        }
+        
+        .name {
+            font-size: 21pt;
+            font-weight: 800;
+            margin-bottom: 2.5px;
+            letter-spacing: -0.5px;
+        }
+        
+        .title {
+            font-size: 9pt;
+            font-weight: 600;
+            margin-bottom: 5px;
+            opacity: 0.96;
+        }
+        
+        .contact-info {
+            font-size: 7.2pt;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5px 7px;
+            opacity: 0.9;
+        }
+        
+        .contact-info span {
+            white-space: nowrap;
+        }
+        
+        .summary {
+            font-size: 7.5pt;
+            margin-top: 6px;
+            line-height: 1.3;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 12px 26px 16px 26px;
+        }
+        
+        .section {
+            margin-bottom: 8px;
+        }
+        
+        .section-title {
+            font-size: 9pt;
+            font-weight: 700;
+            margin-bottom: 4.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #1a366d;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 3px;
+            height: 13px;
+            background: linear-gradient(135deg, #1a366d 0%, #2b5282 100%);
+            border-radius: 2px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 82px 1fr;
+            gap: 2.8px 8px;
+            font-size: 6.9pt;
+            line-height: 1.25;
+        }
+        
+        .skill-category {
+            font-weight: 700;
+            color: #1a366d;
+        }
+        
+        .skill-items {
+            color: #2a2a2a;
+        }
+        
+        .skill-items strong {
+            color: #1a366d;
+            font-weight: 600;
+        }
+        
+        .experience-item {
+            margin-bottom: 7px;
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+        
+        .job-title {
+            font-weight: 700;
+            font-size: 8.5pt;
+            color: #1a366d;
+        }
+        
+        .company {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .duration {
+            font-size: 7.2pt;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 2px;
+        }
+        
+        .experience-item li {
+            padding-left: 9px;
+            position: relative;
+            margin-bottom: 1.2px;
+            font-size: 6.9pt;
+            line-height: 1.2;
+        }
+        
+        .experience-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2b5282;
+            font-weight: bold;
+            font-size: 7pt;
+        }
+        
+        .projects-section {
+            margin-bottom: 8px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4.5px;
+            margin-top: 4px;
+        }
+        
+        .project-card {
+            border: 1px solid #d5d5d5;
+            border-radius: 3px;
+            padding: 4.5px;
+            background: linear-gradient(to bottom, #fafafa 0%, #f5f5f5 100%);
+            transition: all 0.2s;
+        }
+        
+        .project-title {
+            font-weight: 700;
+            font-size: 7.2pt;
+            color: #1a366d;
+            margin-bottom: 1.8px;
+            line-height: 1.2;
+        }
+        
+        .project-tech {
+            font-size: 6.2pt;
+            color: #666;
+            margin-bottom: 2.5px;
+            font-weight: 600;
+            line-height: 1.15;
+        }
+        
+        .project-desc {
+            font-size: 6.2pt;
+            line-height: 1.2;
+            color: #444;
+        }
+        
+        .education-item {
+            margin-bottom: 3px;
+        }
+        
+        .degree {
+            font-weight: 700;
+            font-size: 8pt;
+            color: #1a366d;
+        }
+        
+        .institution {
+            font-size: 7.2pt;
+            color: #555;
+            font-weight: 500;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="header-content">
+                <img src="file:///F:/study/resume/profile_photo.jpg" alt="Michael Fedorovsky" class="profile-photo">
+                <div class="header-text">
+                    <h1 class="name">Michael Fedorovsky</h1>
+                    <div class="title">DevOps Engineer | Cloud Infrastructure Architect | AI Automation Specialist</div>
+                    <div class="contact-info">
+                        <span>📍 Bat Yam, Israel</span>
+                        <span>•</span>
+                        <span>📱 054-763-2418</span>
+                        <span>•</span>
+                        <span>✉ michaelovsky5@gmail.com</span>
+                        <span>•</span>
+                        <span>🔗 LinkedIn</span>
+                        <span>•</span>
+                        <span>💻 GitHub (100+ repos)</span>
+                    </div>
+                    <div class="summary">
+                        DevOps Engineer with 2 years proven expertise in cloud infrastructure (AWS/Azure/GCP), advanced containerization (Docker/Kubernetes), production CI/CD automation, and AI-powered tooling. Built 100+ production tools including Windows system administration apps, cross-platform monitoring solutions, and enterprise-grade automation frameworks. Specialized in Infrastructure as Code (Terraform/Ansible), secrets management, multi-cloud orchestration, and team collaboration at scale.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">🛠 CORE COMPETENCIES</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">Cloud AWS</div>
+                    <div class="skill-items">EC2, S3, RDS, Lambda, ECS, EKS, VPC, IAM, CloudFormation, CloudWatch, Route53, ALB/NLB, SQS, SNS</div>
+                    
+                    <div class="skill-category">Cloud Azure</div>
+                    <div class="skill-items">VMs, AKS, Azure DevOps, ARM Templates, Functions, Blob Storage, App Service, Virtual Network</div>
+                    
+                    <div class="skill-category">Cloud GCP</div>
+                    <div class="skill-items">Compute Engine, GKE, Cloud Run, Functions, Cloud Storage, VPC, Cloud Build • Vercel, Cloudflare</div>
+                    
+                    <div class="skill-category">Containers</div>
+                    <div class="skill-items"><strong>Docker:</strong> Multi-stage builds, BuildKit, Compose, optimization, networking • Podman, Docker Swarm</div>
+                    
+                    <div class="skill-category">Kubernetes</div>
+                    <div class="skill-items">Deployments, StatefulSets, Services, Ingress, RBAC, Network Policies, PV/PVC, Helm, Kustomize, ArgoCD, Rancher</div>
+                    
+                    <div class="skill-category">Service Mesh</div>
+                    <div class="skill-items">Istio, Linkerd, Envoy • Traffic management, service discovery, observability</div>
+                    
+                    <div class="skill-category">IaC</div>
+                    <div class="skill-items"><strong>Terraform:</strong> Modules, workspaces, state mgmt, remote backends • <strong>Ansible:</strong> Playbooks, roles, vault</div>
+                    
+                    <div class="skill-category">CI/CD</div>
+                    <div class="skill-items">GitHub Actions, GitLab CI, Jenkins • GitOps (ArgoCD, Flux), pipeline-as-code, multi-stage deployments</div>
+                    
+                    <div class="skill-category">Monitoring</div>
+                    <div class="skill-items">Prometheus, Grafana, Datadog, ELK Stack, Loki, Jaeger, Splunk, Netdata, Zabbix, Checkmk, PagerDuty</div>
+                    
+                    <div class="skill-category">Secrets</div>
+                    <div class="skill-items"><strong>Vault, AWS Secrets Manager, Azure Key Vault</strong> • Encryption, rotation, access policies</div>
+                    
+                    <div class="skill-category">Scripting</div>
+                    <div class="skill-items"><strong>Advanced Bash & PowerShell</strong> • System admin, deployment automation, task scheduling, error handling</div>
+                    
+                    <div class="skill-category">Languages</div>
+                    <div class="skill-items"><strong>Python:</strong> API integration, operators, frameworks • <strong>Go:</strong> CLI tools • C#, .NET, JS, TS, SQL</div>
+                    
+                    <div class="skill-category">AI/ML</div>
+                    <div class="skill-items">LangChain, OpenAI API, Claude API, LLM integration, RAG systems, agent frameworks, prompt engineering</div>
+                    
+                    <div class="skill-category">Databases</div>
+                    <div class="skill-items">PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch • Replication, backups, performance tuning</div>
+                    
+                    <div class="skill-category">Security</div>
+                    <div class="skill-items">Trivy, Snyk, OPA, Keycloak, SonarQube, Falco • SAST/DAST, vulnerability scanning</div>
+                    
+                    <div class="skill-category">Networking</div>
+                    <div class="skill-items">Nginx, Traefik, HAProxy, Envoy • Reverse proxy, load balancing, SSL/TLS, network optimization</div>
+                    
+                    <div class="skill-category">OS/Virt</div>
+                    <div class="skill-items">Linux (Ubuntu, Alpine, RHEL), Windows Server, WSL, KVM, Proxmox, VMware</div>
+                    
+                    <div class="skill-category">Backup/DR</div>
+                    <div class="skill-items">Multi-tier backup orchestration, disaster recovery automation, snapshot management</div>
+                    
+                    <div class="skill-category">Tools</div>
+                    <div class="skill-items">Git, GitHub, GitLab, Jira, Slack, Confluence • Code review, documentation, incident response</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">💼 PROFESSIONAL EXPERIENCE</h2>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <span class="job-title">DevOps Engineer</span> <span class="company">@ TovTech</span>
+                        </div>
+                        <div class="duration">2 Years</div>
+                    </div>
+                    <ul>
+                        <li>Architected production & staging environments on Webdock with Cloudflare CDN, SSL, DDoS protection</li>
+                        <li>Designed CI/CD pipelines (GitHub Actions): lint → test → Docker build → DockerHub → auto-deploy</li>
+                        <li>Built multi-stage Dockerfiles optimizing image sizes 60%, implemented health checks & auto-recovery</li>
+                        <li>Deployed full observability stack: Prometheus metrics, Grafana dashboards, ELK log aggregation</li>
+                        <li>Managed PostgreSQL with migrations, replication, automated backups; achieved 99.9% uptime</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="projects-section">
+                <h2 class="section-title">🚀 PORTFOLIO HIGHLIGHTS (100+ PROJECTS)</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-title">StartupMaster Desktop App</div>
+                        <div class="project-tech">C# • .NET 8.0 • WPF • System Admin</div>
+                        <div class="project-desc">Production Windows startup manager with boot impact analysis, safe-to-disable filtering, system tray integration</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Multi-Cloud Infrastructure</div>
+                        <div class="project-tech">Terraform • AWS/Azure/GCP • Ansible</div>
+                        <div class="project-desc">IaC automation across clouds with modular Terraform, remote state, cross-cloud orchestration</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Production K8s Platform</div>
+                        <div class="project-tech">Kubernetes • Helm • ArgoCD • Istio</div>
+                        <div class="project-desc">Enterprise K8s with service mesh, GitOps CD, RBAC, network policies, auto-scaling</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">AndroidMonitor System</div>
+                        <div class="project-tech">C# • ADB • Real-time Monitoring</div>
+                        <div class="project-desc">Cross-platform Android device monitoring via USB with automated health checks, state tracking</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Windows System Repair Suite</div>
+                        <div class="project-tech">PowerShell • DISM • System Recovery</div>
+                        <div class="project-desc">Production tools: Win11Reset, Win11Repair, PrebootRepair, automated system diagnostics & recovery</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Game Library Manager</div>
+                        <div class="project-tech">JavaScript • Docker • Web UI</div>
+                        <div class="project-desc">Dockerized web app managing 928-game database with search, categorization, deployment automation</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">AI Automation Framework</div>
+                        <div class="project-tech">Python • LangChain • OpenAI • Go</div>
+                        <div class="project-desc">LLM-powered tools with custom operators, RAG systems, API integrations, agent orchestration</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Docker Tools Ecosystem</div>
+                        <div class="project-tech">Docker • Compose • BuildKit</div>
+                        <div class="project-desc">Comprehensive Docker tooling: Dockge, Dokku, Dozzle, Heimdall, DockSTARTer implementations</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Backup Orchestration</div>
+                        <div class="project-tech">PowerShell • PostgreSQL • VM Snapshots</div>
+                        <div class="project-desc">Multi-tier automated backup system: databases, filesystems, VMs, applications with rotation policies</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">TovPlay Gaming Platform</div>
+                        <div class="project-tech">Flask • PostgreSQL • Docker • CI/CD</div>
+                        <div class="project-desc">Full-stack gaming backend: JWT auth, Discord OAuth, WebSocket real-time, complete pipeline automation</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Observability Dashboard</div>
+                        <div class="project-tech">Prometheus • Grafana • ELK • Jaeger</div>
+                        <div class="project-desc">Unified monitoring: metrics, logs, traces, 40+ tool integrations, custom alerting dashboards</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Network Optimizer</div>
+                        <div class="project-tech">PowerShell • Network Diagnostics</div>
+                        <div class="project-desc">MaximizeEthernet - automated network performance tuning, latency optimization, bandwidth management</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Secrets Vault System</div>
+                        <div class="project-tech">Vault • AWS Secrets • Azure Key Vault</div>
+                        <div class="project-desc">Multi-cloud secrets management with encryption at rest/transit, auto-rotation, policy enforcement</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Automation Bot Suite</div>
+                        <div class="project-tech">Python • Telegram API • Task Automation</div>
+                        <div class="project-desc">Production bots: notifications, trading alerts, monitoring, data processing with API integrations</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Gitit Workflow Tool</div>
+                        <div class="project-tech">Python • Git Automation</div>
+                        <div class="project-desc">Custom Git tool: force-push automation, large file exclusion (>100MB), batch repository management</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Container Security Scanner</div>
+                        <div class="project-tech">Trivy • Docker • Python</div>
+                        <div class="project-desc">Automated vulnerability scanning for Docker images with severity reporting, remediation guidance</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">API Gateway Platform</div>
+                        <div class="project-tech">TypeScript • Node.js • Redis</div>
+                        <div class="project-desc">High-performance gateway: routing, rate limiting, caching, JWT auth, load balancing</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Shell Automation Suite</div>
+                        <div class="project-tech">Bash • PowerShell • AutoHotkey</div>
+                        <div class="project-desc">Advanced system automation: deployment scripts, monitoring, backup orchestration, hotkey management</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎓 EDUCATION & CERTIFICATIONS</h2>
+                <div class="education-item">
+                    <div class="degree">Data Analysis Intensive Program</div>
+                    <div class="institution">TovTech (1 Year) • Statistical analysis, data pipelines, visualization</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Engineering Preparatory Year</div>
+                    <div class="institution">Ariel University • Physics, Mathematics, Advanced English</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

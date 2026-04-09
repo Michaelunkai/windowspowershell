@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "F:\\study\\Dev_Toolchain\\programming\\.NET\\projects\\c\\Terminaluninstaller\\C\\logs\\.d95930dcbd024e0ec1a0a60073099fa310c2746a-audit.json",
+    "files": [
+        {
+            "date": 1761060117324,
+            "name": "F:\\study\\Dev_Toolchain\\programming\\.NET\\projects\\c\\Terminaluninstaller\\C\\logs\\mcp-puppeteer-2025-10-21.log",
+            "hash": "1626b3d09953fb157a7ea82b63f1e1884f6475ba2208a720bea46a28a1ab71fa"
+        },
+        {
+            "date": 1761080997357,
+            "name": "F:\\study\\Dev_Toolchain\\programming\\.NET\\projects\\c\\Terminaluninstaller\\C\\logs\\mcp-puppeteer-2025-10-22.log",
+            "hash": "c050ead6620b078b32cf2465c7afca817c63fb0eac6ce281d4050c27268301b1"
+        }
+    ],
+    "hashType": "sha256"
+}

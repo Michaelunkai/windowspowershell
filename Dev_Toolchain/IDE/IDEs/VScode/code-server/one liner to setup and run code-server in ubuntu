@@ -1,0 +1,4 @@
+curl -fsSL https://code-server.dev/install.sh | sh && \
+mkdir -p /root/.config/code-server && \
+printf "bind-addr: 127.0.0.1:8080\nauth: none\ncert: false\n" > /root/.config/code-server/config.yaml && \
+code-server & sleep 2 && gcl http://localhost:8080

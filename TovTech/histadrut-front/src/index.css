@@ -1,0 +1,211 @@
+/* Generic basic text style for all app */
+.text-basic {
+  color: var(--text-primary);
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* ─── Design Tokens (CSS Variables) ─────────────────────────────────────────── */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+
+  /* ── Light theme (default) ── */
+  --bg-base: #f8f9fa;
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #f8f9fa;
+  --bg-surface-hover: #e9ecef;
+  --bg-input: #ffffff;
+
+  --text-primary: #2c3e50;
+  --text-secondary: #5a6c7d;
+  --text-muted: #95a5a6;
+  --text-body: #333333;
+  --text-link: #666666;
+
+  --border-color: #ecf0f1;
+  --border-input: #e1e8ed;
+  --border-subtle: #e9ecef;
+
+  --accent-blue: #3498db;
+  --accent-blue-hover: #2980b9;
+  --accent-blue-btn: #2563eb;
+  --accent-blue-btn-hover: #1d4ed8;
+  --accent-green: #27ae60;
+  --accent-green-hover: #219a52;
+  --accent-red: #e74c3c;
+  --accent-red-hover: #c0392b;
+  --accent-orange: #e67e22;
+  --accent-yellow-bg: #fff3cd;
+  --accent-yellow-text: #856404;
+  --accent-yellow-border: #ffeaa7;
+
+  --bg-accent-subtle: #e8f4fd;
+
+  --shadow-sm: rgba(0, 0, 0, 0.1);
+  --shadow-md: rgba(0, 0, 0, 0.15);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+  /* ── Nav Panel ── */
+  --nav-bg: #2c3e50;
+  --nav-text: #ecf0f1;
+  --nav-text-dim: #bdc3c7;
+  --nav-border: #34495e;
+  --nav-hover: #34495e;
+  --nav-active: #3498db;
+}
+
+/* ── Auto dark mode via system preference (not overridden by [data-theme]) ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg-base: #111827;
+    --bg-surface: #1f2937;
+    --bg-surface-alt: #263245;
+    --bg-surface-hover: #2d3748;
+    --bg-input: #1a2233;
+
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #718096;
+    --text-body: #cbd5e0;
+    --text-link: #94a3b8;
+
+    --border-color: #2d3748;
+    --border-input: #374151;
+    --border-subtle: #2d3748;
+
+    --accent-blue: #60a5fa;
+    --accent-blue-hover: #3b82f6;
+    --accent-blue-btn: #2563eb;
+    --accent-blue-btn-hover: #1d4ed8;
+    --accent-green: #34d399;
+    --accent-green-hover: #10b981;
+    --accent-red: #f87171;
+    --accent-red-hover: #ef4444;
+    --accent-orange: #fb923c;
+    --accent-yellow-bg: #3a2e0a;
+    --accent-yellow-text: #fcd34d;
+    --accent-yellow-border: #92400e;
+
+    --bg-accent-subtle: #1e2d3d;
+
+    --shadow-sm: rgba(0, 0, 0, 0.35);
+    --shadow-md: rgba(0, 0, 0, 0.45);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+
+    --nav-bg: #0f172a;
+    --nav-text: #e2e8f0;
+    --nav-text-dim: #94a3b8;
+    --nav-border: #1e293b;
+    --nav-hover: #1e2d3d;
+    --nav-active: #3b82f6;
+  }
+}
+
+/* ── Manual dark theme override ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-base: #111827;
+  --bg-surface: #1f2937;
+  --bg-surface-alt: #263245;
+  --bg-surface-hover: #2d3748;
+  --bg-input: #1a2233;
+
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #718096;
+  --text-body: #cbd5e0;
+  --text-link: #94a3b8;
+
+  --border-color: #2d3748;
+  --border-input: #374151;
+  --border-subtle: #2d3748;
+
+  --accent-blue: #60a5fa;
+  --accent-blue-hover: #3b82f6;
+  --accent-blue-btn: #2563eb;
+  --accent-blue-btn-hover: #1d4ed8;
+  --accent-green: #34d399;
+  --accent-green-hover: #10b981;
+  --accent-red: #f87171;
+  --accent-red-hover: #ef4444;
+  --accent-orange: #fb923c;
+  --accent-yellow-bg: #3a2e0a;
+  --accent-yellow-text: #fcd34d;
+  --accent-yellow-border: #92400e;
+
+  --bg-accent-subtle: #1e2d3d;
+
+  --shadow-sm: rgba(0, 0, 0, 0.35);
+  --shadow-md: rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+
+  --nav-bg: #0f172a;
+  --nav-text: #e2e8f0;
+  --nav-text-dim: #94a3b8;
+  --nav-border: #1e293b;
+  --nav-hover: #1e2d3d;
+  --nav-active: #3b82f6;
+}
+
+/* ── Manual light theme override ── */
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* ─── Base element styles ──────────────────────────────────────────────────── */
+a {
+  font-weight: 500;
+  color: var(--accent-blue);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--accent-blue-hover);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--bg-base);
+  color: var(--text-body);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
