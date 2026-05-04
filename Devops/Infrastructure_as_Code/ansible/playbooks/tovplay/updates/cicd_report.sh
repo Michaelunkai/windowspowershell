@@ -20,8 +20,8 @@ declare -a CRITICAL_ISSUES=() HIGH_ISSUES=() MEDIUM_ISSUES=() LOW_ISSUES=()
 SCORE=100
 
 # SSH helpers
-ssh_prod() { timeout ${2:-8}s sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 $PROD_USER@$PROD_HOST "$1" 2>/dev/null | tr -d '\r'; }
-ssh_staging() { timeout ${2:-8}s sshpass -p "$STAGING_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 $STAGING_USER@$STAGING_HOST "$1" 2>/dev/null | tr -d '\r'; }
+ssh_prod() { timeout ${2:-8}s sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 $PROD_USER@$PROD_HOST "$1" 2>/dev/null | tr -d '\r'; }
+ssh_staging() { timeout ${2:-8}s sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 $STAGING_USER@$STAGING_HOST "$1" 2>/dev/null | tr -d '\r'; }
 
 # Extract value from marker-prefixed output
 extract_value() {

@@ -19,7 +19,7 @@ ssh_prod() {
     local retries=2
     local result="" rc=1
     for i in $(seq 1 $retries); do
-        result=$(sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+        result=$(sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
             -o ConnectTimeout="$timeout_val" -o ServerAliveInterval=15 -o ServerAliveCountMax=5 \
             -o LogLevel=ERROR \
             "$PROD_USER@$PROD_HOST" "$1" 2>/dev/null) && rc=0 && break
@@ -33,7 +33,7 @@ ssh_staging() {
     local retries=2
     local result="" rc=1
     for i in $(seq 1 $retries); do
-        result=$(sshpass -p "$STAGING_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+        result=$(sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
             -o ConnectTimeout="$timeout_val" -o ServerAliveInterval=15 -o ServerAliveCountMax=5 \
             -o LogLevel=ERROR \
             "$STAGING_USER@$STAGING_HOST" "$1" 2>/dev/null) && rc=0 && break

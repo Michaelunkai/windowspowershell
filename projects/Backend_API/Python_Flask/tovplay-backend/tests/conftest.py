@@ -9,7 +9,7 @@ def _require_test_db(uri: str) -> None:
     if not uri:
         raise RuntimeError(
             "SQLALCHEMY_DATABASE_URI is not set. "
-            "Set it to your *TEST* Postgres DB, e.g. postgresql://.../tovplay_test"
+            "Set it to your *TEST* Postgres DB, e.g. postgresql://<REDACTED_TOVTECH_DB_URL>"
         )
 
     lowered = uri.lower()

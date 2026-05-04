@@ -19,7 +19,7 @@ cleanup() { ssh -S "$SSH_CTRL/stag" -O exit $STAGING_USER@$STAGING_HOST 2>/dev/n
 trap cleanup EXIT
 
 init_connections() {
-    sshpass -p "$STAGING_PASS" ssh -fNM -S "$SSH_CTRL/stag" -o ControlPersist=90 \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM -S "$SSH_CTRL/stag" -o ControlPersist=90 \
         -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=3 \
         $STAGING_USER@$STAGING_HOST 2>/dev/null
 }
@@ -66,7 +66,7 @@ echo ":::UNCOMMITTED:::"; cd /home/admin/tovplay 2>/dev/null && git status --por
 echo ":::LOAD:::"; cat /proc/loadavg | cut -d" " -f1-3
 echo ":::MEM_PCT:::"; free | awk "/Mem:/{printf \"%.0f\", \$3/\$2*100}"
 echo ":::DISK_PCT:::"; df -h / | awk "NR==2{print \$5}" | tr -d "%"
-echo ":::DB_CONN:::"; PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT 1" 2>/dev/null | grep -c "1"
+echo ":::DB_CONN:::"; PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT 1" 2>/dev/null | grep -c "1"
 echo ":::BACKUPS:::"; find /opt/backups -type f -mtime -1 2>/dev/null | wc -l
 echo ":::BACKUP_SIZE:::"; du -sh /opt/backups 2>/dev/null | cut -f1
 echo ":::SYNC_STATUS:::"; test -f /home/admin/tovplay/.git/refs/remotes/origin/main && echo "synced" || echo "not synced"' 15)

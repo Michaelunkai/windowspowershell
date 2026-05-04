@@ -19,7 +19,7 @@ cleanup() { ssh -S "$SSH_CTRL/prod" -O exit $PROD_USER@$PROD_HOST 2>/dev/null; r
 trap cleanup EXIT
 
 init_connections() {
-    sshpass -p "$PROD_PASS" ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
         -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=3 \
         $PROD_USER@$PROD_HOST 2>/dev/null
 }
@@ -118,8 +118,8 @@ fi
 # ═══════════════════════════════════════════════════════════════════════════════
 section "9-14. DATABASE, BACKUPS, SSL"
 if [ "$PROD_CONN" = true ]; then
-    BATCH2=$(ssh_prod 'echo ":::DB_CONN:::"; PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT 1" 2>/dev/null | grep -c "1"
-echo ":::DB_SIZE:::"; PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT pg_size_pretty(pg_database_size(current_database()))" 2>/dev/null | head -3 | tail -1
+    BATCH2=$(ssh_prod 'echo ":::DB_CONN:::"; PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT 1" 2>/dev/null | grep -c "1"
+echo ":::DB_SIZE:::"; PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT pg_size_pretty(pg_database_size(current_database()))" 2>/dev/null | head -3 | tail -1
 echo ":::BACKUP_DIR:::"; test -d /opt/tovplay_backups && echo yes || echo no
 echo ":::RECENT_BACKUPS:::"; find /opt/tovplay_backups -type f -mtime -1 2>/dev/null | wc -l
 echo ":::BACKUP_SIZE:::"; du -sh /opt/tovplay_backups 2>/dev/null | cut -f1

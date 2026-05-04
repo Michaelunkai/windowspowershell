@@ -34,11 +34,11 @@ SCORE=100
 
 # SSH helper functions
 ssh_prod() {
-    timeout 3s sshpass -p "$PROD_PASS" ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=2 "$PROD_USER@$PROD_HOST" "$1" 2>/dev/null
+    timeout 3s sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=2 "$PROD_USER@$PROD_HOST" "$1" 2>/dev/null
 }
 
 ssh_staging() {
-    timeout 3s sshpass -p "$STAGING_PASS" ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=2 "$STAGING_USER@$STAGING_HOST" "$1" 2>/dev/null
+    timeout 3s sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=2 "$STAGING_USER@$STAGING_HOST" "$1" 2>/dev/null
 }
 
 # Helper functions
@@ -644,7 +644,7 @@ section_header "9. DATABASE SECURITY AUDIT"
 subsection "PostgreSQL Security"
 
 # Test database connection
-export PGPASSWORD="$DB_PASS"
+export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 db_version=$(psql -h "$DB_HOST" -U "$DB_USER" -d TovPlay -t -c "SELECT version();" 2>/dev/null | head -1)
 
 if [ -n "$db_version" ]; then

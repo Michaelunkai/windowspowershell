@@ -321,7 +321,7 @@ auth_bp = Blueprint("auth", __name__)
 def _load_discord_creds():
     """Load Discord OAuth credentials from environment variables or secrets file."""
     client_id = os.environ.get("DISCORD_CLIENT_ID")
-    client_secret = os.environ.get("DISCORD_CLIENT_SECRET")
+    client_secret = <REDACTED_TOVTECH_CLIENT_SECRET>DISCORD_CLIENT_SECRET")
     if not (client_id and client_secret):
         try:
             # Try multiple common locations for secrets file
@@ -338,7 +338,7 @@ def _load_discord_creds():
                     with open(secrets_path, "r", encoding="utf-8") as f:
                         data = json.load(f)
                         client_id = client_id or data.get("client_id")
-                        client_secret = client_secret or data.get("client_secret")
+                        client_secret = <REDACTED_TOVTECH_CLIENT_SECRET> or data.get("client_secret")
                     break
         except Exception as e:
             import logging
@@ -534,7 +534,7 @@ def discord_callback():
         return jsonify({"message": "Missing code"}), HTTPStatus.BAD_REQUEST
 
     try:
-        client_id, client_secret = _load_discord_creds()
+        client_id, client_secret = <REDACTED_TOVTECH_CLIENT_SECRET>
         redirect_uri = _compute_redirect_uri()
         jwt_secret_key = os.environ.get("JWT_SECRET_KEY")
         jwt_algorithm = os.environ.get("JWT_ALGORITHM")

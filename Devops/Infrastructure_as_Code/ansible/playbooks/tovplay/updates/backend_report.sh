@@ -84,9 +84,9 @@ fi
 
 section "9-11. DATABASE CONNECTION"
 if [ "$PROD_CONN" = true ]; then
-    DB_CONN=$(ssh_prod 'PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT 1" 2>/dev/null | grep -c "1"' 10 | tr -d '\r\n' | xargs)
-    TABLES=$(ssh_prod "PGPASSWORD=\"CaptainForgotCreatureBreak\" psql -h 45.148.28.196 -U \"raz@tovtech.org\" -d TovPlay -c \"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public'\" 2>/dev/null | head -3 | tail -1" 10 | tr -d '\r\n' | xargs)
-    USER_COUNT=$(ssh_prod 'PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT COUNT(*) FROM \"User\"" 2>/dev/null | head -3 | tail -1' 10 | tr -d '\r\n' | xargs)
+    DB_CONN=$(ssh_prod 'PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT 1" 2>/dev/null | grep -c "1"' 10 | tr -d '\r\n' | xargs)
+    TABLES=$(ssh_prod "PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U \"raz@tovtech.org\" -d TovPlay -c \"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public'\" 2>/dev/null | head -3 | tail -1" 10 | tr -d '\r\n' | xargs)
+    USER_COUNT=$(ssh_prod 'PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT COUNT(*) FROM \"User\"" 2>/dev/null | head -3 | tail -1' 10 | tr -d '\r\n' | xargs)
 
     [ "${DB_CONN:-0}" -ge 1 ] 2>/dev/null && check_pass "Database: connected" || { check_fail "Database: connection failed"; add_critical "DB unreachable"; }
     check_info "Tables: $TABLES | Users: $USER_COUNT"

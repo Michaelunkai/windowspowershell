@@ -229,10 +229,10 @@ def require_api_key(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        api_key = request.headers.get('X-API-Key')
+        api_key = <REDACTED_TOVTECH_API_KEY>X-API-Key')
 
         if not api_key:
-            logger.warning("API request without API key", extra={
+            <REDACTED_TOVTECH_API_KEY>API request without API key", extra={
                 'ip_address': request.remote_addr,
                 'endpoint': request.endpoint,
                 'user_agent': request.headers.get('User-Agent', '')

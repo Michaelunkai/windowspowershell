@@ -26,8 +26,7 @@ Before starting, ensure you have:
   - Port: 5432
   - Database Name: TovPlay
   - User: raz@tovtech.org
-  - Password: CaptainForgotCreatureBreak
-
+- Password: <REDACTED_TOVTECH_PASSWORD>
 ## Accessing GitHub Repository Settings
 
 1. Open your web browser and navigate to: https://github.com/8GSean/tovplay-backend

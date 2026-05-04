@@ -16,7 +16,7 @@ else
     ssh_prod() {
         local cmd="$1"
         local timeout_val="${2:-15}"
-        sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no \
+        sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -o ConnectTimeout="$timeout_val" \
             "$PROD_USER@$PROD_HOST" "$cmd" 2>/dev/null

@@ -19,10 +19,10 @@ trap cleanup_ssh EXIT
 # Initialize SSH ControlMaster connections (runs in background)
 init_ssh_connections() {
     # Production
-    sshpass -p 'EbTyNkfJG6LM' ssh -fNM         -o ControlPath="/prod.sock"         -o ControlPersist=120         -o StrictHostKeyChecking=no         -o UserKnownHostsFile=/dev/null         -o ConnectTimeout=3         admin@193.181.213.220 2>/dev/null &
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM         -o ControlPath="/prod.sock"         -o ControlPersist=120         -o StrictHostKeyChecking=no         -o UserKnownHostsFile=/dev/null         -o ConnectTimeout=3         admin@193.181.213.220 2>/dev/null &
     
     # Staging
-    sshpass -p '3897ysdkjhHH' ssh -fNM         -o ControlPath="/staging.sock"         -o ControlPersist=120         -o StrictHostKeyChecking=no         -o UserKnownHostsFile=/dev/null         -o ConnectTimeout=3         admin@92.113.144.59 2>/dev/null &
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM         -o ControlPath="/staging.sock"         -o ControlPersist=120         -o StrictHostKeyChecking=no         -o UserKnownHostsFile=/dev/null         -o ConnectTimeout=3         admin@92.113.144.59 2>/dev/null &
     
     wait
 }

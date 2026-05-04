@@ -1,7 +1,7 @@
 alias tovrun=' nvm23 && cd /mnt/f/tovplay && (cd tovplay-backend && flask run &) && (cd tovplay-frontend && npm install && npm run dev)'
 alias clau="claude --dangerously-skip-permissions $args"
 alias cop="copilot --allow-all-tools"
-alias stov="sshpass -p 'EbTyNkfJG6LM' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt admin@193.181.213.220 'sudo su -'"
+alias stov="sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt admin@193.181.213.220 'sudo su -'"
 alias cdtov='cd /mnt/f/tovplay'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -1001,7 +1001,7 @@ alias sopen="cd /mnt/f/study/AI_and_Machine_Learning/Artificial_Intelligence/ope
 alias ppw="powershell.exe -command"
 
 
-alias exai='export OPENAI_API_KEY="sk-svcacct-TiI2B_7zM1_B8PISYuPQhZTzNAtJRGvhEAtmDqCGE9VtuxGvMJBYnus_nbuoeT3BlbkFJUupZffoO1GXpkhv-o1PlCY1vrqoRdmuFSIqPt2opMT-AB1MdxfO63z6RIhX7wA" && brc2 && echo $OPENAI_API_KEY'
+alias exai='export OPENAI_API_KEY=<REDACTED_TOVTECH_API_KEY> && brc2 && echo $OPENAI_API_KEY'
 alias stera="cd /mnt/f/study/Devops/automation/Infrastructure_as_Code/terraform"
 alias senc="cd /mnt/f/study/security/encryption"
 alias sflat="cd /mnt/f/study/Shells/tools/Flatpak"
@@ -1033,7 +1033,7 @@ scpubu() {
     local password="123456"
 
     # Use sshpass to provide password and disable host key checking
-    sshpass -p "$password" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r "$source_path" "${remote_user}@${remote_host}:${remote_path}"
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r "$source_path" "${remote_user}@${remote_host}:${remote_path}"
 }
 alias ppsw="psw -command"
 alias tunnel="cd /mnt/f/study/hosting/tunneling"
@@ -1568,7 +1568,7 @@ uploadit() {
     fi
 
     # Set the repository details
-    REPO_URL="https://Michaelunkai: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@github.com/Michaelunkai/downloadables.git"
+    REPO_URL="https://Michaelunkai:<REDACTED_GITHUB_TOKEN>@github.com/Michaelunkai/downloadables.git"
     REPO_NAME="downloadables"
 
     # Clone the repository if it doesn't already exist locally
@@ -4015,7 +4015,7 @@ alias tovpu='tovp && cd tovplay-frontend; git add .; git commit --allow-empty -m
 alias tovpu='cd /mnt/f/tovplay/tovplay-frontend; git add .; git commit --allow-empty -m "Force Frontend CI/CD $(Get-Date)"; git push origin main; cd ../tovplay-backend; git add .; git commit --allow-empty -m "Force Backend CI/CD   $(Get-Date)"; git push origin main'
 alias qwe="qwen --yolo"
 alias gqwen=" curl -qL https://www.npmjs.com/install.sh | sh ; npm install -g @qwen-code/qwen-code@latest; qwen --yolo"
-alias tovp='rm -rf /mnt/f/tovplay/tovplay-frontend && cd /mnt/f/tovplay/ && git clone https://Michaelunkai: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@github.com/8GSean/tovplay-frontend.git && cd .. && rm -rf /mnt/f/tovplay/tovplay-backend && cd /mnt/f/tovplay/ && git clone https://Michaelunkai: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@github.com/8GSean/tovplay-backend.git && cd /mnt/f/tovplay'
+alias tovp='rm -rf /mnt/f/tovplay/tovplay-frontend && cd /mnt/f/tovplay/ && git clone https://Michaelunkai:<REDACTED_GITHUB_TOKEN>@github.com/8GSean/tovplay-frontend.git && cd .. && rm -rf /mnt/f/tovplay/tovplay-backend && cd /mnt/f/tovplay/ && git clone https://Michaelunkai:<REDACTED_GITHUB_TOKEN>@github.com/8GSean/tovplay-backend.git && cd /mnt/f/tovplay'
 alias tovpu='cd /mnt/f/tovplay/tovplay-frontend; git add .; git commit --allow-empty -m "Force Frontend CI/CD Thu Aug 21 02:06:05 IDT 2025"; git push origin main; cd ../tovplay-backend; git add .; git commit --allow-empty -m "Force Backend CI/CD Thu Aug 21 02:06:05 IDT 2025"; git push origin main'
 alias sshtov='sshpass -p EbTyNkfJG6LM ssh -t admin@193.181.213.220 "sudo su"'
 alias sshtov='update && apt install  sshpass -y && sshpass -p EbTyNkfJG6LM ssh -t admin@193.181.213.220 "sudo su"'
@@ -4026,7 +4026,7 @@ alias ccwsl="bash /mnt/f/study/shells/bash/scripts/CleanWSL2/CleanWSL2ubu4.sh"
 
 alias getdocker='bash /mnt/f/study/shells/bash/scripts/getdocker/c.sh'
 alias psw='/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe'
-alias gitlog='echo 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 | gh auth login --with-token --git-protocol https && gh auth setup-git'
+alias gitlog='echo <REDACTED_GITHUB_TOKEN> | gh auth login --with-token --git-protocol https && gh auth setup-git'
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 alias gitoken='copy cat /mnt/f/backup/windowsapps/Credentials/github/api.txt'
@@ -4214,7 +4214,7 @@ alias updates='sudo mkdir -p /var/cache/apt-show-versions /var/log && sudo touch
 alias ansup="apt install ansible -y && cd /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini update_all_servers.yml -v"
 alias ansdoc="sed -i 's/\r$//' /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates/docker_report.sh && bash /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates/docker_report.sh"
 alias ansup="apt install ansible -y && cd /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini update_all_servers.yml -v"
-alias gitlog="echo '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' | gh auth login --with-token --git-protocol https && gh auth setup-git"
+alias gitlog="echo '<REDACTED_GITHUB_TOKEN>' | gh auth login --with-token --git-protocol https && gh auth setup-git"
 alias ansfro=" sed -i 's/\r$//' /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates/frontend_report.sh && bash /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates/frontend_report.sh"
 alias anscicd=" sed -i 's/\r$//' /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates/cicd_report.sh && bash /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates/cicd_report.sh"
 alias ansec="sed -i 's/\r$//' /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates/security_report.sh && bash /mnt/f/study/devops/Infrastructure_as_Code/ansible/playbooks/tovplay/updates/security_report.sh"
@@ -4270,7 +4270,7 @@ dmesg -n 1 2>/dev/null
 # END-WSL-FIX
 alias pgadmin="pgadmin4 --no-sandbox"
 alias gpgadmin="bash /mnt/f/study/AI_ML/AI_and_Machine_Learning/Datascience/databases/pgadmin4/setupNrunWdatabases/a.sh"
-alias gitlog="cd &&  echo "https://Michaelunaki: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@github.com" > ~/.git-credentials && git config --global credential.helper store"
+alias gitlog="cd &&  echo "https://Michaelunaki:<REDACTED_GITHUB_TOKEN>@github.com" > ~/.git-credentials && git config --global credential.helper store"
 export PATH="${HOME}/.npm-global/bin:$PATH"
 export PATH="/root/.local/bin:$PATH"
 

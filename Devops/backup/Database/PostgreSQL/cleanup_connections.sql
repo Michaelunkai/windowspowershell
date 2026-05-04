@@ -1,6 +1,6 @@
 -- TovPlay Database Connection Cleanup Script
 -- Run periodically to kill idle connections older than 5 minutes
--- Usage: PGPASSWORD='CaptainForgotCreatureBreak' psql -h 45.148.28.196 -U 'raz@tovtech.org' -d TovPlay -f cleanup_connections.sql
+-- Usage: PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U 'raz@tovtech.org' -d TovPlay -f cleanup_connections.sql
 
 -- Kill idle connections older than 5 minutes
 SELECT pg_terminate_backend(pid), usename, state, query_start

@@ -18,7 +18,7 @@ db_api_bp = Blueprint('db_api', __name__, url_prefix='/api/v1')
 
 def get_db_connection():
     """Get database connection using environment variables"""
-    database_url = os.getenv('DATABASE_URL', 'postgresql://tovplay_user:tovplay_dev_password@localhost:5432/tovplay_dev')
+    database_url = os.getenv('DATABASE_URL', 'postgresql://<REDACTED_TOVTECH_DB_URL>')
     try:
         conn = psycopg2.connect(database_url)
         return conn

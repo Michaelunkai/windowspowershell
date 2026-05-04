@@ -24,7 +24,7 @@ from src.app.services import get_user_id_from_token, logger
 discord_bp = Blueprint("discord", __name__, url_prefix="/discord")
 
 CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
-CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+CLIENT_SECRET = <REDACTED_TOVTECH_CLIENT_SECRET>CLIENT_SECRET")
 REDIRECT_URI = os.getenv("DISCORD_REDIRECT_URI")
 OAUTH_BASE_URL = "https://discord.com/api/oauth2"
 TOKEN_URL = f"{OAUTH_BASE_URL}/token"

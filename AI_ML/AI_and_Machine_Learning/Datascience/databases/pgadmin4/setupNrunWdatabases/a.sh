@@ -38,7 +38,7 @@ mkdir -p ~/.pgadmin
 # Using * for database means it applies to all databases on this host
 echo "[6/9] Creating .pgpass for PostgreSQL authentication..."
 cat > ~/.pgpass << 'PGPASSEOF'
-45.148.28.196:5432:*:raz@tovtech.org:CaptainForgotCreatureBreak
+45.148.28.196:5432:*:raz@tovtech.org:<REDACTED_TOVTECH_DB_PASSWORD>
 PGPASSEOF
 chmod 600 ~/.pgpass
 export PGPASSFILE=~/.pgpass
@@ -120,7 +120,7 @@ echo ""
 echo "=========================================="
 echo "Server: pythia-db @ 45.148.28.196:5432"
 echo "User: raz@tovtech.org"
-echo "Master password: DISABLED"
+echo "Master password: <REDACTED_TOVTECH_PASSWORD>"
 echo "Auth: via .pgpass file (no password prompt)"
 echo "=========================================="
 echo ""

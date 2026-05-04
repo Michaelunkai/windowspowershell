@@ -250,7 +250,7 @@ scpme() {
 
 # Quick SSH to tovplay server as root
 stov() {
-    sshpass -p 'EbTyNkfJG6LM' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -t admin@193.181.213.220 "sudo su - root"
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -t admin@193.181.213.220 "sudo su - root"
 }
 
 # ========== MODERN CLI ALIASES ==========

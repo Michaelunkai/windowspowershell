@@ -30,10 +30,10 @@ trap cleanup EXIT
 
 # Initialize persistent connections (parallel)
 init_connections() {
-    sshpass -p "$PROD_PASS" ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
         -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=3 \
         $PROD_USER@$PROD_HOST 2>/dev/null &
-    sshpass -p "$STAGING_PASS" ssh -fNM -S "$SSH_CTRL/stag" -o ControlPersist=90 \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM -S "$SSH_CTRL/stag" -o ControlPersist=90 \
         -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=3 \
         $STAGING_USER@$STAGING_HOST 2>/dev/null &
     wait

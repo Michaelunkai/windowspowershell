@@ -22,7 +22,7 @@ cleanup() { ssh -S "$SSH_CTRL/prod" -O exit $PROD_USER@$PROD_HOST 2>/dev/null; r
 trap cleanup EXIT
 
 init_connections() {
-    sshpass -p "$PROD_PASS" ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
         -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=3 \
         $PROD_USER@$PROD_HOST 2>/dev/null
 }
@@ -52,7 +52,7 @@ PROD_OK=$(ssh_prod "echo OK" 3)
 
 if [ "$PROD_CONN" = true ]; then
     # Test direct DB connection
-    DB_TEST=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT 1;" 2>/dev/null | xargs')
+    DB_TEST=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT 1;" 2>/dev/null | xargs')
     [ "$DB_TEST" = "1" ] && { check_pass "Database: connected"; DB_CONN=true; } || { check_fail "Database: connection failed"; add_critical "DB unreachable"; DB_CONN=false; }
 fi
 
@@ -62,7 +62,7 @@ fi
 if [ "$DB_CONN" = true ]; then
     section "2-11. DATABASE HEALTH & CONFIG"
 
-    BATCH_BASIC=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    BATCH_BASIC=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t <<EOF
 SELECT '"'"'DB_SIZE:'"'"' || pg_size_pretty(pg_database_size(current_database()));
 SELECT '"'"'TABLE_COUNT:'"'"' || COUNT(*)::text FROM information_schema.tables WHERE table_schema = '"'"'public'"'"';
@@ -116,7 +116,7 @@ fi
 if [ "$DB_CONN" = true ]; then
     section "12. ACTIVE QUERIES & BLOCKING [REAL-TIME]"
 
-    ACTIVE_QUERIES=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    ACTIVE_QUERIES=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t <<EOF
 SELECT pid, usename, state, EXTRACT(EPOCH FROM (now() - query_start))::int as duration_sec,
        wait_event_type, wait_event, LEFT(query, 80)
@@ -143,7 +143,7 @@ EOF
     fi
 
     # Check for blocking queries
-    BLOCKING=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    BLOCKING=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT COUNT(*) FROM pg_stat_activity WHERE wait_event_type = '"'"'Lock'"'"';" 2>/dev/null | xargs')
     [ "${BLOCKING:-0}" -gt 0 ] 2>/dev/null && { check_warn "Blocked queries: $BLOCKING"; add_medium "Query blocking detected"; } || check_pass "No blocking"
 fi
@@ -154,7 +154,7 @@ fi
 if [ "$DB_CONN" = true ]; then
     section "13. TABLE BLOAT & VACUUM STATUS [REAL-TIME]"
 
-    BLOAT_DATA=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    BLOAT_DATA=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t <<EOF
 SELECT schemaname || '"'"'.'"'"' || relname as table_name,
        pg_size_pretty(pg_total_relation_size(relid)) as size,
@@ -190,7 +190,7 @@ if [ "$DB_CONN" = true ]; then
     section "14. INDEX USAGE & EFFICIENCY [REAL-TIME]"
 
     # Tables needing indexes (high seq_scan, low idx_scan)
-    MISSING_IDX=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    MISSING_IDX=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t <<EOF
 SELECT schemaname || '"'"'.'"'"' || relname as table_name, seq_scan, idx_scan,
        pg_size_pretty(pg_relation_size(relid)) as size
@@ -222,12 +222,12 @@ if [ "$DB_CONN" = true ]; then
     section "15. QUERY STATISTICS & PERFORMANCE [REAL-TIME]"
 
     # Check if pg_stat_statements is available
-    STAT_AVAILABLE=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT COUNT(*) FROM pg_extension WHERE extname = '"'"'pg_stat_statements'"'"';" 2>/dev/null | xargs')
+    STAT_AVAILABLE=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT COUNT(*) FROM pg_extension WHERE extname = '"'"'pg_stat_statements'"'"';" 2>/dev/null | xargs')
 
     if [ "${STAT_AVAILABLE:-0}" -gt 0 ] 2>/dev/null; then
         check_pass "pg_stat_statements: enabled"
 
-        SLOW_QUERIES=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+        SLOW_QUERIES=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t <<EOF
 SELECT calls, ROUND(mean_exec_time::numeric, 2) as mean_ms, LEFT(query, 60)
 FROM pg_stat_statements
@@ -257,8 +257,8 @@ if [ "$DB_CONN" = true ]; then
     section "16. REPLICATION, WAL & CHECKPOINTS [REAL-TIME]"
 
     # WAL status
-    WAL_POS=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT pg_current_wal_lsn();" 2>/dev/null | xargs' 10)
-    WAL_SIZE_BYTES=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT pg_wal_lsn_diff(pg_current_wal_lsn(), '"'"'0/0'"'"');" 2>/dev/null | xargs' 10)
+    WAL_POS=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT pg_current_wal_lsn();" 2>/dev/null | xargs' 10)
+    WAL_SIZE_BYTES=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT pg_wal_lsn_diff(pg_current_wal_lsn(), '"'"'0/0'"'"');" 2>/dev/null | xargs' 10)
 
     if [ -n "$WAL_POS" ] && [ -n "$WAL_SIZE_BYTES" ]; then
         WAL_MB=$((${WAL_SIZE_BYTES:-0} / 1024 / 1024))
@@ -270,7 +270,7 @@ if [ "$DB_CONN" = true ]; then
     [ -n "$WAL_DIR_SIZE" ] && check_info "WAL directory: $WAL_DIR_SIZE"
 
     # Replication status
-    REPL_COUNT=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT COUNT(*) FROM pg_stat_replication;" 2>/dev/null | xargs')
+    REPL_COUNT=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>; psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t -c "SELECT COUNT(*) FROM pg_stat_replication;" 2>/dev/null | xargs')
     [ "${REPL_COUNT:-0}" -gt 0 ] 2>/dev/null && check_pass "Active replication: $REPL_COUNT" || check_info "No active replication"
 fi
 
@@ -280,7 +280,7 @@ fi
 if [ "$DB_CONN" = true ]; then
     section "17. CONNECTION POOL ANALYSIS [REAL-TIME]"
 
-    CONN_BY_STATE=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    CONN_BY_STATE=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t <<EOF
 SELECT state, COUNT(*) FROM pg_stat_activity GROUP BY state ORDER BY COUNT(*) DESC;
 EOF
@@ -295,7 +295,7 @@ EOF
         done
     fi
 
-    TOP_USERS=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    TOP_USERS=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t <<EOF
 SELECT usename, COUNT(*) as conn_count FROM pg_stat_activity GROUP BY usename ORDER BY COUNT(*) DESC LIMIT 3;
 EOF
@@ -317,7 +317,7 @@ fi
 if [ "$DB_CONN" = true ]; then
     section "18. DATABASE SIZE & GROWTH TRENDS [REAL-TIME]"
 
-    SIZE_DATA=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    SIZE_DATA=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -t <<EOF
 SELECT schemaname || '"'"'.'"'"' || relname as table_name,
        pg_size_pretty(pg_relation_size(relid)) as table_size,

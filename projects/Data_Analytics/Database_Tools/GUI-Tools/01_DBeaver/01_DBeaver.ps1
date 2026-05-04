@@ -62,7 +62,7 @@ $dataSourcesJson = @"
                 "database": "$DB_NAME",
                 "user": "$DB_USER",
                 "password": "$DB_PASS",
-                "url": "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}",
+                "url": "jdbc:postgresql://<REDACTED_TOVTECH_DB_URL>",
                 "type": "dev",
                 "color": "0,128,0"
             }

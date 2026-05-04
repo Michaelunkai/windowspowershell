@@ -46,7 +46,7 @@ $dbName = $creds.servers.database.database
 function Run-DB-Query($query) {
     $queryBytes = [System.Text.Encoding]::UTF8.GetBytes($query)
     $queryBase64 = [Convert]::ToBase64String($queryBytes)
-    $bashCmd = "PAGER=cat PGPASSWORD='$dbPass' psql -h $dbHost -U '$dbUser' -d $dbName -c `"`$(echo $queryBase64 | base64 -d)`""
+    $bashCmd = "PAGER=cat PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h $dbHost -U '$dbUser' -d $dbName -c `"`$(echo $queryBase64 | base64 -d)`""
     $bashCmd | wsl -d ubuntu bash 2>$null
 }
 
@@ -58,7 +58,7 @@ function Run-Prod-Cmd($cmd) {
     $cmdBase64 = [Convert]::ToBase64String($cmdBytes)
     $innerCmd = "echo $cmdBase64 | base64 -d | bash"
     $escapedInnerCmd = $innerCmd -replace "'", "'\''"
-    $bashScript = "sshpass -p '$escapedStagingPass' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR $stagingUser@$stagingHost 'sshpass -p '\''$escapedProdPass'\'' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR admin@$prodHost '\''$escapedInnerCmd'\''' 2>/dev/null"
+    $bashScript = "sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR $stagingUser@$stagingHost 'sshpass -p '\''$escapedProdPass'\'' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR admin@$prodHost '\''$escapedInnerCmd'\''' 2>/dev/null"
     wsl -d ubuntu bash -c $bashScript 2>$null
 }
 
@@ -67,7 +67,7 @@ function Run-Staging-Cmd($cmd) {
     $escapedPass = $stagingPass -replace "'", "'\''"
     $cmdBytes = [System.Text.Encoding]::UTF8.GetBytes($cmd)
     $cmdBase64 = [Convert]::ToBase64String($cmdBytes)
-    $bashScript = "sshpass -p '$escapedPass' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR $stagingUser@$stagingHost 'echo $cmdBase64 | base64 -d | bash' 2>/dev/null"
+    $bashScript = "sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR $stagingUser@$stagingHost 'echo $cmdBase64 | base64 -d | bash' 2>/dev/null"
     wsl -d ubuntu bash -c $bashScript 2>$null
 }
 
@@ -496,10 +496,10 @@ Write-Host "#                   SECTION 7: QUICK FIX COMMANDS                   
 Write-Host "##############################################################################" -ForegroundColor Yellow
 
 Write-Host "`n[RESTART PRODUCTION BACKEND]" -ForegroundColor Green
-Write-Host "  wsl -d ubuntu bash -c `"sshpass -p '$stagingPass' ssh -tt $stagingUser@$stagingHost 'sshpass -p $prodPass ssh admin@$prodHost `\"docker restart tovplay-backend`\"'`"" -ForegroundColor Cyan
+Write-Host "  wsl -d ubuntu bash -c `"sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -tt $stagingUser@$stagingHost 'sshpass -p $prodPass ssh admin@$prodHost `\"docker restart tovplay-backend`\"'`"" -ForegroundColor Cyan
 
 Write-Host "`n[RESTART PRODUCTION NGINX]" -ForegroundColor Green
-Write-Host "  wsl -d ubuntu bash -c `"sshpass -p '$stagingPass' ssh -tt $stagingUser@$stagingHost 'sshpass -p $prodPass ssh admin@$prodHost `\"sudo systemctl restart nginx`\"'`"" -ForegroundColor Cyan
+Write-Host "  wsl -d ubuntu bash -c `"sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -tt $stagingUser@$stagingHost 'sshpass -p $prodPass ssh admin@$prodHost `\"sudo systemctl restart nginx`\"'`"" -ForegroundColor Cyan
 
 Write-Host "`n[REBUILD & DEPLOY BACKEND]" -ForegroundColor Green
 Write-Host "  1. cd F:\tovplay\tovplay-backend" -ForegroundColor Cyan
@@ -508,13 +508,13 @@ Write-Host "  3. docker push tovtech/tovplaybackend:latest" -ForegroundColor Cya
 Write-Host "  4. SSH to production and: docker pull && docker-compose up -d" -ForegroundColor Cyan
 
 Write-Host "`n[KILL STUCK DB CONNECTIONS]" -ForegroundColor Green
-Write-Host "  wsl -d ubuntu bash -c `"PAGER=cat PGPASSWORD='$dbPass' psql -h $dbHost -U '$dbUser' -d $dbName -c 'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = ''idle'' AND query_start < now() - interval ''1 hour'''`"" -ForegroundColor Cyan
+Write-Host "  wsl -d ubuntu bash -c `"PAGER=cat PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h $dbHost -U '$dbUser' -d $dbName -c 'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = ''idle'' AND query_start < now() - interval ''1 hour'''`"" -ForegroundColor Cyan
 
 Write-Host "`n[CLEAR DOCKER LOGS (PRODUCTION)]" -ForegroundColor Green
 Write-Host "  Run on prod: sudo truncate -s 0 /var/lib/docker/containers/*/*-json.log" -ForegroundColor Cyan
 
 Write-Host "`n[VACUUM ANALYZE ALL TABLES]" -ForegroundColor Green
-Write-Host "  wsl -d ubuntu bash -c `"PAGER=cat PGPASSWORD='$dbPass' psql -h $dbHost -U '$dbUser' -d $dbName -c 'VACUUM ANALYZE'`"" -ForegroundColor Cyan
+Write-Host "  wsl -d ubuntu bash -c `"PAGER=cat PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h $dbHost -U '$dbUser' -d $dbName -c 'VACUUM ANALYZE'`"" -ForegroundColor Cyan
 
 # =============================================================================
 # SUMMARY

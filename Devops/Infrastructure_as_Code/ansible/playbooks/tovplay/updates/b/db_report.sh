@@ -20,7 +20,7 @@ cleanup() { ssh -S "$SSH_CTRL/prod" -O exit $PROD_USER@$PROD_HOST 2>/dev/null; r
 trap cleanup EXIT
 
 init_connections() {
-    sshpass -p "$PROD_PASS" ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
         -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=3 \
         $PROD_USER@$PROD_HOST 2>/dev/null
 }
@@ -53,7 +53,7 @@ PROD_OK=$(ssh_prod "echo OK" 3)
 # ═══════════════════════════════════════════════════════════════════════════════
 section "2-10. DATABASE HEALTH"
 if [ "$PROD_CONN" = true ]; then
-    BATCH1=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"
+    BATCH1=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>
 echo ":::DB_CONN:::"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -t -c "SELECT 1;" 2>/dev/null | xargs
 echo ":::VERSION:::"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -t -c "SELECT version();" 2>/dev/null | head -1
 echo ":::SSL:::"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -t -c "SHOW ssl;" 2>/dev/null | xargs
@@ -144,7 +144,7 @@ fi
 # ═══════════════════════════════════════════════════════════════════════════════
 section "11. TABLE STATISTICS"
 if [ "$PROD_CONN" = true ]; then
-    TABLES=$(ssh_prod 'export PGPASSWORD="CaptainForgotCreatureBreak"; psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -t -c "SELECT tablename || '"'"': '"'"' || pg_size_pretty(pg_total_relation_size(schemaname||'"'"'.'"'"'||tablename)) FROM pg_tables WHERE schemaname='"'"'public'"'"' ORDER BY pg_total_relation_size(schemaname||'"'"'.'"'"'||tablename) DESC LIMIT 8;" 2>/dev/null' 10)
+    TABLES=$(ssh_prod 'export PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD>; psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -t -c "SELECT tablename || '"'"': '"'"' || pg_size_pretty(pg_total_relation_size(schemaname||'"'"'.'"'"'||tablename)) FROM pg_tables WHERE schemaname='"'"'public'"'"' ORDER BY pg_total_relation_size(schemaname||'"'"'.'"'"'||tablename) DESC LIMIT 8;" 2>/dev/null' 10)
 
     if [ -n "$TABLES" ]; then
         echo "$TABLES" | while read -r line; do

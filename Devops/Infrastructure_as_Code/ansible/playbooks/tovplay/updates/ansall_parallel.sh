@@ -37,7 +37,7 @@ mkdir -p "$SSH_CONTROL_DIR"
 echo -e "${CYAN}🔧 Establishing persistent SSH connections...${NC}"
 
 # Production SSH ControlMaster
-sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no \
+sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -o ControlMaster=yes \
     -o ControlPath="$SSH_CONTROL_DIR/prod-%r@%h:%p" \
@@ -45,7 +45,7 @@ sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no \
     -f -N "$PROD_USER@$PROD_HOST" 2>/dev/null &
 
 # Staging SSH ControlMaster
-sshpass -p "$STAGING_PASS" ssh -o StrictHostKeyChecking=no \
+sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
     -o ControlMaster=yes \
     -o ControlPath="$SSH_CONTROL_DIR/staging-%r@%h:%p" \

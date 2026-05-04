@@ -63,7 +63,7 @@ if ($pgAdminExe) {
     Start-Process $pgAdminExe
     Write-Host "SUCCESS: pgAdmin 4 launched" -ForegroundColor Green
     Write-Host "Import servers from: $pgAdminData\servers.json" -ForegroundColor Yellow
-    Write-Host "Password: $DB_PASS" -ForegroundColor Yellow
+    Write-Host "Password: <REDACTED_TOVTECH_PASSWORD>" -ForegroundColor Yellow
 } else {
     Write-Host "pgAdmin 4 installed - launch from Start Menu" -ForegroundColor Yellow
 }

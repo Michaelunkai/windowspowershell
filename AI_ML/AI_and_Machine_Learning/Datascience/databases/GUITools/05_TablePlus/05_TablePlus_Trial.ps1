@@ -28,7 +28,7 @@ if (!$tablePlusExe) {
 # Create TablePlus connection via URL scheme
 $encodedUser = [System.Uri]::EscapeDataString($DB_USER)
 $encodedPass = [System.Uri]::EscapeDataString($DB_PASS)
-$connUrl = "postgresql://${encodedUser}:${encodedPass}@${DB_HOST}:${DB_PORT}/${DB_NAME}?statusColor=28a745&environment=production&name=TovPlay%20Production"
+$connUrl = "postgresql://<REDACTED_TOVTECH_DB_URL>"
 
 # Create connection file for TablePlus
 $tablePlusData = "$env:APPDATA\TablePlus"

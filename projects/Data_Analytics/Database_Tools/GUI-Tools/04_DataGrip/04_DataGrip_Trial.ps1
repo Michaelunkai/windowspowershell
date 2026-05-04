@@ -46,7 +46,7 @@ foreach ($dir in $configDirs) {
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}</jdbc-url>
+      <jdbc-url>jdbc:postgresql://<REDACTED_TOVTECH_DB_URL></jdbc-url>
       <user-name>$DB_USER</user-name>
     </data-source>
   </component>

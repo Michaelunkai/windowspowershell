@@ -88,7 +88,7 @@ Add to repository settings (Settings > Secrets and variables > Actions):
 
 **Production** (193.181.213.220):
 ```bash
-ssh admin@193.181.213.220  # Password: EbTyNkfJG6LM
+ssh admin@193.181.213.220  # Password: <REDACTED_TOVTECH_SERVER_PASSWORD>
 cd /home/admin/tovplay
 docker pull tovtech/tovplaybackend:latest
 docker-compose up -d --force-recreate backend
@@ -96,7 +96,7 @@ docker-compose up -d --force-recreate backend
 
 **Staging** (92.113.144.59):
 ```bash
-ssh admin@92.113.144.59  # Password: 3897ysdkjhHH
+ssh admin@92.113.144.59  # Password: <REDACTED_TOVTECH_SERVER_PASSWORD>
 cd /home/admin/tovplay
 docker pull tovtech/tovplaybackend:staging
 docker-compose up -d --force-recreate backend

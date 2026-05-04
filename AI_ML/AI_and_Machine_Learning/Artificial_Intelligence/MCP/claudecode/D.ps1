@@ -143,8 +143,8 @@ $mcpServers = @(
     @{ name = "deepwiki"; cmd = "npx"; pkg = "deepwiki-mcp"; args = @(); category = "Core" },
 
     # === DATABASE SERVERS (3) ===
-    @{ name = "postgres"; cmd = "npx"; pkg = "@modelcontextprotocol/server-postgres"; args = @("postgresql://raz%40tovtech.org:CaptainForgotCreatureBreak@45.148.28.196:5432/TovPlay"); category = "Database" },
-    @{ name = "postgres-enhanced"; cmd = "npx"; pkg = "enhanced-postgres-mcp-server"; args = @("postgresql://raz%40tovtech.org:CaptainForgotCreatureBreak@45.148.28.196:5432/TovPlay"); category = "Database" },
+    @{ name = "postgres"; cmd = "npx"; pkg = "@modelcontextprotocol/server-postgres"; args = @("postgresql://<REDACTED_TOVTECH_DB_URL>"); category = "Database" },
+    @{ name = "postgres-enhanced"; cmd = "npx"; pkg = "enhanced-postgres-mcp-server"; args = @("postgresql://<REDACTED_TOVTECH_DB_URL>"); category = "Database" },
     @{ name = "mongodb"; cmd = "npx"; pkg = "-y mongodb-mcp-server"; args = @(); category = "Database" },
 
     # === INTEGRATION SERVERS (8) ===

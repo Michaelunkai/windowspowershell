@@ -52,7 +52,7 @@ if [ "$STAGING_CONN" = true ]; then
     LOAD=$(ssh_staging 'cat /proc/loadavg | cut -d" " -f1-3' 5 | tr -d '\r')
     MEM_PCT=$(ssh_staging 'free | awk "/Mem:/{printf \"%.0f\", \$3/\$2*100}"' 5 | tr -d '\r\n' | xargs)
     DISK_PCT=$(ssh_staging 'df -h / | awk "NR==2{print \$5}" | tr -d "%"' 5 | tr -d '\r\n' | xargs)
-    DB_CONN=$(ssh_staging 'PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT 1" 2>/dev/null | grep -c "1"' 10 | tr -d '\r\n' | xargs)
+    DB_CONN=$(ssh_staging 'PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT 1" 2>/dev/null | grep -c "1"' 10 | tr -d '\r\n' | xargs)
     BACKUPS=$(ssh_staging 'find /opt/backups -type f -mtime -1 2>/dev/null | wc -l' 5 | tr -d '\r\n' | xargs)
     BACKUP_SIZE=$(ssh_staging 'du -sh /opt/backups 2>/dev/null | cut -f1' 5 | tr -d '\r\n' | xargs)
     SYNC=$(ssh_staging 'test -f /home/admin/tovplay/.git/refs/remotes/origin/main && echo "synced" || echo "not synced"' 5 | tr -d '\r\n' | xargs)

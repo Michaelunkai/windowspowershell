@@ -89,23 +89,23 @@ All historical documents are preserved in `archive/2024-12-sessions/` for refere
 ```bash
 # Backup
 $f="F:\backup\tovplay\DB\tovplay_$(Get-Date -Format 'yyyyMMdd_HHmmss').sql"
-wsl -d ubuntu bash -c "PGPASSWORD='CaptainForgotCreatureBreak' pg_dump -h 45.148.28.196 -U 'raz@tovtech.org' -d TovPlay" > $f
+wsl -d ubuntu bash -c "PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> pg_dump -h 45.148.28.196 -U 'raz@tovtech.org' -d TovPlay" > $f
 
 # Restore
 $b=(gci F:\backup\tovplay\DB\*.sql|sort LastWriteTime -Desc)[0].FullName
-gc $b|wsl -d ubuntu bash -c "PGPASSWORD='CaptainForgotCreatureBreak' psql -h 45.148.28.196 -U 'raz@tovtech.org' -d TovPlay"
+gc $b|wsl -d ubuntu bash -c "PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U 'raz@tovtech.org' -d TovPlay"
 
 # Connect
-PGPASSWORD='CaptainForgotCreatureBreak' psql -h 45.148.28.196 -U 'raz@tovtech.org' -d TovPlay
+PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U 'raz@tovtech.org' -d TovPlay
 ```
 
 ### Server Access
 ```bash
 # Production
-wsl -d ubuntu bash -c "sshpass -p 'EbTyNkfJG6LM' ssh admin@193.181.213.220"
+wsl -d ubuntu bash -c "sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh admin@193.181.213.220"
 
 # Staging
-wsl -d ubuntu bash -c "sshpass -p '3897ysdkjhHH' ssh admin@92.113.144.59"
+wsl -d ubuntu bash -c "sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh admin@92.113.144.59"
 ```
 
 ### Monitoring Dashboards

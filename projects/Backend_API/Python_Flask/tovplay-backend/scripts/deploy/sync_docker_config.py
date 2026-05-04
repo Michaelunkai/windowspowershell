@@ -232,7 +232,7 @@ class DockerConfigSync:
             # Restart with rollback configuration
             "docker run -d --name tovplay-backend --restart unless-stopped -p 8000:5001 "
             "-e FLASK_ENV=production "
-            "-e DATABASE_URL='postgresql://raz%40tovtech.org:CaptainForgotCreatureBreak@localhost:5432/tovplay' "
+            "-e DATABASE_URL='postgresql://<REDACTED_TOVTECH_DB_URL>' "
             "tovtech/tovplaybackend:latest "
             "gunicorn -w 4 -b 0.0.0.0:5001 --chdir /app/src app:create_app()",
             
@@ -285,7 +285,7 @@ def main():
     args = parser.parse_args()
     
     # SSH command setup
-    ssh_command = 'wsl -e sshpass -p "EbTyNkfJG6LM" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null admin@193.181.213.220 "sudo -s"'
+    ssh_command = 'wsl -e sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null admin@193.181.213.220 "sudo -s"'
     
     syncer = DockerConfigSync(args.environment)
     

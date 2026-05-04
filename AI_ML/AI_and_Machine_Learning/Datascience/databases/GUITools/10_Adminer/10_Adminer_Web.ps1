@@ -22,7 +22,7 @@ if ($docker) {
     $url = "http://localhost:8080/?pgsql=${DB_HOST}%3A${DB_PORT}&username=${encodedUser}&db=${DB_NAME}"
     Start-Process $url
     Write-Host "SUCCESS: Adminer running at http://localhost:8080" -ForegroundColor Green
-    Write-Host "Password: $DB_PASS" -ForegroundColor Yellow
+    Write-Host "Password: <REDACTED_TOVTECH_PASSWORD>" -ForegroundColor Yellow
     exit 0
 }
 
@@ -44,7 +44,7 @@ if ($php) {
     Start-Sleep -Seconds 2
     Start-Process $url
     Write-Host "SUCCESS: Adminer running at $url" -ForegroundColor Green
-    Write-Host "Password: $DB_PASS" -ForegroundColor Yellow
+    Write-Host "Password: <REDACTED_TOVTECH_PASSWORD>" -ForegroundColor Yellow
     exit 0
 }
 
@@ -55,7 +55,7 @@ Write-Host "  Host: $DB_HOST" -ForegroundColor White
 Write-Host "  Port: $DB_PORT" -ForegroundColor White  
 Write-Host "  Database: $DB_NAME" -ForegroundColor White
 Write-Host "  User: $DB_USER" -ForegroundColor White
-Write-Host "  Password: $DB_PASS" -ForegroundColor White
+Write-Host "  Password: <REDACTED_TOVTECH_PASSWORD>" -ForegroundColor White
 
 # Open a web-based SQL client
 Start-Process "https://sqlectron.github.io/"

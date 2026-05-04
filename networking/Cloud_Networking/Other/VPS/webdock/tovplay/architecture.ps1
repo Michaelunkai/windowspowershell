@@ -93,7 +93,7 @@ function Run-SSH-Staging($cmd) {
     $escapedPass = $stagingPass -replace "'", "'\''"
     $cmdBytes = [System.Text.Encoding]::UTF8.GetBytes($cmd)
     $cmdBase64 = [Convert]::ToBase64String($cmdBytes)
-    $bashScript = "sshpass -p '$escapedPass' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR $stagingUser@$stagingHost 'echo $cmdBase64 | base64 -d | bash' 2>/dev/null"
+    $bashScript = "sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR $stagingUser@$stagingHost 'echo $cmdBase64 | base64 -d | bash' 2>/dev/null"
     try {
         $result = wsl -d ubuntu bash -c $bashScript 2>$null
         return $result
@@ -110,7 +110,7 @@ function Run-SSH-Production($cmd) {
     $cmdBase64 = [Convert]::ToBase64String($cmdBytes)
     $innerCmd = "echo $cmdBase64 | base64 -d | bash"
     $escapedInnerCmd = $innerCmd -replace "'", "'\''"
-    $bashScript = "sshpass -p '$escapedStagingPass' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR $stagingUser@$stagingHost 'sshpass -p '\''$escapedProdPass'\'' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR admin@$prodHost '\''$escapedInnerCmd'\''' 2>/dev/null"
+    $bashScript = "sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR $stagingUser@$stagingHost 'sshpass -p '\''$escapedProdPass'\'' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR admin@$prodHost '\''$escapedInnerCmd'\''' 2>/dev/null"
     try {
         $result = wsl -d ubuntu bash -c $bashScript 2>$null
         return $result
@@ -220,7 +220,7 @@ function Run-DB($query) {
     # Uses base64 encoding for queries with special characters - pipe to bash for $() expansion
     $queryBytes = [System.Text.Encoding]::UTF8.GetBytes($query)
     $queryBase64 = [Convert]::ToBase64String($queryBytes)
-    $bashCmd = "PAGER=cat PGPASSWORD='$dbPass' psql -h $dbHost -U '$dbUser' -d $dbName -t -c `"`$(echo $queryBase64 | base64 -d)`""
+    $bashCmd = "PAGER=cat PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h $dbHost -U '$dbUser' -d $dbName -t -c `"`$(echo $queryBase64 | base64 -d)`""
     try {
         $result = $bashCmd | wsl -d ubuntu bash 2>$null
         if ($result) { return $result.Trim() }
@@ -328,7 +328,7 @@ Write-C "  +-- CONNECTION INFO -------------------------------------------------
 Write-C "    IP Address:  $prodHost" White
 Write-C "    SSH User:    $prodUser" White
 Write-C "    SSH via:     staging jump host ($stagingHost)" DarkGray
-Write-C "    SSH Command: wsl -d ubuntu bash -c `"sshpass -p '$stagingPass' ssh -tt $stagingUser@$stagingHost 'sshpass -p $prodPass ssh admin@$prodHost'`"" DarkGray
+Write-C "    SSH Command: wsl -d ubuntu bash -c `"sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -tt $stagingUser@$stagingHost 'sshpass -p $prodPass ssh admin@$prodHost'`"" DarkGray
 Write-Host ""
 
 $prodSSH = Get-SSHStatus-Production
@@ -442,7 +442,7 @@ Write-Host ""
 Write-C "  +-- CONNECTION INFO -------------------------------------------------------" Cyan
 Write-C "    IP Address:  $stagingHost" White
 Write-C "    SSH User:    $stagingUser" White
-Write-C "    SSH Command: wsl -d ubuntu bash -c `"sshpass -p '$stagingPass' ssh $stagingUser@$stagingHost`"" DarkGray
+Write-C "    SSH Command: wsl -d ubuntu bash -c `"sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh $stagingUser@$stagingHost`"" DarkGray
 Write-Host ""
 
 $stagingSSH = Get-SSHStatus-Staging
@@ -548,7 +548,7 @@ Write-C "    Database:    $dbName" White
 Write-C "    User:        $dbUser" White
 Write-C "    Schema:      public" White
 Write-C "    Version:     PostgreSQL 17.4 (Debian)" White
-Write-C "    Connect:     PGPASSWORD='$dbPass' psql -h $dbHost -U '$dbUser' -d $dbName" DarkGray
+Write-C "    Connect:     PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h $dbHost -U '$dbUser' -d $dbName" DarkGray
 Write-Host ""
 
 $dbPortOpen = Test-Port $dbHost $dbPort

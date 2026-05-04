@@ -93,8 +93,8 @@ fi
 # ═══════════════════════════════════════════════════════════════════════════════
 section "9-14. DATABASE, BACKUPS, SSL"
 if [ "$PROD_CONN" = true ]; then
-    DB_CONN=$(ssh_prod 'PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT 1" 2>/dev/null | grep -c "1"' 10 | tr -d '\r\n' | xargs)
-    DB_SIZE=$(ssh_prod 'PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT pg_size_pretty(pg_database_size(current_database()))" 2>/dev/null | head -3 | tail -1' 10 | tr -d '\r\n' | xargs)
+    DB_CONN=$(ssh_prod 'PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT 1" 2>/dev/null | grep -c "1"' 10 | tr -d '\r\n' | xargs)
+    DB_SIZE=$(ssh_prod 'PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d TovPlay -c "SELECT pg_size_pretty(pg_database_size(current_database()))" 2>/dev/null | head -3 | tail -1' 10 | tr -d '\r\n' | xargs)
     BACKUP_DIR=$(ssh_prod 'test -d /opt/tovplay_backups && echo yes || echo no' 5 | tr -d '\r\n' | xargs)
     RECENT_BACKUPS=$(ssh_prod 'find /opt/tovplay_backups -type f -mtime -1 2>/dev/null | wc -l' 5 | tr -d '\r\n' | xargs)
     BACKUP_SIZE=$(ssh_prod 'du -sh /opt/tovplay_backups 2>/dev/null | cut -f1' 5 | tr -d '\r\n' | xargs)

@@ -24,10 +24,10 @@ cleanup() {
 trap cleanup EXIT
 
 init_connections() {
-    sshpass -p "$PROD_PASS" ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM -S "$SSH_CTRL/prod" -o ControlPersist=90 \
         -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=3 \
         $PROD_USER@$PROD_HOST 2>/dev/null &
-    sshpass -p "$STAGING_PASS" ssh -fNM -S "$SSH_CTRL/stag" -o ControlPersist=90 \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -fNM -S "$SSH_CTRL/stag" -o ControlPersist=90 \
         -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=3 \
         $STAGING_USER@$STAGING_HOST 2>/dev/null &
     wait
@@ -122,9 +122,9 @@ fi
 # ═══════════════════════════════════════════════════════════════════════════════
 section "9-11. DATABASE CONNECTION"
 if [ "$PROD_CONN" = true ]; then
-    BATCH2=$(ssh_prod 'echo ":::DB_CONN:::"; PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT 1" 2>/dev/null | grep -c "1"
-echo ":::TABLES:::"; PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '"'"'public'"'"'" 2>/dev/null | head -3 | tail -1
-echo ":::USER_COUNT:::"; PGPASSWORD="CaptainForgotCreatureBreak" psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT COUNT(*) FROM \"User\"" 2>/dev/null | head -3 | tail -1' 10)
+    BATCH2=$(ssh_prod 'echo ":::DB_CONN:::"; PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT 1" 2>/dev/null | grep -c "1"
+echo ":::TABLES:::"; PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '"'"'public'"'"'" 2>/dev/null | head -3 | tail -1
+echo ":::USER_COUNT:::"; PGPASSWORD=<REDACTED_TOVTECH_DB_PASSWORD> psql -h 45.148.28.196 -U "raz@tovtech.org" -d database -c "SELECT COUNT(*) FROM \"User\"" 2>/dev/null | head -3 | tail -1' 10)
 
     DB_CONN=$(echo "$BATCH2" | sed -n '/:::DB_CONN:::/,/:::TABLES:::/p' | tail -1)
     TABLES=$(echo "$BATCH2" | sed -n '/:::TABLES:::/,/:::USER_COUNT:::/p' | tail -1 | xargs)

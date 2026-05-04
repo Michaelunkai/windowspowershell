@@ -40,7 +40,7 @@ engine: postgres@dbgate-plugin-postgres
 server: $DB_HOST
 port: $DB_PORT
 user: $DB_USER
-password: $DB_PASS
+password: <REDACTED_TOVTECH_PASSWORD>
 defaultDatabase: $DB_NAME
 singleDatabase: true
 isReadOnly: false

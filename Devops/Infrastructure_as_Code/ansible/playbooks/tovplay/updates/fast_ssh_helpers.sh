@@ -20,12 +20,12 @@ ssh_prod() {
     # Check if ansall.sh has set up ControlMaster (INSTANT connection!)
     if [ -n "$SSH_PROD_CONTROL" ]; then
         # Use existing ControlMaster - NO DELAY!
-        sshpass -p "$PROD_PASS" ssh -o ControlPath="$SSH_PROD_CONTROL" \
+        sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o ControlPath="$SSH_PROD_CONTROL" \
             -o ConnectTimeout="$timeout_val" \
             "$PROD_USER@$PROD_HOST" "$cmd" 2>/dev/null
     else
         # Standalone mode - direct connection, NO RETRIES, NO SLEEP
-        sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no \
+        sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -o ConnectTimeout="$timeout_val" \
             -o ServerAliveInterval=10 \
@@ -41,12 +41,12 @@ ssh_staging() {
     # Check if ansall.sh has set up ControlMaster (INSTANT connection!)
     if [ -n "$SSH_STAGING_CONTROL" ]; then
         # Use existing ControlMaster - NO DELAY!
-        sshpass -p "$STAGING_PASS" ssh -o ControlPath="$SSH_STAGING_CONTROL" \
+        sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o ControlPath="$SSH_STAGING_CONTROL" \
             -o ConnectTimeout="$timeout_val" \
             "$STAGING_USER@$STAGING_HOST" "$cmd" 2>/dev/null
     else
         # Standalone mode - direct connection, NO RETRIES, NO SLEEP
-        sshpass -p "$STAGING_PASS" ssh -o StrictHostKeyChecking=no \
+        sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -o ConnectTimeout="$timeout_val" \
             -o ServerAliveInterval=10 \

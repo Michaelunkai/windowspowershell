@@ -14,14 +14,14 @@ echo "Result: [$RESULT]"
 
 echo ""
 echo "=== Test 2: Using -p flag directly ==="
-RESULT2=$(sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=15 "$PROD_USER@$PROD_HOST" "hostname" 2>/dev/null)
+RESULT2=$(sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=15 "$PROD_USER@$PROD_HOST" "hostname" 2>/dev/null)
 echo "Exit code: $?"
 echo "Length: ${#RESULT2}"
 echo "Result: [$RESULT2]"
 
 echo ""
 echo "=== Test 3: Using -p flag with full docker command ==="
-RAW=$(sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=30 "$PROD_USER@$PROD_HOST" '
+RAW=$(sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=30 "$PROD_USER@$PROD_HOST" '
 echo "###SERVICE###"
 systemctl is-active docker
 docker ps -q | wc -l

@@ -55,7 +55,7 @@ function Run-Prod-Cmd($cmd) {
     $cmdBase64 = [Convert]::ToBase64String($cmdBytes)
     $innerCmd = "echo $cmdBase64 | base64 -d | bash"
     $escapedInnerCmd = $innerCmd -replace "'", "'\''"
-    $bashScript = "sshpass -p '$escapedStagingPass' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR $stagingUser@$stagingHost 'sshpass -p '\''$escapedProdPass'\'' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR admin@$prodHost '\''$escapedInnerCmd'\''' 2>/dev/null"
+    $bashScript = "sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR $stagingUser@$stagingHost 'sshpass -p '\''$escapedProdPass'\'' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR admin@$prodHost '\''$escapedInnerCmd'\''' 2>/dev/null"
     wsl -d ubuntu bash -c $bashScript 2>$null
 }
 
@@ -64,7 +64,7 @@ function Run-Staging-Cmd($cmd) {
     $escapedPass = $stagingPass -replace "'", "'\''"
     $cmdBytes = [System.Text.Encoding]::UTF8.GetBytes($cmd)
     $cmdBase64 = [Convert]::ToBase64String($cmdBytes)
-    $bashScript = "sshpass -p '$escapedPass' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR $stagingUser@$stagingHost 'echo $cmdBase64 | base64 -d | bash' 2>/dev/null"
+    $bashScript = "sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR $stagingUser@$stagingHost 'echo $cmdBase64 | base64 -d | bash' 2>/dev/null"
     wsl -d ubuntu bash -c $bashScript 2>$null
 }
 

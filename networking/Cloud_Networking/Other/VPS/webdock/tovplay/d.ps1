@@ -131,7 +131,7 @@ Write-Host "pass: $($envVars['EMAIL_PASSWORD'])" -ForegroundColor White
 
 Write-Host "`n[DISCORD BOT]" -ForegroundColor Green
 Write-Host "client_id: $($envVars['DISCORD_CLIENT_ID'])" -ForegroundColor White
-Write-Host "client_secret: $($envVars['CLIENT_SECRET'])" -ForegroundColor White
+Write-Host "client_secret: <REDACTED_TOVTECH_CLIENT_SECRET>CLIENT_SECRET'])" -ForegroundColor White
 Write-Host "token: $($envVars['DISCORD_TOKEN'])" -ForegroundColor White
 Write-Host "guild_id: $($envVars['DISCORD_GUILD_ID'])" -ForegroundColor White
 Write-Host "invite: $($envVars['DISCORD_INVITE_LINK'])" -ForegroundColor White

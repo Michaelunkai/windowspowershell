@@ -8,7 +8,7 @@ memory: cmd /c npx -y @modelcontextprotocol/server-memory - Γ£ô Connected
 sequential-thinking: cmd /c npx -y @modelcontextprotocol/server-sequential-thinking - Γ£ô Connected
 everything: cmd /c npx -y everything-mcp - Γ£ô Connected
 deepwiki: cmd /c npx -y deepwiki-mcp - Γ£ô Connected
-postgres: cmd /c npx -y @modelcontextprotocol/server-postgres postgresql://raz%40tovtech.org:CaptainForgotCreatureBreak@45.148.28.196:5432/TovPlay - Γ£ô Connected
+postgres: cmd /c npx -y @modelcontextprotocol/server-postgres postgresql://<REDACTED_TOVTECH_DB_URL> - Γ£ô Connected
 figma: cmd /c npx -y figma-mcp - Γ£ô Connected
 smart-crawler: cmd /c npx -y mcp-smart-crawler - Γ£ô Connected
 mongodb: cmd /c npx -y mongodb-mcp-server - Γ£ô Connected

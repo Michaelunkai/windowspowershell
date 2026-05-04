@@ -16,13 +16,13 @@ declare -a CRITICAL_ISSUES=() HIGH_ISSUES=() MEDIUM_ISSUES=() LOW_ISSUES=()
 TOTAL_CHECKS=0; PASSED_CHECKS=0
 
 ssh_prod() {
-    sshpass -p "$PROD_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
         -o ConnectTimeout=10 -o ServerAliveInterval=5 -o ServerAliveCountMax=2 \
         "$PROD_USER@$PROD_HOST" "$1" 2>/dev/null
 }
 
 ssh_staging() {
-    sshpass -p "$STAGING_PASS" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+    sshpass -p '<REDACTED_TOVTECH_SSH_PASSWORD>' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
         -o ConnectTimeout=10 -o ServerAliveInterval=5 -o ServerAliveCountMax=2 \
         "$STAGING_USER@$STAGING_HOST" "$1" 2>/dev/null
 }
